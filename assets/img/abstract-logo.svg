@@ -1,0 +1,38 @@
+<svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+<title id="title">Abstract computational biology logo</title>
+<desc id="desc">Orbit, leaf, network nodes and vector-field motifs representing applied mathematics, biological systems, stochasticity and scientific software.</desc>
+<defs>
+  <linearGradient id="g1" x1="38" y1="254" x2="286" y2="56" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#0b2a5b"/>
+    <stop offset="0.55" stop-color="#0e9fb0"/>
+    <stop offset="1" stop-color="#42d392"/>
+  </linearGradient>
+  <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(158 162) rotate(90) scale(118)">
+    <stop stop-color="#5eead4" stop-opacity="0.35"/>
+    <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<circle cx="160" cy="160" r="132" fill="url(#glow)"/>
+<path d="M73 185C105 120 168 75 249 60C237 141 191 210 122 246C116 209 134 173 175 136" stroke="url(#g1)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M64 164C92 93 183 63 252 88" stroke="#0b2a5b" stroke-width="5" stroke-linecap="round" opacity="0.88"/>
+<path d="M49 204C113 247 207 236 271 177" stroke="#0891b2" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+<path d="M76 239C142 186 202 138 244 79" stroke="#0f766e" stroke-width="4" stroke-linecap="round" opacity="0.72"/>
+<circle cx="74" cy="185" r="8" fill="#0b2a5b"/>
+<circle cx="122" cy="246" r="7" fill="#0e9fb0"/>
+<circle cx="175" cy="136" r="7" fill="#42d392"/>
+<circle cx="249" cy="60" r="8" fill="#0b2a5b"/>
+<circle cx="64" cy="164" r="5" fill="#0b2a5b"/>
+<circle cx="271" cy="177" r="5" fill="#0891b2"/>
+<g stroke="#0b2a5b" stroke-width="3" opacity="0.7">
+  <path d="M91 93L122 71L154 85L183 62"/>
+  <path d="M94 94L128 117L154 86"/>
+</g>
+<g fill="#0b2a5b">
+  <circle cx="91" cy="93" r="5"/>
+  <circle cx="122" cy="71" r="4"/>
+  <circle cx="154" cy="85" r="5"/>
+  <circle cx="183" cy="62" r="4"/>
+  <circle cx="128" cy="117" r="4"/>
+</g>
+<path d="M36 160H284M160 36V284" stroke="#0b2a5b" stroke-width="2.5" stroke-linecap="round" opacity="0.28"/>
+</svg>
