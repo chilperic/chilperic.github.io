@@ -1,15 +1,11 @@
-# Chilperic Portfolio Site v6
+# Chilperic portfolio site v7
 
-Static GitHub Pages portfolio organised by theme.
+Static GitHub Pages portfolio.
 
-## Run locally
+## Local preview
 
 ```bash
 python3 -m http.server 8001
 ```
 
 Open `http://localhost:8001`.
-
-## Publish
-
-Copy the files to the root of the `chilperic.github.io` repository and push to `main`.
