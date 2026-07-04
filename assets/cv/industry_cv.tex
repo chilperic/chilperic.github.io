@@ -1,0 +1,339 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{top=0.65cm,bottom=0.65cm,left=0.90cm,right=0.90cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\pagestyle{empty}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{ink}{RGB}{20,28,40}
+\definecolor{teal}{RGB}{0,112,122}
+\definecolor{amber}{RGB}{185,85,10}
+\definecolor{muted}{RGB}{95,105,115}
+
+\usepackage{ragged2e}
+\usepackage{setspace}
+\usepackage{fontawesome}
+\usepackage[colorlinks=true, urlcolor=teal, linkcolor=teal]{hyperref}
+\usepackage{enumitem}
+\usepackage{paracol}
+\usepackage{needspace}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{calc}
+\usepackage{multicol}
+
+\newlength{\secbefore}   \setlength{\secbefore}{5.2pt}
+\newlength{\secafter}    \setlength{\secafter}{2.3pt}
+\newlength{\rolegap}     \setlength{\rolegap}{4.8pt}
+\newlength{\itemgap}     \setlength{\itemgap}{2.0pt}
+\newlength{\sideitemgap} \setlength{\sideitemgap}{1.7pt}
+\newlength{\pubitemgap}  \setlength{\pubitemgap}{3.2pt}
+\newlength{\talkgap}     \setlength{\talkgap}{1.6pt}
+\newlength{\sidesecbefore}\setlength{\sidesecbefore}{4.2pt}
+
+\setstretch{1.04}
+
+\setlist[itemize]{
+    leftmargin=1.1em,
+    itemsep=\itemgap,
+    topsep=\secafter,
+    parsep=0pt,
+    partopsep=0pt,
+    label={\color{teal}\small$\bullet$}
+}
+
+\columnratio{0.272}
+\setlength{\columnsep}{1.3em}
+\setlength{\columnseprule}{0.8pt}
+\colseprulecolor{amber}
+\sloppy
+\raggedbottom
+
+\newcommand{\cvsection}[2][]{%
+    \vspace{\secbefore}%
+    \noindent{\color{teal}\rule{\linewidth}{1.5pt}}\\[2pt]%
+    \noindent%
+    \ifx&#1&\else{\normalsize\color{teal}#1\enspace}\fi%
+    {\normalsize\bfseries\color{ink}\MakeUppercase{#2}}%
+    \par\vspace{\secafter}%
+}
+
+\newcommand{\sidecvsection}[2][]{%
+    \vspace{\sidesecbefore}%
+    \noindent{\color{teal}\rule{\linewidth}{1.0pt}}\\[-2pt]%
+    \noindent%
+    \ifx&#1&\else{\footnotesize\color{teal}#1\enspace}\fi%
+    {\footnotesize\bfseries\color{ink}\MakeUppercase{#2}}%
+    \par\vspace{\secafter}%
+}
+
+\newcommand{\role}[4]{%
+    \needspace{2\baselineskip}%
+    \noindent{\small\bfseries\color{ink}#1}%
+    \hfill{\footnotesize\color{muted}#2}%
+    \\[-2pt]%
+    \noindent{\footnotesize\color{teal}\textit{#3}}%
+    \vspace{3pt}%
+    #4%
+    \vspace{\rolegap}%
+}
+
+\newcommand{\skg}[3][]{%
+    \noindent%
+    \ifx&#1&\else{\footnotesize\color{teal}#1\enspace}\fi%
+    {\footnotesize\bfseries\color{ink}#2}%
+    \\[0.4pt]%
+    \noindent\hspace{0.4em}{\footnotesize\color{muted}#3}%
+    \par\vspace{2.0pt}%
+}
+
+\newcommand{\awd}[1]{%
+    \noindent{\color{amber}\footnotesize$\star$}%
+    \enspace{\footnotesize\color{ink}#1}%
+    \par\vspace{1.6pt}%
+}
+
+\newcommand{\talkentry}[3]{%
+    \justifying%
+    \noindent{\footnotesize\color{muted}#1\enspace}%
+    {\footnotesize\color{ink}#2}%
+    \ifx&#3&\else{\footnotesize\color{muted}, \textit{#3}}\fi%
+    \par\vspace{\talkgap}%
+}
+
+\newcommand{\ic}[1]{{\color{teal}\csname fa#1\endcsname}}
+
+\newif\ifshowphoto
+\showphotofalse
+
+\begin{document}
+
+\noindent
+\begin{minipage}[c]{\ifshowphoto 0.77\else 0.97\fi\linewidth}
+    \justifying
+    {\fontsize{20.5}{24}\selectfont\bfseries\color{ink}Dr.\ Chilperic Armel Foko Kuate}\\[2pt]
+    \noindent\colorbox{teal}{%
+        \parbox{\linewidth}{%
+            \vspace{3pt}\hspace{4pt}%
+            {\small\bfseries\color{white}%
+                Scientific Developer\enspace\textbar\enspace Computational Tool Developer\enspace\textbar\enspace Mathematical Modeller}%
+            \vspace{3pt}%
+        }%
+    }\\[4pt]
+    {\footnotesize\color{ink}%
+        \ic{Envelope}\enspace\href{mailto:chilpericarmel@gmail.com}{chilpericarmel@gmail.com}%
+        \enspace\textbar\enspace
+        \ic{Phone}\enspace+49\,176\,55208305%
+        \enspace\textbar\enspace
+        \ic{MapMarker}\enspace D\"usseldorf, Germany}\\[2pt]
+    {\footnotesize\color{ink}%
+        \ic{Github}\enspace\href{https://github.com/chilperic}{github.com/chilperic}%
+        \enspace\textbar\enspace
+        \ic{ExternalLink}\enspace\href{https://chilperic.github.io/}{chilperic.github.io}%
+        \enspace\textbar\enspace
+        \ic{Linkedin}\enspace\href{https://www.linkedin.com/in/chilperic-armel-foko-kuate-4151a7103/}{linkedin/chilperic-armel-foko-kuate}%
+        \enspace\textbar\enspace
+        \ic{ExternalLink}\enspace\href{https://orcid.org/0000-0002-0140-7588}{ORCID: 0000-0002-0140-7588}}
+\end{minipage}%
+\ifshowphoto
+\hfill
+\begin{minipage}[c]{0.16\linewidth}
+    \raggedleft
+    \begin{tikzpicture}
+        \draw[teal, line width=2.2pt] (0,0) circle (1.12cm);
+        \clip (0,0) circle (1.10cm);
+        \node[yshift=-0.18cm] at (0,0){\includegraphics[width=2.3cm]{profile_picture_2.png}};
+    \end{tikzpicture}
+\end{minipage}%
+\fi
+
+\vspace{3pt}
+{\color{teal}\rule{\linewidth}{1.5pt}}
+\vspace{-0.45cm}
+
+\begin{paracol}{2}
+\begin{leftcolumn}
+\justifying
+\hyphenpenalty=750
+\exhyphenpenalty=750
+
+\sidecvsection[\faStar]{Core Capabilities}
+\begin{itemize}[itemsep=\sideitemgap, topsep=\secafter]
+    \item Mechanistic \& stochastic modelling
+    \item Parameter estimation \& optimisation
+    \item Uncertainty \& sensitivity analysis
+    \item Scientific tools \& reproducible workflows
+    \item Computational tool development for science and education
+    \item Cross-domain quantitative problem solving
+    \item Technical communication, teaching \& mentoring
+\end{itemize}
+
+\sidecvsection[\faCode]{Technical Skills}
+
+\skg[\faCode]{Languages}{Python, Julia, R, MATLAB}
+\skg[\faCogs]{Optimisation}{CasADi, IPOPT, CMA-ES, JuMP, Pyomo, MEALPY, pyMetaheuristic}
+\skg[\faCalculator]{Scientific Computing}{SciPy, NumPy, CVODE, SUNDIALS, lmfit}
+\skg[\faBarChart]{Data \& Visualisation}{pandas, matplotlib, ggplot2, Seaborn, Plotly, Bokeh}
+\skg[\faSearch]{Sensitivity Analysis}{SALib --- Sobol, Morris}
+\skg[\faSitemap]{Applied ML}{regression, classification; scikit-learn}
+\skg[\faTerminal]{Workflow}{\ic{Git} Git, Jupyter, \ic{Linux} Linux, HPC}
+\skg[\faLaptop]{Tool Development}{HTML, CSS, JavaScript, browser-based interfaces, interactive simulation tools}
+
+\sidecvsection{Languages}
+
+{\footnotesize\justifying
+\begin{tabular}{@{}l@{\hspace{1.0em}}l@{}}
+French & Native \\[2pt]
+English & Fluent \\[2pt]
+German & B1+ \\
+\end{tabular}}
+\\[2pt]
+{\footnotesize\color{muted}\textit{Professional German in progress.}}
+
+\sidecvsection[\faTrophy]{Awards \& Honours}
+
+\awd{Bayer B4U Mentoring Programme, mentee (2026)}
+\awd{Marie Curie ITN Fellowship, PoLiMeR (2019--2023)}
+\awd{Post-AIMS Research Bursary (2017--2019)}
+\awd{Best Student, AIMS Ghana (2016)}
+\awd{F.K.A. Allotey Meritorious Award (2016)}
+\awd{AIMS Ghana Hackathon Winner (2016)}
+
+\sidecvsection[\faGraduationCap]{Education}
+
+{\footnotesize\justifying
+\noindent{\bfseries\color{ink}PhD, Quantitative \& Theoretical Biology}\\
+{\color{muted}HHU D\"usseldorf \hfill 2019--2023}\\[2pt]
+\noindent{\bfseries\color{ink}Master 2 Mathematics \& Applications}\\
+{\color{muted}Univ.\ Yaound\'e I \hfill 2017--2019}\\[2pt]
+\noindent{\bfseries\color{ink}MSc Mathematical Sciences}\\
+{\color{muted}AIMS Ghana \hfill 2015--2016}\\[2pt]
+\noindent{\bfseries\color{ink}BSc Mathematics}\\
+{\color{muted}Univ.\ Douala \hfill 2009--2012}}
+
+\sidecvsection[\faPencil]{Teaching \& Supervision}
+
+{\footnotesize\justifying\color{muted}
+Supervised 2~MSc and 2~BSc projects in computational biology (HHU, 2019--2025).\\[2pt]
+Delivered 200+ teaching hours --- mathematical modelling, ODEs, stochastic processes, Python (AIMS Rwanda, AIMS Cameroon, HHU).}
+
+\sidecvsection[\faLaptop]{Developed Computational Tools}
+
+{\footnotesize\justifying
+\noindent{\bfseries\color{ink}Foko Lab}\\
+{\color{muted}Browser-based environment for ODE, optimisation, steady-state, and stochastic modeling workflows.}\\[1.5pt]
+{\color{teal}\faExternalLink\enspace\href{https://chilperic.github.io/FokoLab/}{Open web tool}}\\[4pt]
+\noindent{\bfseries\color{ink}Deutsch-WiPA 2026}\\
+{\color{muted}Interactive B1 to B2 German learning tool with conjugation practice, feedback loops, and error tracking.}\\[1.5pt]
+{\color{teal}\faExternalLink\enspace\href{https://chilperic.github.io/Deutsch-wipa-2026/}{Open web tool}}}
+
+\sidecvsection[\faHeart]{Interests}
+{\footnotesize\color{muted}Agriculture and farming, CrossFit, cooking, music, and engagement with Survival International.}
+
+\vfill
+\end{leftcolumn}
+
+\begin{rightcolumn}
+\justifying
+
+\cvsection[\faUser]{Professional Summary}
+
+\small
+Scientific developer and computational tool developer with a research background in mathematical modelling, simulation, optimisation, and reproducible scientific computing across biological domains, from hepatic fatty-acid metabolism and immune-cell dynamics to plant photosynthetic adaptation across the C3 to C4 continuum. Skilled in parameter estimation, optimisation, uncertainty analysis, and scientific computing to translate complex biological questions into interpretable frameworks for hypothesis testing, experimental design, and model-guided decision-making. I build scientific web tools and simulation interfaces that make analysis workflows more usable for researchers, learners, and technical teams.
+
+\cvsection[\faBriefcase]{Professional Experience}
+\role{Independent Research, Scientific Software, and Further Training}{Nov 2025 -- Present}{D\"usseldorf, Germany}{\begin{itemize}
+\item Advancing two manuscripts on mechanistic modeling of plant adaptation across the C3 to C4 continuum.
+\item Developing browser-based tools for scientific simulation and learning, including Foko Lab and Deutsch-WiPA 2026.
+\item Pursuing structured development in AI engineering and professional German to strengthen research software, technical implementation, and scientific work in German-speaking environments.
+\end{itemize}}
+
+\role{Postdoctoral Researcher}{Nov 2022 -- Oct 2025}{CEPLAS / Institute of Computational Cell Biology, HHU D\"usseldorf}{\begin{itemize}
+\item Built a first-principles thermo-hydraulic-biochemical model of photosynthesis across the C3 to C4 continuum in \textit{Flaveria}, integrating biochemical kinetics, heat transfer, hydraulics, and environmental forcing in one workflow.
+\item Combined Sobol sensitivity analysis, large simulation ensembles, and CMA-ES-based optimisation to reveal environment-specific adaptive trait combinations and prioritise candidate traits for crop engineering and model-guided experimental design.
+\item Used multiscale modeling to connect mesophyll and bundle-sheath physiology, transport constraints, and environmental response in plant adaptation.
+\item Presented this work at the CEPLAS Early Career Researcher Symposium, D\"usseldorf, 2025.
+\item Supervised 2~MSc and 2~BSc projects in computational plant biology.
+\end{itemize}}
+
+\role{Marie Curie PhD Fellow}{Aug 2019 -- Aug 2023}{Institute of Quantitative and Theoretical Biology, HHU D\"usseldorf}{\begin{itemize}
+\item Built mechanistic liver-metabolism models linking fatty-acid synthesis, oxidation, and degradation into interpretable dynamical systems for disease-relevant metabolic behavior.
+\item Established analytical conditions for bi-stability in fatty-acid metabolism and fitted semi-mechanistic models to time-course data, clarifying metabolic state switching and when reduced kinetics capture system behavior.
+\item Used parameter estimation, sensitivity analysis, and uncertainty quantification to strengthen robustness and interpretability in nonlinear biological models.
+\item Developed the enzyme-kinetic formalism for differentiable constraint-based metabolic models in a cross-institutional collaboration; published in \textit{Metabolic Engineering} (2022).
+\item Compiled and formalised kinetic information for enzymes in animal fatty-acid synthesis; published as first author in \textit{Bioscience Reports} (2023).
+\end{itemize}}
+
+\role{Research Fellow}{Nov 2017 -- Mar 2019}{AIMS Cameroon \& AIMS Rwanda}{\begin{itemize}
+\item Developed stochastic and deterministic models of T-cell proliferation dynamics to extract interpretable parameters from CFSE-type experiments.
+\item Formulated a stochastic master-equation framework, derived analytical expressions for cell-count dynamics, and built a maximum-likelihood estimation workflow for model fitting.
+\item Worked across competing model classes, including ODE, delay, branching, and stochastic-process formulations, to assess biological interpretability and fitting behavior.
+\end{itemize}}
+\vspace{.8cm}
+\cvsection[\faGraduationCap]{Selected Training}
+\noindent{\small\ic{Trophy}\enspace{\bfseries\color{ink}Bayer B4U Mentoring Programme (Mentee)}\hfill{\footnotesize\color{muted}Feb 2026}\\
+{\footnotesize\color{muted}\hspace{1.2em}Inaugural edition in Germany; one-to-one pairing with Bayer scientists.}}
+
+\vspace{3pt}
+\noindent{\small\ic{Code}\enspace{\bfseries\color{ink}AI Engineering Learning Track}\hfill{\footnotesize\color{muted}2025--Present}\\
+{\footnotesize\color{muted}\hspace{1.2em}Ongoing self-directed training in AI engineering, applied machine learning, and technical implementation workflows.}}
+
+\vspace{3pt}
+\noindent{\small\ic{Language}\enspace{\bfseries\color{ink}Professional German Development}\hfill{\footnotesize\color{muted}Ongoing}\\
+{\footnotesize\color{muted}\hspace{1.2em}Continued German progression beyond B1+ toward stronger professional fluency in academic and technical settings.}}
+
+\vspace{3pt}
+\noindent{\small\ic{Certificate}\enspace{\bfseries\color{ink}PoLiMeR Marie Curie ITN Doctoral Training}\hfill{\footnotesize\color{muted}2020--2022}\\
+{\footnotesize\color{muted}\hspace{1.2em}Training across metabolism, regulation, enzyme catalysis, and scientific communication.}}
+
+\vspace{3pt}
+\noindent{\small\ic{Desktop}\enspace{\bfseries\color{ink}Advanced AI and Data Science Workshop}\hfill{\footnotesize\color{muted}Dec 2021}\\
+{\footnotesize\color{muted}\hspace{1.2em}HeiCAD, HHU D\"usseldorf --- neural networks, optimisation, and applied data science tools.}}
+
+\vspace{3pt}
+\noindent{\small\ic{Certificate}\enspace{\bfseries\color{ink}Clinic on Meaningful Modelling of Epidemiological Data}\hfill{\footnotesize\color{muted}Jul 2018}\\
+{\footnotesize\color{muted}\hspace{1.2em}AIMS South Africa and SACEMA --- epidemiological modeling and data-driven inference.}}
+
+
+\cvsection[\faLaptop]{Selected Computational Tools}
+\begin{itemize}[itemsep=\pubitemgap, topsep=\secafter]
+\item {\small\textbf{Foko Lab}: browser-based modelling environment for ODE simulation, optimisation, steady-state analysis, stochastic models, and export workflows.}
+\item {\small\textbf{Deutsch-WiPA 2026}: B1--B2 professional German learning tool with vocabulary, grammar, conjugation practice, feedback loops, and progress-oriented training.}
+\item {\small\textbf{Research model repositories}: reproducible Python/R repositories for photosynthesis adaptation, fatty-acid metabolism, and T-cell proliferation models.}
+\end{itemize}
+
+\cvsection[\faMicrophone]{Talks and Conferences}
+\setlength{\multicolsep}{3pt}
+\begin{multicols}{2}
+\justifying\footnotesize
+{\bfseries\color{ink}Talks}\\[2pt]
+\talkentry{Oct 2025}{CEPLAS Early Career Researcher Symposium, D\"usseldorf}{talk}
+\talkentry{Mar 2022}{PoLiMeR Symposium, D\"usseldorf}{talk \& poster}
+\talkentry{Jul 2019}{Theoretical Biology Seminar, Univ.\ Rwanda}{}
+\talkentry{Aug 2018}{Mathematics Against Malaria, Mittweida}{}
+\columnbreak
+\justifying\footnotesize
+{\bfseries\color{ink}Posters}\\[2pt]
+\talkentry{Jul 2023}{Economic Principles in Cell Biology Summer School}{}
+\talkentry{May 2022}{Systems Biology of Mammalian Cells, Heidelberg}{}
+\talkentry{Jul 2020}{International Systems Biology Group, Innsbruck}{}
+\talkentry{Jul 2018}{MMED Epidemiological Modelling, Cape Town}{}
+\end{multicols}
+
+\cvsection[\faBook]{Publications}
+{\small\bfseries\color{ink}Published}
+\begin{itemize}[itemsep=\pubitemgap, topsep=\secafter]
+\item {\small\justifying\textbf{Foko Kuate C.A.}, Ebenh\"oh O., Bakker B.M., Raguin A. \textit{Kinetic Rate Laws of the Enzymes Involved in Animal Fatty Acid Synthesis.} \textit{Bioscience Reports}, 2023.}
+\item {\small\justifying Besan\c{c}on M., Dourado H., Kratochv\'il M., \textbf{Foko Kuate C.A.}, Trefois C., Gu W., Ebenh\"oh O. \textit{Interrogating the Effect of Enzyme Kinetics on Metabolism Using Differentiable Constraint-Based Models.} \textit{Metabolic Engineering}, 2022.}
+\item {\small\justifying Dourado H., \textbf{Foko Kuate C.A.}, Liebermeister W., Lercher M.J. \textit{Growth Mechanics and the Emergence of Metabolic Oscillations in Growing Cells.} \textit{bioRxiv}, 2025.}
+\end{itemize}
+
+\vspace{3pt}
+{\small\color{muted}+2 manuscripts in preparation on plant adaptation across the C3--C4 continuum.}
+
+\end{rightcolumn}
+\end{paracol}
+\end{document}
