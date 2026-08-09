@@ -37,6 +37,7 @@
 \hypersetup{colorlinks=true,urlcolor=DeepLink,linkcolor=DeepLink,citecolor=DeepLink}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{1em}
 \setlength{\tabcolsep}{0pt}
 \renewcommand{\arraystretch}{1.04}
 \setlist[itemize]{leftmargin=1.10em,itemsep=0.50pt,topsep=0.8pt,parsep=0pt,partopsep=0pt}
@@ -51,7 +52,7 @@
   \begin{tabularx}{\linewidth}{@{}Y r@{}}{\bfseries\color{Ink}#1} & {\bfseries\color{DeepLink}#2}\\[-0.2pt]{\itshape\color{DeepLink}#3} & {\color{Muted}#4}\\\end{tabularx}\vspace{2.2pt}}
 \newcommand{\skillrow}[2]{\textbf{\color{Ink}#1} & #2\\[1.8pt]}
 \newcommand{\contact}[2]{\textcolor{Copper}{#1}\hspace{3pt}#2}
-\newcommand{\paper}[1]{\small #1\par\vspace{1.1pt}}
+\newcommand{\paper}[1]{{\small\sloppy #1\par}\vspace{1.1pt}}
 \newcommand{\faicon}[1]{\raisebox{-0.12ex}{\includegraphics[height=1.05em]{icons/#1.pdf}}}
 \newcommand{\githublink}[2]{\href{#2}{\textcolor{DeepLink}{\small\faicon{github}\,#1}}}
 \newcommand{\weblink}[2]{\href{#2}{\textcolor{DeepLink}{\small\faicon{external-link}\,#1}}}
@@ -145,7 +146,7 @@
 \end{itemize}
 
 \cvsection{\faicon{puzzle-piece}}{Selected projects}
-\projectline{FokoLab}{Browser-native scientific modelling platform for user-defined models, simulation, fitting, sensitivity, optimisation, population/evolution, diagnostics, visualisation and reproducible export.}{\weblink{Live platform}{https://chilperic.github.io/FokoLab/}}
+\projectline{FokoLab}{Browser-native scientific modelling platform for user-defined models, simulation, fitting, sensitivity, optimisation, population/evolution, diagnostics, visualisation and reproducible export.}{\weblink{Open platform}{https://chilperic.github.io/chilperic_ode_solver/index.html}}
 \projectline{Photosynthesis climate-adaptation model}{Python/CasADi mechanistic model coupling C3/C4 biochemistry, heat balance, hydraulics, soil state, climate forcing, optimisation, and sensitivity workflows.}{\githublink{GitHub}{https://github.com/chilperic/photosynthesis-climate-adaptation-model}}
 \projectline{Fatty-acid de novo synthesis model}{Kinetic ODE model with enzyme-rate laws, parameter estimation, validation, and sensitivity analysis.}{\githublink{GitHub}{https://github.com/chilperic/fatty-acid-denovo-synthesis-model}}
 \projectline{Fatty-acid metabolism bistability}{Nonlinear metabolic model exploring switching behaviour, steady states, and robustness in lipid metabolism.}{\githublink{GitHub}{https://github.com/chilperic/fatty-acid-metabolism-bistability}}

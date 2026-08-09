@@ -17,6 +17,8 @@ Each pillar is mapped to a restrained orientation colour and supported by concre
 
 FokoLab is described as a scientific modelling platform for user-defined problems. The model atlas and examples are framed as starting points rather than the purpose of the product.
 
+The obsolete four-lab FokoLab homepage preview was removed. Its replacement is a release-grounded vector view of the current model-first workspace: editable equations and scientific inputs, a computed trajectory, solver diagnostics, and subject-coded connected workspaces. It is deliberately an interface overview rather than a fabricated browser screenshot.
+
 ## Scientific and factual consistency
 
 - PhD research period: Aug 2019–Aug 2022; degree 2019–2023, defended March 2023.
@@ -35,14 +37,16 @@ FokoLab is described as a scientific modelling platform for user-defined problem
 - Meaningful image alternative text; decorative brand icon uses empty alt text.
 - Reduced-motion preference disables transition and smooth-scroll effects.
 - Colour is used as orientation, never as the only carrier of content.
+- The live FokoLab deployment at `https://chilperic.github.io/chilperic_ode_solver/index.html` was verified with HTTP 200 on 9 August 2026. Home, Work, web CV, and downloadable CV links use this deployment; the repository remains separately labelled as source code.
 
 ## Validation performed
 
-- Updated CV compiled twice with XeLaTeX to a two-page A4 PDF.
+- Updated CV compiled with XeLaTeX to a two-page A4 PDF; no LaTeX errors or overfull boxes remain.
 - Both CV pages rendered to PNG and visually inspected for clipping, overlap, balance, and legibility.
 - 73 local HTML references were checked; no missing local files or anchors were found.
 - Duplicate HTML IDs: none found.
 - Images without `alt`: none found.
 - `_blank` links without `rel="noopener"`: none found.
+- Current FokoLab SVG parsed as valid XML and was rendered at 1200 × 675 for visual inspection.
 
-Headless browser screenshot QA was attempted, but this runtime does not include the Playwright Chromium executable. The site remains plain static HTML/CSS with no JavaScript runtime dependency.
+The site remains plain static HTML/CSS with no JavaScript runtime dependency.

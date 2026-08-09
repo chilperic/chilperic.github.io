@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Current FokoLab scientific modelling workspace</title>
+  <desc id="desc">A source-grounded view of FokoLab showing its current model-first workflow: define an equation, change parameters and initial conditions, run a simulation, inspect plots and numerical diagnostics, then analyse and validate the result.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfaf7"/>
+      <stop offset="1" stop-color="#f0eee8"/>
+    </linearGradient>
+    <linearGradient id="run" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3146d3"/>
+      <stop offset="1" stop-color="#087083"/>
+    </linearGradient>
+    <linearGradient id="curve" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#82d4df"/>
+      <stop offset=".58" stop-color="#aeb8ff"/>
+      <stop offset="1" stop-color="#f0aa7c"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#1b1b1f" flood-opacity=".16"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#1b1b1f" flood-opacity=".08"/>
+    </filter>
+    <clipPath id="consoleClip"><rect x="500" y="128" width="650" height="447" rx="15"/></clipPath>
+    <style>
+      .sans{font-family:Inter,Arial,ui-sans-serif,system-ui,sans-serif}
+      .mono{font-family:"DejaVu Sans Mono",Consolas,monospace}
+      .ink{fill:#1b1b1f}.muted{fill:#6a6970}.white{fill:#f6f4ef}
+      .label{font-size:11px;font-weight:800;letter-spacing:1.6px}
+      .lede{font-size:14px}
+      .tiny{font-size:10px}.small{font-size:12px}.body{font-size:15px}
+    </style>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#paper)"/>
+  <circle cx="1090" cy="90" r="240" fill="#eceeff" opacity=".72"/>
+  <circle cx="115" cy="625" r="190" fill="#e6f3f5" opacity=".68"/>
+
+  <!-- Current FokoLab application bar and exact Phase Monogram identity. -->
+  <rect x="0" y="0" width="1200" height="82" fill="#fff"/>
+  <rect x="0" y="80" width="1200" height="2" fill="#d9d6cf"/>
+  <g transform="translate(42 16) scale(.40)">
+    <path d="M27 107C31 83 31 48 28 20C50 15 79 18 103 29" fill="none" stroke="#3146d3" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M31 62C52 57 75 59 92 50" fill="none" stroke="#1b1b1f" stroke-width="9" stroke-linecap="round"/>
+    <path d="M29 103C50 111 80 108 104 92" fill="none" stroke="#1b1b1f" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="30" cy="62" r="6" fill="#f6f4ef" stroke="#1b1b1f" stroke-width="4"/>
+    <circle cx="103" cy="29" r="5" fill="#f6f4ef" stroke="#3146d3" stroke-width="4"/>
+    <path d="m104 84 8 8-8 8-8-8Z" fill="#e85d3f" stroke="#f6f4ef" stroke-width="3"/>
+  </g>
+  <g class="sans">
+    <text x="97" y="48" class="ink" font-size="28" font-weight="850" letter-spacing="-1.8">FOKO</text>
+    <text x="177" y="48" fill="#3146d3" font-size="28" font-weight="520" letter-spacing="-1.4">LAB</text>
+    <text x="99" y="65" class="muted" font-size="7" font-weight="760" letter-spacing="2">SCIENTIFIC MODELING</text>
+    <g fill="#3f3e43" font-size="12" font-weight="700">
+      <text x="650" y="46">Model Studio</text>
+      <text x="755" y="46">Simulate</text>
+      <text x="836" y="46">Analyze</text>
+      <text x="908" y="46">Model Atlas</text>
+    </g>
+    <rect x="1027" y="23" width="126" height="38" rx="7" fill="#1b1b1f"/>
+    <text x="1090" y="47" text-anchor="middle" class="white" font-size="12" font-weight="780">Create a model</text>
+  </g>
+
+  <!-- Model-first proposition from the current home page. -->
+  <g class="sans">
+    <rect x="50" y="132" width="38" height="3" rx="2" fill="#e85d3f"/>
+    <text x="98" y="137" fill="#3146d3" class="label">BROWSER-NATIVE SCIENTIFIC MODELLING</text>
+    <text x="50" y="190" class="ink" font-size="42" font-weight="820" letter-spacing="-2.5">Build a model.</text>
+    <text x="50" y="231" fill="#3146d3" font-size="42" font-weight="520" letter-spacing="-2.5">Test what it can</text>
+    <text x="50" y="272" fill="#3146d3" font-size="42" font-weight="520" letter-spacing="-2.5">explain.</text>
+    <text x="50" y="314" class="muted lede">Define equations, agents, populations, data, or hybrid rules.</text>
+    <text x="50" y="336" class="muted lede">Change parameters, initial conditions, time spans, and outputs.</text>
+    <text x="50" y="358" class="muted lede">Choose numerical methods—then keep every result connected.</text>
+
+    <rect x="50" y="384" width="148" height="44" rx="7" fill="#1b1b1f"/>
+    <text x="124" y="411" text-anchor="middle" class="white" font-size="13" font-weight="780">Create a model</text>
+    <rect x="207" y="384" width="136" height="44" rx="7" fill="#fff" stroke="#bdbab2"/>
+    <text x="275" y="411" text-anchor="middle" class="ink" font-size="13" font-weight="730">Open a project</text>
+
+    <line x1="50" y1="458" x2="445" y2="458" stroke="#d9d6cf"/>
+    <g transform="translate(50 480)">
+      <text class="ink small" font-weight="800">YOUR MODEL FIRST</text>
+      <text y="18" class="muted tiny">Start blank or adapt a curated model.</text>
+    </g>
+    <g transform="translate(50 528)">
+      <text class="ink small" font-weight="800">LOCAL COMPUTATION</text>
+      <text y="18" class="muted tiny">Run supported workflows in the browser.</text>
+    </g>
+    <g transform="translate(50 576)">
+      <text class="ink small" font-weight="800">EVIDENCE ATTACHED</text>
+      <text y="18" class="muted tiny">Methods, warnings, and limits stay visible.</text>
+    </g>
+  </g>
+
+  <!-- Current interactive model console: editable model + computed evidence. -->
+  <g>
+    <rect x="500" y="128" width="650" height="447" rx="15" fill="#202025" stroke="#34343a"/>
+  </g>
+  <g clip-path="url(#consoleClip)" class="sans">
+    <rect x="500" y="128" width="650" height="51" fill="#29292e"/>
+    <text x="522" y="159" class="white small" font-weight="760">Untitled growth model</text>
+    <text x="665" y="159" fill="#9a99a0" class="small">/ Experiment 01</text>
+    <circle cx="1024" cy="153" r="4" fill="#82d4df"/>
+    <text x="1035" y="158" fill="#c8e8ec" class="tiny" font-weight="760">Ready to compute</text>
+
+    <line x1="825" y1="179" x2="825" y2="575" stroke="#3a3a40"/>
+    <g transform="translate(524 209)">
+      <text fill="#aeb8ff" class="label">MODEL DEFINITION</text>
+      <text x="0" y="61" class="white mono" font-size="21">dx/dt = r x (1 − x/K)</text>
+      <line x1="0" y1="82" x2="277" y2="82" stroke="#3d3d44"/>
+      <text y="113" fill="#aaa9b0" class="tiny">Growth rate  r</text>
+      <rect x="186" y="95" width="91" height="29" rx="5" fill="#29292e" stroke="#4b4b53"/>
+      <text x="205" y="115" class="white small">0.65</text>
+      <text y="155" fill="#aaa9b0" class="tiny">Capacity  K</text>
+      <rect x="186" y="137" width="91" height="29" rx="5" fill="#29292e" stroke="#4b4b53"/>
+      <text x="205" y="157" class="white small">100</text>
+      <text y="197" fill="#aaa9b0" class="tiny">Initial state  x₀</text>
+      <rect x="186" y="179" width="91" height="29" rx="5" fill="#29292e" stroke="#4b4b53"/>
+      <text x="205" y="199" class="white small">5</text>
+      <rect x="0" y="234" width="277" height="42" rx="6" fill="url(#run)"/>
+      <text x="138.5" y="260" text-anchor="middle" class="white small" font-weight="780">Run experiment</text>
+    </g>
+
+    <g transform="translate(850 209)">
+      <text fill="#82d4df" class="label">COMPUTED EVIDENCE</text>
+      <text y="28" class="white" font-size="20" font-weight="780">Population trajectory</text>
+      <text x="257" y="49" text-anchor="end" fill="#aaa9b0" class="tiny">Adaptive RK45</text>
+      <rect y="58" width="277" height="202" rx="8" fill="#18181c" stroke="#3d3d44"/>
+      <g transform="translate(24 73)">
+        <line x1="0" y1="162" x2="230" y2="162" stroke="#4b4b53"/>
+        <line x1="0" y1="10" x2="0" y2="162" stroke="#4b4b53"/>
+        <g stroke="#323239" stroke-width="1">
+          <line x1="0" y1="124" x2="230" y2="124"/><line x1="0" y1="86" x2="230" y2="86"/><line x1="0" y1="48" x2="230" y2="48"/>
+          <line x1="58" y1="10" x2="58" y2="162"/><line x1="116" y1="10" x2="116" y2="162"/><line x1="174" y1="10" x2="174" y2="162"/>
+        </g>
+        <path d="M0 154 C27 152 43 148 58 138 C79 124 87 103 102 80 C123 48 143 29 174 20 C194 14 211 13 230 13" fill="none" stroke="url(#curve)" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="230" cy="13" r="5" fill="#e85d3f" stroke="#f6f4ef" stroke-width="2"/>
+        <text x="230" y="181" text-anchor="end" fill="#85848b" class="tiny">time</text>
+        <text x="7" y="22" fill="#85848b" class="tiny">x(t)</text>
+      </g>
+      <g transform="translate(0 280)">
+        <rect width="85" height="59" rx="7" fill="#29292e" stroke="#3d3d44"/>
+        <rect x="96" width="85" height="59" rx="7" fill="#29292e" stroke="#3d3d44"/>
+        <rect x="192" width="85" height="59" rx="7" fill="#29292e" stroke="#3d3d44"/>
+        <text x="12" y="20" fill="#8f8e95" class="tiny">accepted</text><text x="12" y="43" class="white" font-size="17" font-weight="760">42</text>
+        <text x="108" y="20" fill="#8f8e95" class="tiny">rejected</text><text x="108" y="43" class="white" font-size="17" font-weight="760">1</text>
+        <text x="204" y="20" fill="#8f8e95" class="tiny">final state</text><text x="204" y="43" class="white" font-size="17" font-weight="760">99.7</text>
+      </g>
+      <text y="358" fill="#aaa9b0" class="tiny">Method, diagnostics, and result remain connected.</text>
+    </g>
+  </g>
+
+  <!-- Current subject-coded scientific families. -->
+  <g class="sans" transform="translate(500 604)">
+    <text x="0" y="0" class="muted tiny" font-weight="780" letter-spacing="1.4">CONNECTED WORKSPACES</text>
+    <g transform="translate(0 15)">
+      <rect width="111" height="32" rx="6" fill="#eaf0ff"/><circle cx="16" cy="16" r="5" fill="#2654bd"/><text x="29" y="21" fill="#1b1b1f" class="tiny" font-weight="760">Model Studio</text>
+      <rect x="120" width="100" height="32" rx="6" fill="#e6f3f5"/><circle cx="136" cy="16" r="5" fill="#087083"/><text x="149" y="21" fill="#1b1b1f" class="tiny" font-weight="760">Dynamics</text>
+      <rect x="229" width="113" height="32" rx="6" fill="#f0f3df"/><circle cx="245" cy="16" r="5" fill="#55700d"/><text x="258" y="21" fill="#1b1b1f" class="tiny" font-weight="760">Populations</text>
+      <rect x="351" width="102" height="32" rx="6" fill="#fbece3"/><circle cx="367" cy="16" r="5" fill="#9a4c13"/><text x="380" y="21" fill="#1b1b1f" class="tiny" font-weight="760">Inference</text>
+      <rect x="462" width="89" height="32" rx="6" fill="#f0ebfa"/><circle cx="478" cy="16" r="5" fill="#6543a8"/><text x="491" y="21" fill="#1b1b1f" class="tiny" font-weight="760">Sci. AI</text>
+      <rect x="560" width="90" height="32" rx="6" fill="#eaf0f7"/><circle cx="576" cy="16" r="5" fill="#285d99"/><text x="589" y="21" fill="#1b1b1f" class="tiny" font-weight="760">Math</text>
+    </g>
+  </g>
+</svg>
