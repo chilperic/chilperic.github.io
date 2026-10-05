@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111014">
-<meta name="description" content="A transparent, privacy-respecting solidarity fund.">
+<meta name="theme-color" content="#171419">
+<meta name="description" content="A transparent collective solidarity fund.">
 <meta name="color-scheme" content="light">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
@@ -12,206 +12,148 @@
 <title>Solidarity Fund</title>
 </head>
 <body>
-<div class="app-shell">
-  <aside class="side-rail" aria-hidden="true">
-    <div class="rail-word">MUTUAL AID</div>
-    <div class="rail-symbols">🚩<span>🏴</span><span>Ⓐ</span><span>☭</span></div>
-    <div class="rail-word rail-word-bottom">LIVE LEDGER</div>
-  </aside>
+<div class="app">
+  <header class="nav">
+    <div class="nav-brand">
+      <div class="mark">S</div>
+      <div><strong id="brandTitle">Solidarity Fund</strong><span data-i18n="brandSub">Collective care, transparent accounting</span></div>
+    </div>
+    <div class="nav-actions">
+      <button id="shareBtn" class="icon-btn" type="button" aria-label="Share">↗</button>
+      <button id="adminBtn" class="organizer-btn" type="button" data-i18n="organizer">Organizer</button>
+      <div class="lang"><button id="enBtn" class="active" type="button">EN</button><button id="frBtn" type="button">FR</button></div>
+    </div>
+  </header>
 
-  <main class="app">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">S</div>
-        <div>
-          <strong id="brandTitle">Solidarity Fund</strong>
-          <span data-i18n="brandSub">Collective care, transparent accounting</span>
-        </div>
-      </div>
-      <div class="top-actions">
-        <button id="shareBtn" class="ghost-btn" type="button" data-i18n="share">Share</button>
-        <button id="installBtn" class="ghost-btn hidden" type="button" data-i18n="install">Install</button>
-        <button id="adminBtn" class="admin-btn" type="button" data-i18n="organizer">Organizer</button>
-        <div class="lang-switch">
-          <button id="enBtn" class="active" type="button">EN</button>
-          <button id="frBtn" type="button">FR</button>
-        </div>
-      </div>
-    </header>
-
-    <section class="hero-grid">
-      <div class="hero-copy">
+  <main>
+    <section class="hero">
+      <div class="hero-story">
         <div class="eyebrow" id="campaignKicker">SOLIDARITY</div>
         <h1 id="campaignTitle">We carry it together.</h1>
-        <p id="campaignStory" class="lead">Loading campaign…</p>
-        <div class="hero-actions">
-          <a href="#contribute" class="primary-link" data-i18n="contributeNow">Contribute</a>
-          <a href="#transparency" class="text-link" data-i18n="seeAccounting">See the accounting</a>
-        </div>
-        <div class="campaign-meta">
-          <span id="campaignStatus" class="status-dot">LIVE</span>
-          <span id="lastUpdated">Loading live data…</span>
-        </div>
+        <p id="campaignStory" class="hero-text">Loading campaign…</p>
+        <div class="hero-meta"><span id="campaignStatus" class="live-pill">LIVE</span><span id="lastUpdated">Loading…</span></div>
       </div>
 
-      <div class="hero-dashboard">
-        <div class="progress-ring" id="progressRing">
-          <div class="progress-ring-inner">
-            <span class="micro-label" data-i18n="netRaised">Net raised</span>
-            <strong id="raisedTotal">€0</strong>
-            <span id="goalText">of €0</span>
-          </div>
+      <div class="hero-fund">
+        <div class="fund-top">
+          <span data-i18n="netRaised">Net raised</span>
+          <strong id="raisedTotal">€0</strong>
+          <small id="goalText">of €0</small>
         </div>
-        <div class="progress-line"><div id="progressLine"></div></div>
-        <div class="hero-stats">
+        <div class="progress-track"><div id="progressLine"></div></div>
+        <div class="fund-row">
           <div><strong id="progressPct">0%</strong><span data-i18n="goalProgress">goal progress</span></div>
           <div><strong id="supporterCount">0</strong><span data-i18n="supporters">supporters</span></div>
           <div><strong id="remainingAmount">€0</strong><span data-i18n="remaining">remaining</span></div>
         </div>
+        <a id="primaryPayBtn" class="primary-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="payPalPool">Contribute with PayPal</span><b>↗</b>
+        </a>
+        <p class="pay-note" data-i18n="payNote">Opens the collective PayPal Pool. Contributions appear in the tracker after verification.</p>
       </div>
     </section>
 
-    <section class="signal-strip" aria-label="Fund summary">
-      <span id="signalRaised">€0 raised</span>
-      <span data-i18n="privacyDefault">privacy by default</span>
-      <span data-i18n="noRanking">no donor ranking</span>
-      <span data-i18n="refundsVisible">refunds stay visible</span>
-      <span data-i18n="liveAccounting">live accounting</span>
-    </section>
-
-    <section id="supporters" class="section supporter-section">
-      <div class="section-head">
-        <div>
-          <span class="section-kicker" data-i18n="peopleNotRankings">People, not rankings</span>
-          <h2 data-i18n="solidarityWall">Solidarity wall</h2>
-          <p data-i18n="wallExplain">Supporters are intentionally shown in a random order. Contribution amounts are not used to rank people.</p>
-        </div>
-        <button id="reshuffleBtn" class="ghost-btn" type="button" data-i18n="reshuffle">Reshuffle</button>
+    <section id="trajectorySection" class="trajectory">
+      <div class="section-title-row">
+        <div><span class="kicker" data-i18n="trajectoryKicker">Collective trajectory</span><h2 data-i18n="trajectoryTitle">How the fund is moving</h2></div>
+        <div class="trajectory-summary"><strong id="trajectoryDelta">+€0</strong><span data-i18n="lastSevenDays">last 7 days</span></div>
       </div>
-      <div id="supporterWall" class="supporter-wall"></div>
+      <div class="chart-card main-chart-card">
+        <div class="chart-head">
+          <div><span data-i18n="cumulativeNet">Cumulative net fund</span><strong id="chartCurrent">€0</strong></div>
+          <div class="chart-legend"><span><i class="legend-line"></i><b data-i18n="netFund">Net fund</b></span><span><i class="legend-goal"></i><b data-i18n="goal">Goal</b></span></div>
+        </div>
+        <svg id="trajectoryChart" class="trajectory-chart" viewBox="0 0 900 360" role="img" aria-label="Cumulative contribution trajectory"></svg>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div class="chart-head compact"><span data-i18n="dailyMovement">Daily movement</span><strong id="activeDays">0 days</strong></div>
+          <svg id="dailyBars" class="mini-chart" viewBox="0 0 600 220" role="img" aria-label="Daily contributions and refunds"></svg>
+        </div>
+        <div class="insight-grid">
+          <article><span data-i18n="medianContribution">Median contribution</span><strong id="medianContribution">€0</strong></article>
+          <article><span data-i18n="participationDays">Participation days</span><strong id="participationDays">0</strong></article>
+          <article><span data-i18n="publicNames">Public-name consent</span><strong id="publicNameRatio">0%</strong></article>
+          <article><span data-i18n="available">Available balance</span><strong id="availableTotal">€0</strong></article>
+        </div>
+      </div>
     </section>
 
-    <section id="milestonesSection" class="section milestones-section">
-      <div class="section-head">
-        <div>
-          <span class="section-kicker" data-i18n="collectiveProgress">Collective progress</span>
-          <h2 data-i18n="milestones">Milestones</h2>
-        </div>
+    <section id="milestonesSection" class="milestone-band">
+      <div class="section-title-row">
+        <div><span class="kicker" data-i18n="collectiveProgress">Collective progress</span><h2 data-i18n="milestones">Milestones</h2></div>
       </div>
       <div id="milestones" class="milestones"></div>
     </section>
 
-    <section id="momentumSection" class="section momentum-section">
-      <div class="section-head">
-        <div>
-          <span class="section-kicker" data-i18n="collectiveMomentum">Collective momentum</span>
-          <h2 data-i18n="momentumTitle">Participation over time</h2>
-          <p data-i18n="momentumExplain">This view tracks collective movement without ranking individual contributors.</p>
-        </div>
+    <section id="supportersSection" class="people">
+      <div class="section-title-row">
+        <div><span class="kicker" data-i18n="peopleNotRankings">People, not rankings</span><h2 data-i18n="solidarityWall">Solidarity wall</h2><p data-i18n="wallExplain">Random order by design. No ranking by contribution size.</p></div>
+        <button id="reshuffleBtn" class="soft-btn" type="button" data-i18n="reshuffle">Reshuffle</button>
       </div>
-      <div class="momentum-grid">
-        <div class="momentum-chart-card">
-          <div id="momentumChart" class="momentum-chart" aria-label="Contribution activity over time"></div>
-        </div>
-        <div class="momentum-stats">
-          <article><span data-i18n="medianContribution">Median contribution</span><strong id="medianContribution">€0</strong></article>
-          <article><span data-i18n="participationDays">Participation days</span><strong id="participationDays">0</strong></article>
-          <article><span data-i18n="publicNames">Public-name consent</span><strong id="publicNameRatio">0%</strong></article>
-          <article><span data-i18n="recentMomentum">Last 7 days</span><strong id="recentMomentum">€0</strong></article>
-        </div>
-      </div>
+      <div id="supporterWall" class="people-mosaic"></div>
     </section>
 
-    <div id="contribute" class="payments-anchor"></div>
-
-    <section id="transparency" class="section finance-section">
-      <div class="section-head">
-        <div>
-          <span class="section-kicker" data-i18n="transparentByDesign">Transparent by design</span>
-          <h2 data-i18n="financialPicture">The financial picture</h2>
-          <p data-i18n="financeExplain">What came in, what was refunded, what has been used, and what remains available.</p>
-        </div>
-        <button id="downloadPublicBtn" class="ghost-btn" type="button" data-i18n="downloadData">Download public data</button>
+    <section id="transparency" class="money-flow">
+      <div class="section-title-row">
+        <div><span class="kicker" data-i18n="transparentByDesign">Transparent by design</span><h2 data-i18n="moneyFlowTitle">Where the money stands</h2></div>
+        <button id="downloadPublicBtn" class="soft-btn" type="button" data-i18n="downloadData">Export</button>
       </div>
-      <div class="finance-grid">
-        <article class="finance-card accent"><span data-i18n="grossRaised">Gross raised</span><strong id="grossRaised">€0</strong></article>
-        <article class="finance-card"><span data-i18n="refunds">Refunds</span><strong id="refundsTotal">€0</strong></article>
-        <article class="finance-card"><span data-i18n="used">Used / disbursed</span><strong id="spentTotal">€0</strong></article>
-        <article class="finance-card dark"><span data-i18n="available">Available balance</span><strong id="availableTotal">€0</strong></article>
+      <div class="flow-numbers">
+        <div><span data-i18n="grossRaised">Gross raised</span><strong id="grossRaised">€0</strong></div>
+        <div><span data-i18n="refunds">Refunds</span><strong id="refundsTotal">€0</strong></div>
+        <div><span data-i18n="used">Used</span><strong id="spentTotal">€0</strong></div>
+        <div class="dark"><span data-i18n="available">Available</span><strong id="availableBalance">€0</strong></div>
       </div>
-      <div class="flow-card">
-        <div class="flow-labels">
-          <span data-i18n="fundFlow">Fund flow</span>
-          <strong id="flowSummary">€0 → €0 available</strong>
-        </div>
-        <div class="flow-track">
-          <div id="spentBar" class="flow-spent"></div>
-          <div id="availableBar" class="flow-available"></div>
-        </div>
+      <div class="sankey-card">
+        <div class="sankey-labels"><span data-i18n="raised">Raised</span><span data-i18n="used">Used</span><span data-i18n="available">Available</span></div>
+        <svg id="flowChart" class="flow-chart" viewBox="0 0 900 240" role="img" aria-label="Fund flow"></svg>
       </div>
       <div id="overfundingNote" class="policy-note hidden"></div>
     </section>
 
-    <section class="two-col section flush">
-      <div class="ledger-panel">
-        <span class="section-kicker" data-i18n="auditable">Auditable</span>
-        <h2 data-i18n="publicLedger">Public ledger</h2>
-        <p class="section-copy" data-i18n="ledgerExplain">Transactions remain chronological here for accountability, while the solidarity wall above stays randomized.</p>
+    <section id="updatesSection" class="updates">
+      <div class="section-title-row"><div><span class="kicker" data-i18n="campaignJournal">Campaign journal</span><h2 data-i18n="updates">Updates</h2></div></div>
+      <div id="updatesList" class="updates-grid"></div>
+    </section>
+
+    <section class="details-section">
+      <details id="ledgerDetails">
+        <summary><span data-i18n="publicLedger">Public ledger</span><b data-i18n="viewDetails">View details</b></summary>
         <div id="ledger" class="ledger"></div>
-      </div>
-      <div class="expenses-panel">
-        <span class="section-kicker" data-i18n="whereItGoes">Where it goes</span>
-        <h2 data-i18n="disbursements">Disbursements</h2>
+      </details>
+      <details id="expensesDetails">
+        <summary><span data-i18n="disbursements">Disbursements</span><b data-i18n="viewDetails">View details</b></summary>
         <div id="expensesList" class="expense-list"></div>
-      </div>
+      </details>
     </section>
 
-    <section id="updatesSection" class="section updates-section">
-      <div class="section-head">
-        <div>
-          <span class="section-kicker" data-i18n="campaignJournal">Campaign journal</span>
-          <h2 data-i18n="updates">Updates</h2>
-        </div>
-      </div>
-      <div id="updatesList" class="updates-list"></div>
-    </section>
-
-    <section class="principles">
-      <div>
-        <span class="section-kicker light" data-i18n="principle">Principle</span>
-        <blockquote data-i18n="solidarityQuote">“Solidarity means collectivizing the pain, the joy and the effort.”</blockquote>
-      </div>
-      <div class="principle-grid">
-        <div><b>01</b><strong data-i18n="privacyByDefault">Privacy by default</strong><span data-i18n="privacyDetail">Names appear only with explicit consent.</span></div>
-        <div><b>02</b><strong data-i18n="noCompetition">No competition</strong><span data-i18n="competitionDetail">People are never ranked by contribution size.</span></div>
-        <div><b>03</b><strong data-i18n="correctionsVisible">Corrections stay visible</strong><span data-i18n="correctionDetail">Refunds and public expenses remain part of the record.</span></div>
+    <section class="principle">
+      <blockquote data-i18n="solidarityQuote">“Solidarity means collectivizing the pain, the joy and the effort.”</blockquote>
+      <div class="principle-points">
+        <span data-i18n="privacyByDefault">Privacy by default</span>
+        <span data-i18n="noCompetition">No competition</span>
+        <span data-i18n="correctionsVisible">Corrections stay visible</span>
       </div>
     </section>
-
-    <footer class="footer">
-      <div><strong>The Red Banner Is Raised</strong><span>🚩 🏴 Ⓐ ☭</span></div>
-      <div id="footerCampaign">Solidarity platform</div>
-    </footer>
   </main>
+
+  <footer><strong>The Red Banner Is Raised</strong><span id="footerCampaign">Solidarity platform</span></footer>
 </div>
+
+<a id="mobilePayBtn" class="mobile-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><span data-i18n="payPalPool">Contribute with PayPal</span><b>↗</b></a>
 
 <dialog id="adminDialog">
   <div class="admin-dialog-head">
-    <div>
-      <span class="section-kicker">PRIVATE</span>
-      <h2 data-i18n="controlRoom">Organizer control room</h2>
-      <p data-i18n="controlRoomExplain">Manage campaigns, people, money, updates and security without redeploying the site.</p>
-    </div>
+    <div><span class="kicker">PRIVATE</span><h2 data-i18n="controlRoom">Organizer control room</h2><p data-i18n="controlRoomExplain">Manage campaigns, people, money, updates and security without redeploying the site.</p></div>
     <button id="adminClose" type="button" aria-label="Close">×</button>
   </div>
   <div id="adminMount"></div>
 </dialog>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
 <script src="./config.js"></script>
 <script src="./app.js"></script>
-<script src="./payments.js"></script>
 <script src="./admin.js"></script>
 </body>
 </html>
