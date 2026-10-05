@@ -100,6 +100,7 @@ footer{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;display
     <div id="adminMount" style="margin-top:18px"></div>
   </div>
 </dialog>
+<script src="./config.js" defer></script>
 <script src="./admin.js" defer></script>
 </div>
 
@@ -140,7 +141,7 @@ function render(d){
      return '<div class="entry"><div class="avatar">'+initials+'</div><div><div class="name">'+name+'</div><div class="meta">'+fmtDate(x.date)+'</div></div><div class="amt">'+euro(Number(x.amount))+'</div></div>';
    }).join('');
  }
- document.getElementById('updated').textContent=(lang==='fr'?'Dernière mise à jour : ':'Last updated: ')+(d.updated?fmtDate(d.updated):'—');
+ document.getElementById('updated').textContent=(lang==='fr'?'Dernière mise à jour : ':'Last updated: ')+(d.updated?fmtDate(String(d.updated).slice(0,10)):'—');
 }
 fetch('./data.json?ts='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('load');return r.json()}).then(render).catch(()=>{
  document.getElementById('ledger').innerHTML='<div class="empty">'+(lang==='fr'?'Impossible de charger le suivi. Réessayez en actualisant la page.':'Could not load the tracker. Please refresh the page.')+'</div>';
