@@ -218,11 +218,11 @@ async function languagesView(){
  const p=make("div",undefined,"admin-panel");
  p.append(make("h4","Languages"),make("div","Enable the languages this campaign should offer publicly. Localized campaign copy is stored in Supabase, not hard-coded into the page.","admin-hint"));
  const boxes=make("div",undefined,"admin-grid"),checks={};
- all.forEach(code=>{const cb=input("checkbox");cb.checked=currentLocales.includes(code);checks[code]=cb;const lab=make("label");lab.style.cssText="display:flex;gap:8px;align-items:center;font-size:.72rem;font-weight:800";lab.append(cb,document.createTextNode((window.SolidarityI18N?.languages?.[code]||code.toUpperCase())));boxes.append(lab)});
+ all.forEach(code=>{const cb=input("checkbox");cb.checked=currentLocales.includes(code);checks[code]=cb;const lab=make("label");lab.style.cssText="display:flex;gap:8px;align-items:center;font-size:.72rem;font-weight:800";lab.append(cb,document.createTextNode((window.SOLIDARITY_LOCALES?.names?.[code]||code.toUpperCase())));boxes.append(lab)});
  const enableMsg=msg();p.append(boxes,button("Save enabled languages",async()=>{const locales=all.filter(x=>checks[x].checked);if(!locales.length){enableMsg.textContent="Enable at least one language.";return}enableMsg.textContent="Saving…";try{await localeAction({action:"set_enabled_locales",locales});localeState=null;await loadLocales();enableMsg.textContent="Languages saved.";await refreshPublic()}catch{enableMsg.textContent="Could not save languages."}}),enableMsg);wrap.append(p);
 
  const edit=make("div",undefined,"admin-panel");edit.append(make("h4","Localized campaign content"));
- const select=document.createElement("select");all.forEach(code=>{const o=document.createElement("option");o.value=code;o.textContent=window.SolidarityI18N?.languages?.[code]||code.toUpperCase();select.append(o)});
+ const select=document.createElement("select");all.forEach(code=>{const o=document.createElement("option");o.value=code;o.textContent=window.SOLIDARITY_LOCALES?.names?.[code]||code.toUpperCase();select.append(o)});
  const title=input("text"),subtitle=input("text"),payment=input("text"),story=document.createElement("textarea"),thanks=document.createElement("textarea"),over=document.createElement("textarea");
  const load=()=>{const c=localeState?.localeContent?.[select.value]||{};title.value=c.title||"";subtitle.value=c.subtitle||"";payment.value=c.paymentLabel||"";story.value=c.story||"";thanks.value=c.thankYou||"";over.value=c.overfunding||""};select.onchange=load;load();
  const grid=make("div",undefined,"admin-grid");grid.append(field("Language",select),field("Title",title),field("Subtitle",subtitle),field("Payment label",payment),field("Story",story),field("Thank-you",thanks),field("Overfunding policy",over));
