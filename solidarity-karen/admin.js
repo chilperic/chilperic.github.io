@@ -302,6 +302,7 @@ function reportsView(){
  acts.append(
   button("Export full JSON",()=>{const blob=new Blob([JSON.stringify(admin,null,2)],{type:"application/json"});download(blob,(admin.campaign?.slug||"campaign")+"-private.json")}),
   button("Export contributions CSV",()=>{const rows=[["Name","Amount EUR","Date","Status","Public","Source","Note"],...(admin.contributions||[]).map(x=>[x.real_name,(x.amount_cents/100).toFixed(2),x.contributed_on,x.status,x.public_name?"yes":"no",x.source||"manual",x.note||""])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(",")).join("\n");download(new Blob([csv],{type:"text/csv"}),(admin.campaign?.slug||"campaign")+"-contributions.csv")},"alt"),
+  button("Open public final report",()=>window.open("../report/","_blank","noopener"),"alt"),
   button("Print public report",()=>window.print(),"alt"),
   button("Create share card",()=>createShareCard(),"alt")
  );
