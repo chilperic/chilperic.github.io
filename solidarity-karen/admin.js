@@ -75,11 +75,60 @@ function contributionsView(){
  row.append(head,rg,acts,rm);manage.append(row)});wrap.append(manage);return wrap
 }
 async function campaignView(){
- const wrap=make("div");const c=admin.campaign||{};const edit=make("div",undefined,"admin-panel");edit.append(make("h4","Active campaign"));
- const g=make("div",undefined,"admin-grid"),title=input("text",c.title||""),benef=input("text",c.beneficiary||""),subtitle=input("text",c.subtitle||""),status=document.createElement("select"),theme=document.createElement("select"),storyEn=document.createElement("textarea"),storyFr=document.createElement("textarea"),overEn=document.createElement("textarea"),overFr=document.createElement("textarea");["draft","active","goal_reached","closed","archived"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=c.status===v;status.append(o)});[["assembly","Assembly"],["paper","Paper"],["night","Night"]].forEach(([v,l])=>{const o=document.createElement("option");o.value=v;o.textContent=l;o.selected=(c.theme||"assembly")===v;theme.append(o)});storyEn.value=c.story_en||"";storyFr.value=c.story_fr||"";overEn.value=c.overfunding_policy_en||"";overFr.value=c.overfunding_policy_fr||"";g.append(field("Title",title),field("Beneficiary",benef),field("Subtitle",subtitle),field("Status",status),field("Theme",theme),field("Story EN",storyEn),field("Story FR",storyFr),field("Overfunding EN",overEn),field("Overfunding FR",overFr));const m=msg();edit.append(g,button("Save campaign",()=>save({action:"update_campaign",title:title.value,beneficiary:benef.value,subtitle:subtitle.value,status:status.value,theme:theme.value,story_en:storyEn.value,story_fr:storyFr.value,overfunding_en:overEn.value,overfunding_fr:overFr.value},m)),m);wrap.append(edit);
+ const wrap=make("div"),c=admin.campaign||{};
+ const edit=make("div",undefined,"admin-panel");
+ edit.append(make("h4","Public campaign experience"),make("div","Control what the public sees. Technical configuration remains private.","admin-hint"));
+ const g=make("div",undefined,"admin-grid");
+ const title=input("text",c.title||""),benef=input("text",c.beneficiary||""),subtitle=input("text",c.subtitle||"");
+ const status=document.createElement("select"),theme=document.createElement("select");
+ ["draft","active","goal_reached","closed","archived"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=c.status===v;status.append(o)});
+ [["assembly","Assembly"],["paper","Paper"],["night","Night"]].forEach(([v,l])=>{const o=document.createElement("option");o.value=v;o.textContent=l;o.selected=(c.theme||"assembly")===v;theme.append(o)});
+ const storyEn=document.createElement("textarea"),storyFr=document.createElement("textarea"),overEn=document.createElement("textarea"),overFr=document.createElement("textarea"),thanksEn=document.createElement("textarea"),thanksFr=document.createElement("textarea");
+ storyEn.value=c.story_en||"";storyFr.value=c.story_fr||"";overEn.value=c.overfunding_policy_en||"";overFr.value=c.overfunding_policy_fr||"";thanksEn.value=c.thank_you_en||"";thanksFr.value=c.thank_you_fr||"";
+ const paymentUrl=input("url",c.payment_url||C.paypalPoolUrl||""),paymentEn=input("text",c.payment_label_en||"Contribute with PayPal"),paymentFr=input("text",c.payment_label_fr||"Contribuer avec PayPal");
+ g.append(field("Title",title),field("Beneficiary",benef),field("Subtitle",subtitle),field("Lifecycle",status),field("Theme",theme),field("Payment URL",paymentUrl),field("Payment label EN",paymentEn),field("Payment label FR",paymentFr),field("Story EN",storyEn),field("Story FR",storyFr),field("Thank-you EN",thanksEn),field("Thank-you FR",thanksFr),field("Overfunding EN",overEn),field("Overfunding FR",overFr));
+ edit.append(g);
 
- const library=make("div",undefined,"admin-panel");library.append(make("h4","Campaign library"),make("div","Create future campaigns here. Only one campaign is public/active at a time.","admin-hint"));if(!campaigns)await loadCampaigns();(campaigns?.campaigns||[]).forEach(x=>{const card=make("div",undefined,"campaign-card"+(x.is_active?" active":""));const d=make("div");d.append(make("strong",x.title),make("span",(x.status||"draft")+" · "+money(x.target_cents)));card.append(d,x.is_active?make("span","ACTIVE","source-chip"):button("Activate",async()=>{if(!confirm("Make this the public active campaign?"))return;await campaignAction({action:"activate",id:x.id});campaigns=null;admin=await adminAction({action:"list"});await loadCampaigns();renderAdmin();await refreshPublic()},"green"));library.append(card)});
- const create=make("div",undefined,"admin-row");create.append(make("h5","Create new campaign"));const cg=make("div",undefined,"admin-grid"),ct=input("text"),cb=input("text"),cs=input("text"),cslug=input("text"),ctarget=input("number"),cstory=document.createElement("textarea"),cstoryfr=document.createElement("textarea");ctarget.min="1";ctarget.value="700";cg.append(field("Title",ct),field("Beneficiary",cb),field("Subtitle",cs),field("Slug",cslug),field("Target (€)",ctarget),field("Story EN",cstory),field("Story FR",cstoryfr));const cm=msg();create.append(cg,button("Create draft campaign",async()=>{cm.textContent="Creating…";try{await campaignAction({action:"create",title:ct.value.trim(),beneficiary:cb.value.trim(),subtitle:cs.value.trim(),slug:cslug.value.trim(),target_cents:Math.round(Number(ctarget.value)*100),currency:"EUR",theme:"assembly",story_en:cstory.value,story_fr:cstoryfr.value});campaigns=null;await loadCampaigns();cm.textContent="Campaign created.";renderAdmin()}catch{cm.textContent="Could not create campaign."}}, "alt"),cm);library.append(create);wrap.append(library);return wrap
+ const vis=make("div",undefined,"admin-panel");vis.append(make("h4","Public sections"),make("div","Turn sections off when they do not add value. Empty sections also hide automatically.","admin-hint"));
+ const vg=make("div",undefined,"admin-grid");
+ const toggles=[
+   ["show_supporters","Show randomized supporter wall",c.show_supporters!==false],
+   ["show_analytics","Show trajectory & charts",c.show_analytics!==false],
+   ["show_milestones","Show milestones",c.show_milestones!==false],
+   ["show_ledger","Show public ledger details",c.show_ledger!==false],
+   ["show_expenses","Show disbursement details",c.show_expenses!==false],
+   ["show_updates","Show campaign journal",c.show_updates!==false]
+ ];
+ const controls={};
+ toggles.forEach(([key,label,checked])=>{const cb=input("checkbox");cb.checked=checked;controls[key]=cb;const lab=make("label");lab.style.cssText="display:flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800";lab.append(cb,document.createTextNode(label));vg.append(lab)});
+ vis.append(vg);
+
+ const m=msg();
+ const saveBtn=button("Save public experience",()=>save({
+   action:"update_campaign",title:title.value,beneficiary:benef.value,subtitle:subtitle.value,status:status.value,theme:theme.value,
+   payment_url:paymentUrl.value,payment_label_en:paymentEn.value,payment_label_fr:paymentFr.value,
+   story_en:storyEn.value,story_fr:storyFr.value,thank_you_en:thanksEn.value,thank_you_fr:thanksFr.value,
+   overfunding_en:overEn.value,overfunding_fr:overFr.value,
+   show_supporters:controls.show_supporters.checked,show_analytics:controls.show_analytics.checked,
+   show_milestones:controls.show_milestones.checked,show_ledger:controls.show_ledger.checked,
+   show_expenses:controls.show_expenses.checked,show_updates:controls.show_updates.checked
+ },m));
+ edit.append(saveBtn,m);wrap.append(edit,vis);
+
+ const library=make("div",undefined,"admin-panel");
+ library.append(make("h4","Campaign library"),make("div","Create future campaigns here. Only one campaign is active publicly at a time.","admin-hint"));
+ if(!campaigns)await loadCampaigns();
+ (campaigns?.campaigns||[]).forEach(x=>{
+   const card=make("div",undefined,"campaign-card"+(x.is_active?" active":""));
+   const d=make("div");d.append(make("strong",x.title),make("span",(x.status||"draft")+" · "+money(x.target_cents)));
+   card.append(d,x.is_active?make("span","ACTIVE","source-chip"):button("Activate",async()=>{if(!confirm("Make this the public active campaign?"))return;await campaignAction({action:"activate",id:x.id});campaigns=null;admin=await adminAction({action:"list"});await loadCampaigns();renderAdmin();await refreshPublic()},"green"));
+   library.append(card)
+ });
+ const create=make("div",undefined,"admin-row");create.append(make("h5","Create new campaign"));
+ const cg=make("div",undefined,"admin-grid"),ct=input("text"),cb=input("text"),cs=input("text"),cslug=input("text"),ctarget=input("number"),cstory=document.createElement("textarea"),cstoryfr=document.createElement("textarea");
+ ctarget.min="1";ctarget.value="700";cg.append(field("Title",ct),field("Beneficiary",cb),field("Subtitle",cs),field("Slug",cslug),field("Target (€)",ctarget),field("Story EN",cstory),field("Story FR",cstoryfr));
+ const cm=msg();create.append(cg,button("Create draft campaign",async()=>{cm.textContent="Creating…";try{await campaignAction({action:"create",title:ct.value.trim(),beneficiary:cb.value.trim(),subtitle:cs.value.trim(),slug:cslug.value.trim(),target_cents:Math.round(Number(ctarget.value)*100),currency:"EUR",theme:"assembly",story_en:cstory.value,story_fr:cstoryfr.value});campaigns=null;await loadCampaigns();cm.textContent="Campaign created.";renderAdmin()}catch{cm.textContent="Could not create campaign."}},"alt"),cm);
+ library.append(create);wrap.append(library);return wrap
 }
 function milestonesView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Milestones"),make("div","Milestones give collective progress meaning without ranking supporters.","admin-hint"));(admin.milestones||[]).forEach(x=>{const r=make("div",undefined,"admin-row-head");r.append(make("b",x.label_en),make("span",money(x.threshold_cents)));const box=make("div",undefined,"admin-row");box.append(r,button("Remove",()=>save({action:"delete_milestone",id:x.id},msg()),"alt"));p.append(box)});
