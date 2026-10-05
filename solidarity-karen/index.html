@@ -91,6 +91,8 @@
         <article><span data-i18n="range">Contribution range</span><strong id="statRange">€0–€0</strong></article>
         <article><span data-i18n="goalGap">Goal gap</span><strong id="statGap">€0</strong></article>
         <article><span data-i18n="medianNeeded">Median-size contributions to goal</span><strong id="statNeeded">0</strong></article>
+        <article><span data-i18n="contributionEvents">Contribution events</span><strong id="statEvents">0</strong></article>
+        <article><span data-i18n="repeatSupporters">Repeat supporters</span><strong id="statRepeat">0%</strong></article>
       </div>
 
       <div class="dashboard-grid">
@@ -125,6 +127,11 @@
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="moneyFlow">Money flow</span><h3 data-i18n="raisedUsedAvailable">Raised → used → available</h3></div></div>
           <div class="chart-box"><canvas id="flowChart"></canvas></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="viz-head"><div><span data-i18n="supporterActivity">Supporter activity</span><h3 data-i18n="eventsPerSupporter">Events per supporter</h3></div></div>
+          <div class="chart-box"><canvas id="supporterActivityChart"></canvas></div>
         </article>
       </div>
     </section>
