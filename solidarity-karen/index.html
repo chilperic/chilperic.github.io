@@ -99,32 +99,32 @@
             <div><span data-i18n="evolution">Evolution</span><h3 data-i18n="cumulativeCurve">Cumulative contribution curve</h3></div>
             <strong id="curveValue">€0</strong>
           </div>
-          <svg id="cumulativeChart" viewBox="0 0 1000 390" role="img" aria-label="Cumulative contribution curve"></svg>
+          <div class="chart-box chart-box-large"><canvas id="cumulativeChart"></canvas></div>
         </article>
 
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="sequence">Sequence</span><h3 data-i18n="eventCurve">Contribution-event curve</h3></div></div>
-          <svg id="eventChart" viewBox="0 0 620 310" role="img" aria-label="Contribution event curve"></svg>
+          <div class="chart-box"><canvas id="eventChart"></canvas></div>
         </article>
 
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="distribution">Distribution</span><h3 data-i18n="sizeDistribution">Contribution-size distribution</h3></div></div>
-          <svg id="distributionChart" viewBox="0 0 620 310" role="img" aria-label="Contribution size distribution"></svg>
+          <div class="chart-box"><canvas id="distributionChart"></canvas></div>
         </article>
 
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="movement">Movement</span><h3 data-i18n="dailyFlow">Daily inflow and refunds</h3></div></div>
-          <svg id="dailyChart" viewBox="0 0 620 310" role="img" aria-label="Daily fund movement"></svg>
+          <div class="chart-box"><canvas id="dailyChart"></canvas></div>
         </article>
 
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="runway">Runway</span><h3 data-i18n="distanceToGoal">Distance to goal</h3></div><strong id="runwayText">€0</strong></div>
-          <svg id="runwayChart" viewBox="0 0 620 310" role="img" aria-label="Distance to goal"></svg>
+          <div class="chart-box"><canvas id="runwayChart"></canvas></div>
         </article>
 
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="moneyFlow">Money flow</span><h3 data-i18n="raisedUsedAvailable">Raised → used → available</h3></div></div>
-          <svg id="flowChart" viewBox="0 0 620 310" role="img" aria-label="Money flow"></svg>
+          <div class="chart-box"><canvas id="flowChart"></canvas></div>
         </article>
       </div>
     </section>
@@ -202,7 +202,9 @@
 </dialog>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script src="./config.js"></script>
+<script src="./locales.js"></script>
 <script src="./app.js"></script>
 <script src="./admin.js"></script>
 </body>
