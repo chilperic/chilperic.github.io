@@ -1,6 +1,6 @@
 (()=> {
 const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);
-let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null;
+let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null;
 
 async function rpc(name,body={}){
  const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});
@@ -19,6 +19,7 @@ async function loadCampaigns(){campaigns=await campaignAction({action:"list"});r
 async function loadAudit(){audit=await rpc("solidarity_admin_audit",{p_secret_digest:secret});return audit}
 async function loadSupporters(){supporters=await supporterAction({action:"list"});return supporters}
 async function loadLocales(){localeState=await localeAction({action:"get"});return localeState}
+async function loadHealth(){healthState=await rpc("solidarity_admin_health",{p_secret_digest:secret});return healthState}
 
 const css=document.createElement("style");css.textContent=`
 .admin-login{max-width:460px;margin:28px auto;padding:24px;border:1px solid #d2c8bc;border-radius:16px;background:#fffaf3}.admin-login h3{margin:0 0 7px}.admin-login p{color:#746d67;font-size:.76rem;line-height:1.5;margin:0 0 16px}
@@ -61,8 +62,24 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- [["overview","Overview"],["supporters","Supporters"],["contributions","Contributions"],["campaign","Campaign"],["languages","Languages"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["integrations","Integrations"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();renderAdmin()};t.append(b)});return t
+ [["overview","Overview"],["health","Health"],["supporters","Supporters"],["contributions","Contributions"],["campaign","Campaign"],["languages","Languages"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["integrations","Integrations"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();renderAdmin()};t.append(b)});return t
 }
+function healthView(){
+ const p=make("div",undefined,"admin-panel");
+ p.append(make("h4","Data health"),make("div","Automated consistency checks across supporters, contributions, refunds, PayPal reconciliation, languages and available balance.","admin-hint"));
+ const h=healthState||{score:0,status:"unknown",issues:[]};
+ const metrics=make("div",undefined,"admin-metrics");
+ const statusText=String(h.status||"unknown").toUpperCase();
+ [[h.score+"%","Health score"],[statusText,"Status"],[money(h.netCents||0),"Net"],[money(h.spentCents||0),"Used"],[money(h.availableCents||0),"Available"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",String(v)),make("span",l));metrics.append(c)});
+ p.append(metrics);
+ const issues=make("div",undefined,"admin-row");
+ issues.append(make("h5","Checks"));
+ if(!(h.issues||[]).length){issues.append(make("div","No data-quality issues detected.","admin-hint"))}
+ else (h.issues||[]).forEach(x=>{const item=make("div",undefined,"admin-row-head");const left=make("div");left.append(make("b",String(x.code||"issue").replaceAll("_"," ")),make("span",String(x.severity||"warning").toUpperCase(),"source-chip"));item.append(left,make("span",(x.count||1)+" · "+(x.message||"")));issues.append(item)});
+ const m=msg();const actions=make("div",undefined,"admin-actions");actions.append(button("Run checks again",async()=>{m.textContent="Checking…";try{healthState=null;await loadHealth();m.textContent="Checks complete.";renderAdmin()}catch{m.textContent="Health check failed."}},"green"));
+ p.append(issues,actions,m);return p
+}
+
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
  const wrap=make("div");const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[net,"Net raised"],[spent,"Used"],[available,"Available"],[refunds,"Refunded"],[admin.targetCents||0,"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",money(v)),make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
@@ -315,9 +332,10 @@ function auditView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Audit trail"),make("div","Latest 100 recorded changes. This is deliberately read-only.","admin-hint"));const list=make("div",undefined,"audit-list");(audit?.audit||[]).forEach(x=>{const row=make("div",undefined,"audit-item");row.append(make("strong",x.action+" · "+x.entity_type),make("code",x.entity_id||""),make("time",new Date(x.created_at).toLocaleString()));list.append(row)});p.append(list);return p
 }
 async function renderAdmin(){
- mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;login()},"alt"));mount.append(head,tabs());
+ mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;login()},"alt"));mount.append(head,tabs());
  let view;
- if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
+ if(active==="health"){if(!healthState)await loadHealth();view=healthView();}
+ else if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
  else if(active==="campaign")view=await campaignView();
  else if(active==="languages"){if(!localeState)await loadLocales();view=await languagesView();}
