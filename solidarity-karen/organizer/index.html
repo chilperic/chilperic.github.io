@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111015">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+<title>Organizer · Solidarity Platform</title>
+<style>
+html,body{min-height:100%;background:#111015}
+.organizer-shell{min-height:100vh;background:#f4efe6}
+.organizer-top{height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px;border-bottom:1px solid #d2c8bc;background:#111015;color:#fff}
+.organizer-top a{color:#fff;text-decoration:none;font-size:.72rem;font-weight:850}.organizer-top strong{letter-spacing:.12em;text-transform:uppercase;font-size:.76rem}.organizer-top nav{display:flex;gap:14px}
+#adminBtn{display:none!important}
+#adminDialog{display:block!important;position:static!important;width:100%!important;max-width:none!important;max-height:none!important;height:auto!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:#f6f0e8!important}
+#adminDialog::backdrop{display:none!important}
+#adminClose{display:none!important}
+.admin-dialog-head{position:static!important}
+#adminMount{max-width:1500px;margin:0 auto}
+body:has(#adminDialog[open]){overflow:auto!important}
+</style>
+</head>
+<body>
+<div class="organizer-shell">
+  <header class="organizer-top">
+    <strong>The Red Banner Is Raised · Control Room</strong>
+    <nav><a href="../">Campaign</a><a href="../observatory/">Observatory</a></nav>
+  </header>
+  <button id="adminBtn" type="button">Open</button>
+  <dialog id="adminDialog" open>
+    <div class="admin-dialog-head">
+      <div><span class="section-kicker">PRIVATE</span><h2>Organizer control room</h2><p>Campaign, supporters, money, languages, integrations, audit and reporting.</p></div>
+      <button id="adminClose" type="button">×</button>
+    </div>
+    <div id="adminMount"></div>
+  </dialog>
+</div>
+<script src="../config.js"></script>
+<script src="../locales.js"></script>
+<script src="../admin.js"></script>
+<script>
+window.addEventListener("DOMContentLoaded",()=>document.getElementById("adminBtn").click());
+</script>
+</body>
+</html>
