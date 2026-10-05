@@ -9,6 +9,7 @@ async function rpc(name,body={}){
 async function digest(v){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
 async function adminAction(action){return rpc("karen_admin_action",{p_secret_digest:secret,p_action:action})}
 async function campaignAction(action){return rpc("solidarity_campaign_action",{p_secret_digest:secret,p_action:action})}
+async function adminTools(action){return rpc("solidarity_admin_tools",{p_secret_digest:secret,p_action:action})}
 async function refreshPublic(){if(window.refreshKarenFund)await window.refreshKarenFund()}
 async function reload(){admin=await adminAction({action:"list"});renderAdmin();await refreshPublic()}
 async function loadCampaigns(){campaigns=await campaignAction({action:"list"});return campaigns}
@@ -71,6 +72,7 @@ function contributionsView(){
  (admin.contributions||[]).forEach(x=>{const paypal=x.source==="paypal",refundRow=paypal&&x.status==="refunded";const row=make("div",undefined,"admin-row");const head=make("div",undefined,"admin-row-head");const left=make("div");left.append(make("b",x.real_name),make("span",paypal?(refundRow?"PayPal refund":"PayPal API"):"Manual","source-chip"));head.append(left,make("span",money(x.amount_cents)));
  const rg=make("div",undefined,"admin-grid"),rn=input("text",x.real_name),ra=input("number",(x.amount_cents/100).toFixed(2)),rd=input("date",x.contributed_on),rs=document.createElement("select"),rv=document.createElement("select"),rnote=document.createElement("textarea");ra.min=".01";ra.step=".01";rnote.value=x.note||"";rv.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';rv.value=x.public_name?"true":"false";const states=paypal?(refundRow?["refunded"]:["confirmed","received"]):["confirmed","received","pending","refunded","cancelled"];states.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.status===v;rs.append(o)});if(paypal){ra.readOnly=true;rd.readOnly=true}
  rg.append(field("Name",rn),field(paypal?"Verified amount (€)":"Amount (€)",ra),field("Date",rd),field("Status",rs),field("Visibility",rv),field("Internal note",rnote));const rm=msg(),acts=make("div",undefined,"admin-actions");acts.append(button("Save",()=>save({action:"update",id:x.id,real_name:rn.value.trim(),...(paypal?{}:{amount_cents:Math.round(Number(ra.value)*100),contributed_on:rd.value,status:rs.value}),...(paypal&&!refundRow?{status:rs.value}:{}),public_name:rv.value==="true",public_alias:rv.value==="true"?rn.value.trim():null,note:rnote.value.trim()||null},rm)));
+ acts.append(button("Create privacy link",async()=>{rm.textContent="Creating private link…";try{const d=await adminTools({action:"create_consent_link",contribution_id:x.id,days:30});const url=location.origin+location.pathname+"?consent="+encodeURIComponent(d.token);await navigator.clipboard.writeText(url);rm.textContent="Private privacy link copied. It expires in 30 days."}catch{rm.textContent="Could not create privacy link."}},"alt"));
  if(paypal&&!refundRow&&x.provider_ref){const ref=input("number",(x.amount_cents/100).toFixed(2));ref.min=".01";ref.max=(x.amount_cents/100).toFixed(2);ref.step=".01";acts.append(ref,button("Refund via PayPal",()=>paypalRefund(x.provider_ref,Math.round(Number(ref.value)*100),rm),"red"))}
  row.append(head,rg,acts,rm);manage.append(row)});wrap.append(manage);return wrap
 }
@@ -163,11 +165,50 @@ async function integrationsView(){
 }
 
 function reportsView(){
- const p=make("div",undefined,"admin-panel");p.append(make("h4","Reports & exports"),make("div","Create portable records for archiving, group reporting or future migration.","admin-hint"));const acts=make("div",undefined,"admin-actions");
- acts.append(button("Export full JSON",()=>{const blob=new Blob([JSON.stringify(admin,null,2)],{type:"application/json"});download(blob,(admin.campaign?.slug||"campaign")+"-private.json")}),
- button("Export contributions CSV",()=>{const rows=[["Name","Amount EUR","Date","Status","Public","Source","Note"],...(admin.contributions||[]).map(x=>[x.real_name,(x.amount_cents/100).toFixed(2),x.contributed_on,x.status,x.public_name?"yes":"no",x.source||"manual",x.note||""])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(",")).join("\n");download(new Blob([csv],{type:"text/csv"}),(admin.campaign?.slug||"campaign")+"-contributions.csv")},"alt"));
- p.append(acts);return p
+ const p=make("div",undefined,"admin-panel");
+ p.append(make("h4","Reports, sharing & checkpoints"),make("div","Portable exports, printable reporting, campaign snapshots and a share image. These tools stay private to organizers.","admin-hint"));
+ const acts=make("div",undefined,"admin-actions");
+
+ acts.append(
+  button("Export full JSON",()=>{const blob=new Blob([JSON.stringify(admin,null,2)],{type:"application/json"});download(blob,(admin.campaign?.slug||"campaign")+"-private.json")}),
+  button("Export contributions CSV",()=>{const rows=[["Name","Amount EUR","Date","Status","Public","Source","Note"],...(admin.contributions||[]).map(x=>[x.real_name,(x.amount_cents/100).toFixed(2),x.contributed_on,x.status,x.public_name?"yes":"no",x.source||"manual",x.note||""])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(",")).join("\n");download(new Blob([csv],{type:"text/csv"}),(admin.campaign?.slug||"campaign")+"-contributions.csv")},"alt"),
+  button("Print public report",()=>window.print(),"alt"),
+  button("Create share card",()=>createShareCard(),"alt")
+ );
+ p.append(acts);
+
+ const snap=make("div",undefined,"admin-row");
+ snap.append(make("h5","Campaign snapshots"));
+ const label=input("text");label.placeholder="e.g. Before changing target";
+ const sm=msg();
+ const sacts=make("div",undefined,"admin-actions");
+ sacts.append(
+   button("Create snapshot",async()=>{sm.textContent="Saving snapshot…";try{await adminTools({action:"snapshot_create",label:label.value.trim()||null});sm.textContent="Snapshot created."}catch{sm.textContent="Could not create snapshot."}},"green"),
+   button("List snapshots",async()=>{sm.textContent="Loading…";try{const d=await adminTools({action:"snapshot_list"});sm.textContent=(d.snapshots||[]).map(x=>(x.label||"Snapshot")+" · "+new Date(x.createdAt).toLocaleString()).join("\n")||"No snapshots yet."}catch{sm.textContent="Could not load snapshots."}},"alt")
+ );
+ snap.append(field("Snapshot label",label),sacts,sm);p.append(snap);
+ return p
 }
+
+function createShareCard(){
+ const rows=admin.contributions||[];
+ const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);
+ const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);
+ const net=Math.max(0,gross-refunds),target=admin.targetCents||70000,pct=target?Math.min(100,net/target*100):0;
+ const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=630;const ctx=canvas.getContext("2d");
+ ctx.fillStyle="#f3eee5";ctx.fillRect(0,0,1200,630);
+ ctx.fillStyle="#151317";ctx.fillRect(0,0,42,630);
+ ctx.fillStyle="#b33245";ctx.beginPath();ctx.arc(1080,90,210,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#151317";ctx.font="700 30px system-ui";ctx.fillText((admin.campaign?.title||"Solidarity Fund").toUpperCase(),90,95);
+ ctx.fillStyle="#766f68";ctx.font="500 23px system-ui";ctx.fillText(admin.campaign?.subtitle||"We carry it together.",90,140);
+ ctx.fillStyle="#151317";ctx.font="900 92px system-ui";ctx.fillText(new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(net/100),90,290);
+ ctx.fillStyle="#766f68";ctx.font="600 28px system-ui";ctx.fillText("of "+new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(target/100)+" · "+Math.round(pct)+"% · "+rows.filter(x=>["confirmed","received"].includes(x.status)).length+" supporters",95,335);
+ ctx.fillStyle="#d8d0c5";ctx.fillRect(90,390,900,24);ctx.fillStyle="#b33245";ctx.fillRect(90,390,900*(pct/100),24);
+ ctx.fillStyle="#295846";ctx.font="800 26px system-ui";ctx.fillText("No charity. Solidarity.",90,485);
+ ctx.fillStyle="#766f68";ctx.font="500 21px system-ui";ctx.fillText(location.origin+location.pathname,90,540);
+ canvas.toBlob(blob=>{if(blob)download(blob,(admin.campaign?.slug||"campaign")+"-share-card.png")},"image/png")
+}
+
 function download(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 function securityView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Organizer security"),make("div","Change the organizer password. The old password stops working immediately.","admin-hint"));const g=make("div",undefined,"admin-grid"),np=input("password"),cp=input("password");np.autocomplete=cp.autocomplete="new-password";g.append(field("New password",np),field("Confirm password",cp));const m=msg();p.append(g,button("Change password",async()=>{if(np.value.length<10){m.textContent="Use at least 10 characters.";return}if(np.value!==cp.value){m.textContent="Passwords do not match.";return}m.textContent="Changing…";try{const nd=await digest(np.value);await adminAction({action:"set_password",new_secret_digest:nd});secret=nd;np.value=cp.value="";m.textContent="Password changed."}catch{m.textContent="Could not change password."}}),m);return p
