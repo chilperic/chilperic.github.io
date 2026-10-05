@@ -2,5 +2,14 @@
   "goal": "Karen solidarity fund · Fonds de solidarité pour Karen",
   "target": 700,
   "updated": "2026-10-05",
-  "contributions": []
+  "contributions": [
+    {
+      "id": "2026-10-05-foko-100",
+      "name": "Foko",
+      "amount": 100,
+      "date": "2026-10-05",
+      "status": "confirmed",
+      "publicNameConsent": true
+    }
+  ]
 }
