@@ -101,6 +101,27 @@
       <div id="milestones" class="milestones"></div>
     </section>
 
+    <section id="momentumSection" class="section momentum-section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker" data-i18n="collectiveMomentum">Collective momentum</span>
+          <h2 data-i18n="momentumTitle">Participation over time</h2>
+          <p data-i18n="momentumExplain">This view tracks collective movement without ranking individual contributors.</p>
+        </div>
+      </div>
+      <div class="momentum-grid">
+        <div class="momentum-chart-card">
+          <div id="momentumChart" class="momentum-chart" aria-label="Contribution activity over time"></div>
+        </div>
+        <div class="momentum-stats">
+          <article><span data-i18n="medianContribution">Median contribution</span><strong id="medianContribution">€0</strong></article>
+          <article><span data-i18n="participationDays">Participation days</span><strong id="participationDays">0</strong></article>
+          <article><span data-i18n="publicNames">Public-name consent</span><strong id="publicNameRatio">0%</strong></article>
+          <article><span data-i18n="recentMomentum">Last 7 days</span><strong id="recentMomentum">€0</strong></article>
+        </div>
+      </div>
+    </section>
+
     <div id="contribute" class="payments-anchor"></div>
 
     <section id="transparency" class="section finance-section">
@@ -128,6 +149,7 @@
           <div id="availableBar" class="flow-available"></div>
         </div>
       </div>
+      <div id="overfundingNote" class="policy-note hidden"></div>
     </section>
 
     <section class="two-col section flush">
