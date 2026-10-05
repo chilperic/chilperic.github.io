@@ -96,6 +96,7 @@
         <article><span data-i18n="evenness">Solidarity evenness</span><strong id="statEvenness">—</strong></article>
         <article><span data-i18n="iqr">Interquartile range</span><strong id="statIQR">€0</strong></article>
         <article><span data-i18n="velocity">Contribution velocity</span><strong id="statVelocity">€0/day</strong></article>
+        <article><span data-i18n="eta">Estimated goal time</span><strong id="statETA">—</strong></article>
       </div>
 
       <div class="dashboard-grid">
@@ -125,6 +126,11 @@
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="runway">Runway</span><h3 data-i18n="distanceToGoal">Distance to goal</h3></div><strong id="runwayText">€0</strong></div>
           <div class="chart-box"><canvas id="runwayChart"></canvas></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="viz-head"><div><span data-i18n="forecast">Forecast</span><h3 data-i18n="forecastTitle">Goal scenarios</h3></div><strong data-i18n="estimate">Estimate</strong></div>
+          <div class="chart-box"><canvas id="forecastChart"></canvas></div>
         </article>
 
         <article class="viz-panel">
