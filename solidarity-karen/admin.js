@@ -55,7 +55,7 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- [["overview","Overview"],["contributions","Contributions"],["campaign","Campaign"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();renderAdmin()};t.append(b)});return t
+ [["overview","Overview"],["contributions","Contributions"],["campaign","Campaign"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["integrations","Integrations"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();renderAdmin()};t.append(b)});return t
 }
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
@@ -142,6 +142,26 @@ function updatesView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign updates"),make("div","Publish short progress notes without changing the campaign story.","admin-hint"));(admin.updates||[]).forEach(x=>{const box=make("div",undefined,"admin-row");const row=make("div",undefined,"admin-row-head");row.append(make("b",x.title_en),make("span",new Date(x.published_at).toLocaleDateString()));box.append(row,button("Remove",()=>save({action:"delete_update",id:x.id},msg()),"alt"));p.append(box)});
  const g=make("div",undefined,"admin-grid"),te=input("text"),tf=input("text"),be=document.createElement("textarea"),bf=document.createElement("textarea");g.append(field("Title EN",te),field("Title FR",tf),field("Body EN",be),field("Body FR",bf));const m=msg();p.append(g,button("Publish update",()=>save({action:"add_update",title_en:te.value,title_fr:tf.value,body_en:be.value,body_fr:bf.value,is_public:true},m)),m);return p
 }
+async function integrationsView(){
+ const p=make("div",undefined,"admin-panel");
+ p.append(make("h4","Payment integrations"),make("div","These details are private to organizers and never shown on the public page.","admin-hint"));
+ const pool=admin.campaign?.payment_url||C.paypalPoolUrl||"";
+ const grid=make("div",undefined,"admin-grid");
+ const url=input("text",pool);url.readOnly=true;
+ const auto=document.createElement("div");auto.className="admin-field";auto.append(make("span","Automatic PayPal API"));
+ const autoValue=make("div","Checking…");autoValue.style.cssText="padding:9px;border:1px solid #d2c8bc;border-radius:9px;background:#fff;font-size:.72rem";auto.append(autoValue);
+ grid.append(field("PayPal Pool URL",url),auto);p.append(grid);
+ const actions=make("div",undefined,"admin-actions");
+ actions.append(
+  button("Open Pool",()=>window.open(pool,"_blank","noopener"),"alt"),
+  button("Copy Pool link",async()=>{await navigator.clipboard.writeText(pool);autoValue.textContent="Pool link copied."},"alt"),
+  button("Copy share message",async()=>{const title=admin.campaign?.title||"Solidarity Fund";const text=title+"\n"+(admin.campaign?.subtitle||"We carry it together.")+"\n"+location.origin+location.pathname+"\nPayPal: "+pool;await navigator.clipboard.writeText(text);autoValue.textContent="Share message copied."},"alt")
+ );
+ p.append(actions);
+ try{const r=await fetch("/api/paypal",{cache:"no-store"});const d=await r.json();autoValue.textContent=d.enabled?("Ready · "+(d.environment||"sandbox")+" · "+(d.currency||"EUR")):"Not configured · Pool remains the active payment route."}catch{autoValue.textContent="Automatic API unavailable · Pool remains the active payment route."}
+ return p
+}
+
 function reportsView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Reports & exports"),make("div","Create portable records for archiving, group reporting or future migration.","admin-hint"));const acts=make("div",undefined,"admin-actions");
  acts.append(button("Export full JSON",()=>{const blob=new Blob([JSON.stringify(admin,null,2)],{type:"application/json"});download(blob,(admin.campaign?.slug||"campaign")+"-private.json")}),
@@ -163,6 +183,7 @@ async function renderAdmin(){
  else if(active==="milestones")view=milestonesView();
  else if(active==="expenses")view=expensesView();
  else if(active==="updates")view=updatesView();
+ else if(active==="integrations")view=await integrationsView();
  else if(active==="reports")view=reportsView();
  else if(active==="security")view=securityView();
  else if(active==="audit")view=auditView();
