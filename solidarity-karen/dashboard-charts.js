@@ -32,6 +32,16 @@ function render(d,m,ctx){
 
  kill("flow");o=base(euro);o.indexAxis="y";o.scales.x={stacked:true,grid:{color:"rgba(117,109,101,.12)"},ticks:{callback:v=>euro(v),font:{size:9},color:"#756d65"}};o.scales.y={stacked:true,grid:{display:false},ticks:{font:{size:10},color:"#756d65"}};
  charts.flow=new Chart(document.getElementById("flowChart"),{type:"bar",data:{labels:[t("gross"),t("netFund")],datasets:[{label:t("refunds"),data:[m.refunds/100,0],backgroundColor:red,borderRadius:5},{label:t("netFund"),data:[m.net/100,0],backgroundColor:blue,borderRadius:5},{label:t("used"),data:[0,m.spent/100],backgroundColor:gold,borderRadius:5},{label:t("available"),data:[0,m.available/100],backgroundColor:green,borderRadius:5}]},options:o});
+
+ kill("supporterActivity");
+ const supporterRows=d.supporters||[],buckets=[0,0,0,0];
+ supporterRows.forEach(x=>{const n=Number(x.eventCount||0);if(n<=1)buckets[0]++;else if(n===2)buckets[1]++;else if(n===3)buckets[2]++;else buckets[3]++});
+ const aopts=base(euro);aopts.scales.y.ticks.callback=v=>Number.isInteger(v)?v:"";aopts.scales.y.beginAtZero=true;
+ charts.supporterActivity=new Chart(document.getElementById("supporterActivityChart"),{
+   type:"bar",
+   data:{labels:["1","2","3","4+"],datasets:[{data:buckets,backgroundColor:[blue,green,gold,red],borderRadius:7}]},
+   options:{...aopts,plugins:{...aopts.plugins,legend:{display:false},tooltip:{callbacks:{label:x=>String(x.parsed.y)+" "+t("supporters")}}}}
+ });
 }
 return{render};
 })();
