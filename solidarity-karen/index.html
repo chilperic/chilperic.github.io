@@ -90,7 +90,17 @@ footer{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;display
 <p class="note" id="updated"></p>
 <p class="note" data-en="This is a transparency tracker, not a payment page. No bank, PayPal or transaction details are published here." data-fr="Ceci est un outil de transparence, pas une page de paiement. Aucune coordonnée bancaire, PayPal ou donnée de transaction n’est publiée ici.">This is a transparency tracker, not a payment page. No bank, PayPal or transaction details are published here.</p>
 
-<footer><span>The Red Banner Is Raised</span><span class="symbols">🚩🏴 Ⓐ ☭</span></footer>
+<footer><span>The Red Banner Is Raised</span><span style="display:flex;align-items:center;gap:12px"><button id="adminBtn" type="button" style="border:0;background:transparent;color:var(--muted);font-size:.76rem;font-weight:800;padding:6px 0">Organizer</button><span class="symbols">🚩🏴 Ⓐ ☭</span></span></footer>
+<dialog id="adminDialog" style="border:1px solid var(--line);border-radius:18px;padding:0;width:min(620px,calc(100% - 24px));max-height:88vh;overflow:auto;box-shadow:0 28px 90px #0003">
+  <div style="padding:22px">
+    <div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start">
+      <div><h2 style="margin:0 0 5px">Organizer panel</h2><p style="margin:0;color:var(--muted);font-size:.8rem">Private contributor management.</p></div>
+      <button id="adminClose" type="button" aria-label="Close" style="border:0;background:#eee7dc;width:32px;height:32px;border-radius:50%">×</button>
+    </div>
+    <div id="adminMount" style="margin-top:18px"></div>
+  </div>
+</dialog>
+<script src="./admin.js" defer></script>
 </div>
 
 <script>
