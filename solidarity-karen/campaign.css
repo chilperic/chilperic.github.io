@@ -1,0 +1,71 @@
+:root{
+  --paper:#f5efe4;--paper2:#fffaf2;--ink:#111015;--muted:#756d65;--line:#d4c8b8;
+  --red:#c32f46;--red2:#862233;--black:#111015;--gold:#d7a64a;--green:#2d614b;
+  --paypal:#0070ba;--shadow:0 26px 80px rgba(28,20,16,.10)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+html[dir="rtl"] body{font-family:Inter,Tahoma,Arial,sans-serif}
+a{color:inherit}button,input,select{font:inherit}.hidden{display:none!important}
+
+.campaign-nav{
+  min-height:80px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:10px clamp(16px,4vw,54px);position:sticky;top:0;z-index:30;
+  background:rgba(245,239,228,.95);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+}
+.campaign-brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.campaign-brand svg{width:58px;height:46px;flex:0 0 auto}.campaign-brand strong{display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}.campaign-brand small{display:block;color:var(--muted);font-size:.64rem;margin-top:3px}
+.campaign-nav nav{display:flex;align-items:center;gap:12px}.campaign-nav nav>a{font-size:.68rem;text-decoration:none;font-weight:850;border-bottom:1px solid transparent}.campaign-nav nav>a:hover{border-color:var(--ink)}
+.campaign-language{display:flex;gap:5px;align-items:center;background:#e8e0d5;border-radius:999px;padding:5px 8px}.campaign-language select{border:0;background:transparent;font-size:.67rem;font-weight:850;outline:none;max-width:115px}
+
+.campaign-hero{position:relative;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);min-height:690px;overflow:hidden;border-bottom:1px solid var(--line)}
+.campaign-flags{position:absolute;inset:0;overflow:hidden;pointer-events:none}.campaign-flags span{position:absolute;display:block}
+.campaign-flags span:first-child{width:66vw;height:290px;right:-21vw;top:5vh;background:linear-gradient(135deg,#d53b52,#a62034);transform:rotate(-10deg);clip-path:polygon(0 10%,100% 0,84% 82%,0 100%);opacity:.96}
+.campaign-flags span:last-child{width:61vw;height:230px;right:-10vw;bottom:4vh;background:linear-gradient(135deg,#1b181e,#060508);transform:rotate(8deg);clip-path:polygon(0 0,100% 17%,82% 100%,5% 80%);opacity:.94}
+.campaign-copy,.campaign-fund{position:relative;z-index:2}
+.campaign-copy{padding:clamp(42px,7vw,100px) clamp(22px,5vw,72px);display:flex;flex-direction:column;justify-content:center}
+.campaign-kicker{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:950}
+.campaign-copy h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(4.8rem,10vw,9.2rem);font-weight:500;letter-spacing:-.07em;line-height:.77;margin:18px 0 30px;max-width:860px}
+.campaign-copy>p{max-width:720px;font-size:clamp(1rem,1.45vw,1.18rem);line-height:1.7;color:#514a44}
+.campaign-status{display:flex;align-items:center;gap:10px;margin-top:30px;font-size:.66rem;color:var(--muted)}.campaign-status span{padding:5px 8px;border-radius:999px;background:#dce9e2;color:var(--green);font-weight:950}
+.campaign-fund{align-self:center;margin:clamp(20px,4vw,48px);background:rgba(134,34,51,.98);color:#fff;border-radius:30px;padding:clamp(30px,4.5vw,54px);box-shadow:0 34px 90px rgba(70,16,28,.22)}
+.fund-label{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#f2ce8f;font-weight:950}.campaign-fund>strong{display:block;font-size:clamp(4.4rem,8vw,7rem);letter-spacing:-.075em;line-height:.92;margin-top:8px}.campaign-fund>small{font-size:.78rem;color:#eed9d6}
+.fund-progress{height:13px;border-radius:999px;background:#ffffff18;overflow:hidden;margin:27px 0 13px}.fund-progress div{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#f1c873);transition:width .5s}
+.fund-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.fund-facts>div{padding:11px 5px;border-top:1px solid #ffffff26}.fund-facts b{display:block;font-size:1.08rem}.fund-facts span{font-size:.6rem;color:#e0c6c3}
+.paypal-primary{display:flex;align-items:center;gap:12px;margin-top:28px;background:#fff;color:#111015;text-decoration:none;border-radius:15px;padding:14px 16px;box-shadow:0 12px 34px #0002}.paypal-primary .paypal-word{font-size:1rem;font-weight:950;color:var(--paypal)}.paypal-primary strong{flex:1;font-size:.78rem}.paypal-primary>b{font-size:1.15rem}
+.qr-button{width:100%;margin-top:9px;border:1px solid #ffffff2a;background:#ffffff0d;color:#fff;border-radius:12px;padding:10px 12px;font-size:.68rem;font-weight:850;cursor:pointer}
+
+.signature-curve{display:grid;grid-template-columns:minmax(260px,.34fr) minmax(0,.66fr);gap:28px;padding:clamp(46px,7vw,90px) clamp(20px,5vw,70px);background:var(--paper2);border-bottom:1px solid var(--line)}
+.curve-copy{align-self:center}.curve-copy>span,.campaign-milestones>div:first-child>span,.people-message>span{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:950}
+.curve-copy h2,.campaign-milestones h2,.people-message h2{font-family:Georgia,serif;font-weight:500;letter-spacing:-.045em;font-size:clamp(2.4rem,4.6vw,4.5rem);line-height:.95;margin:8px 0 16px}.curve-copy p,.people-message p{font-size:.75rem;color:var(--muted);line-height:1.55;max-width:460px}
+.curve-stage{position:relative;min-height:380px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#fffaf2,#f3eee4);box-shadow:0 18px 54px rgba(28,20,16,.05);padding:14px}.curve-stage canvas{display:block;width:100%;height:100%;min-height:350px}.curve-now{position:absolute;right:18px;top:17px;text-align:right}.curve-now span{display:block;font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.curve-now strong{font-size:1.5rem}
+
+.campaign-milestones{padding:clamp(38px,6vw,70px) clamp(20px,5vw,70px);background:#ece3d7;border-bottom:1px solid var(--line)}.campaign-milestones>div:first-child{margin-bottom:26px}.campaign-milestones h2{margin-bottom:0}
+#milestoneLine{display:flex;gap:9px;overflow:auto}.campaign-milestone{min-width:220px;flex:1;border:1px solid var(--line);border-radius:16px;background:var(--paper2);padding:16px}.campaign-milestone.reached{background:#deebe3;border-color:#bad0c0}.campaign-milestone strong{display:block;font-size:.84rem}.campaign-milestone span{display:block;font-size:.64rem;color:var(--muted);margin-top:5px}.campaign-milestone .bar{height:7px;background:#0000000c;border-radius:999px;margin-top:12px;overflow:hidden}.campaign-milestone .bar i{display:block;height:100%;background:var(--green)}
+
+.campaign-people{padding:clamp(42px,6vw,74px) clamp(20px,5vw,70px);background:var(--paper);display:grid;grid-template-columns:minmax(250px,.38fr) minmax(0,.5fr) auto;gap:28px;align-items:center;border-bottom:1px solid var(--line)}
+.supporter-summary{display:flex;flex-wrap:wrap;gap:7px}.supporter-id{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:var(--paper2)}.supporter-id b{font-size:.68rem}.supporter-id span{font-size:.57rem;color:var(--muted)}
+.quiet-link{text-decoration:none;font-size:.68rem;font-weight:850;white-space:nowrap}
+
+.campaign-manifesto{background:var(--green);color:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;padding:clamp(38px,6vw,70px) clamp(20px,5vw,70px)}.campaign-manifesto blockquote{font-family:Georgia,serif;font-size:clamp(2.2rem,4.5vw,4rem);line-height:1.04;margin:0;max-width:900px}.campaign-manifesto>div{display:flex;gap:10px;font-size:1.45rem}
+
+footer{display:flex;justify-content:space-between;gap:16px;align-items:center;background:#0b0a0d;color:#bcb3aa;padding:18px clamp(20px,5vw,70px);font-size:.64rem}footer strong{color:var(--paper)}
+.mobile-pay{display:none}
+
+dialog{border:0;border-radius:20px;padding:0;background:var(--paper2);box-shadow:0 34px 100px #0006}dialog::backdrop{background:#070609b8;backdrop-filter:blur(7px)}#qrDialog{width:min(440px,calc(100% - 24px));padding:18px}.qr-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.qr-head button{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:#fff}.qr-head strong{font-size:.82rem}#qrMount{display:grid;place-items:center;padding:12px;background:#fff;border-radius:15px;border:1px solid var(--line)}#qrMount canvas{max-width:100%;height:auto}#qrPayLink{display:block;text-align:center;margin-top:12px;font-size:.66rem;color:var(--paypal)}
+
+html[dir="rtl"] .campaign-copy,html[dir="rtl"] .curve-copy,html[dir="rtl"] .people-message{text-align:right}
+html[dir="rtl"] .curve-now{right:auto;left:18px;text-align:left}
+
+@media(max-width:960px){
+ .campaign-hero{grid-template-columns:1fr;min-height:auto}.campaign-fund{margin:0 20px 32px}.signature-curve{grid-template-columns:1fr}.campaign-people{grid-template-columns:1fr}.quiet-link{justify-self:start}
+}
+@media(max-width:700px){
+ body{padding-bottom:74px}.campaign-nav{padding:9px 12px;align-items:flex-start}.campaign-brand svg{width:50px}.campaign-brand strong{font-size:.69rem}.campaign-brand small{display:none}.campaign-nav nav>a{display:none}.campaign-language{max-width:120px}.campaign-language select{max-width:82px}
+ .campaign-copy{padding:36px 18px 28px}.campaign-copy h1{font-size:clamp(4rem,21vw,5.8rem)}.campaign-fund{padding:28px 18px;border-radius:22px}.fund-facts{grid-template-columns:1fr 1fr}.fund-facts>div:last-child{grid-column:1/-1}
+ .campaign-flags span:first-child{width:115vw;height:170px;right:-58vw}.campaign-flags span:last-child{width:115vw;height:145px;right:-35vw}
+ .signature-curve,.campaign-milestones,.campaign-people,.campaign-manifesto{padding-left:16px;padding-right:16px}.curve-stage{min-height:300px}.curve-stage canvas{min-height:280px}
+ .campaign-manifesto{grid-template-columns:1fr}.mobile-pay{display:flex;position:fixed;left:10px;right:10px;bottom:9px;z-index:50;align-items:center;justify-content:space-between;text-decoration:none;background:var(--paypal);color:#fff;border-radius:14px;padding:14px 16px;font-weight:950;box-shadow:0 14px 36px #0004}
+ footer{padding:17px;flex-direction:column;align-items:flex-start}
+}
