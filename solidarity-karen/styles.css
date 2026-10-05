@@ -61,3 +61,37 @@ dialog{border:0;border-radius:18px;padding:0;width:min(980px,calc(100% - 20px));
 @media(max-width:980px){.app-shell{grid-template-columns:1fr}.side-rail{display:none}.hero-grid{grid-template-columns:1fr}.hero-dashboard{min-height:520px}.two-col,.principles{grid-template-columns:1fr}.ledger-panel{border-right:0;border-bottom:1px solid var(--line)}.finance-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.topbar{padding:10px 12px;align-items:flex-start}.brand span{display:none}.top-actions{gap:5px}.ghost-btn,.admin-btn{font-size:.64rem;padding:7px 9px}.hero-copy{padding:36px 20px}.hero-copy h1{font-size:clamp(4rem,21vw,5.8rem)}.hero-dashboard{min-height:auto;padding:34px 20px}.hero-stats{grid-template-columns:1fr 1fr}.hero-stats>div:last-child{grid-column:1/-1}.section,.two-col>div{padding:34px 20px}.section-head{flex-direction:column}.finance-grid{grid-template-columns:1fr 1fr}.supporter-wall{grid-template-columns:1fr 1fr}.principles>div{padding:34px 20px}.footer{padding:18px 20px;flex-direction:column;align-items:flex-start}}
 @media(max-width:430px){.finance-grid,.supporter-wall{grid-template-columns:1fr}.ledger-row{grid-template-columns:28px minmax(0,1fr) auto}}
+
+/* Campaign themes */
+body[data-theme="paper"]{--red:#8d2b3c;--red-dark:#6d2431;--green:#486452;--gold:#b99154;--bg:#f7f3ec;--paper:#fffdf8;--paper2:#eee8df}
+body[data-theme="night"]{--bg:#18171a;--paper:#222126;--paper2:#2a292f;--ink:#f2eee8;--muted:#aaa19a;--line:#454149;--red:#d04b61;--red-dark:#6f2735;--green:#3e735b;--gold:#d7ad64;--rose:#4b3038;--sage:#2d4438;--blue:#303b49}
+body[data-theme="night"] .app{background:#18171a;color:#f2eee8}
+body[data-theme="night"] .topbar{background:rgba(24,23,26,.95);border-color:#454149}
+body[data-theme="night"] .brand strong,body[data-theme="night"] .ghost-btn,body[data-theme="night"] .text-link,body[data-theme="night"] .section-head h2,body[data-theme="night"] .ledger-panel h2,body[data-theme="night"] .expenses-panel h2{color:#f2eee8}
+body[data-theme="night"] .ghost-btn{background:#222126;border-color:#454149}
+body[data-theme="night"] .lang-switch{background:#2a292f}
+body[data-theme="night"] .supporter-section,body[data-theme="night"] .ledger-panel,body[data-theme="night"] .finance-card,body[data-theme="night"] .flow-card,body[data-theme="night"] .update-card,body[data-theme="night"] .supporter-card,body[data-theme="night"] .milestone,body[data-theme="night"] .expense{background:#222126;border-color:#454149}
+body[data-theme="night"] .milestones-section,body[data-theme="night"] .expenses-panel{background:#2a292f}
+body[data-theme="night"] .lead,body[data-theme="night"] .section-head p,body[data-theme="night"] .section-copy,body[data-theme="night"] .update-card p,body[data-theme="night"] .expense p{color:#aaa19a}
+body[data-theme="night"] .admin-dialog-head,body[data-theme="night"] dialog{background:#242228;color:#f2eee8}
+
+/* Momentum analytics */
+.momentum-section{background:var(--paper)}
+.momentum-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr);gap:14px}
+.momentum-chart-card{border:1px solid var(--line);background:var(--bg);border-radius:18px;padding:16px}
+.momentum-chart{min-height:220px;display:flex;align-items:end;gap:7px;padding:18px 4px 4px}
+.momentum-day{flex:1;min-width:10px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;height:180px}
+.momentum-bar{width:100%;max-width:34px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--gold),var(--red));min-height:4px}
+.momentum-day span{font-size:.55rem;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);max-height:56px;overflow:hidden}
+.momentum-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.momentum-stats article{border:1px solid var(--line);border-radius:16px;background:var(--paper2);padding:16px}
+.momentum-stats span{display:block;color:var(--muted);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;font-weight:850}
+.momentum-stats strong{display:block;font-size:1.45rem;margin-top:8px}
+.policy-note{margin-top:12px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--paper2);font-size:.73rem;line-height:1.5;color:var(--muted)}
+@media(max-width:800px){.momentum-grid{grid-template-columns:1fr}.momentum-stats{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.momentum-stats{grid-template-columns:1fr}}
+@media print{
+ .side-rail,.topbar,.payment-section,#adminDialog,.ghost-btn,.admin-btn,.lang-switch,.toast{display:none!important}
+ .app-shell{display:block}.app{background:#fff}.section,.hero-grid,.principles,.footer{break-inside:avoid}
+ body{background:#fff;color:#111}
+}
