@@ -101,3 +101,20 @@ async function initAutomatic(){
 }
 initAutomatic();
 })();
+window.addEventListener("solidarity:state",e=>{
+ const status=e.detail?.campaign?.status||"active";
+ const closed=["draft","closed","archived"].includes(status);
+ const panel=document.getElementById("paymentPanel");
+ if(!panel)return;
+ panel.classList.toggle("campaign-closed",closed);
+ const pool=document.getElementById("poolPayBtn");
+ if(pool){
+   pool.setAttribute("aria-disabled",closed?"true":"false");
+   pool.style.pointerEvents=closed?"none":"";
+   pool.style.opacity=closed?".45":"";
+ }
+ if(closed){
+   const box=document.getElementById("autoPayBox");
+   if(box)box.innerHTML='<div class="auto-pay-state">This campaign is not accepting new contributions.</div>';
+ }
+});
