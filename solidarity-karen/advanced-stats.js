@@ -1,5 +1,5 @@
 (()=> {
-let lorenzChart=null,sourceChart=null,lastKey="";
+let lorenzChart=null,sourceChart=null,forecastChart=null,lastKey="";
 const $=id=>document.getElementById(id);
 
 function quantile(sorted,q){
@@ -64,6 +64,32 @@ function drawSources(rows){
     }
   })
 }
+function drawForecast(d,m,rate,eta){
+  const el=$("forecastChart");if(!el||typeof Chart==="undefined")return;
+  const gap=Math.max(0,m.target-m.net),horizon=Math.max(7,Math.min(60,eta?Math.ceil(eta*1.25):30));
+  const days=Array.from({length:horizon+1},(_,i)=>i);
+  const conservative=rate*.65,current=rate,strong=rate*1.35;
+  const project=r=>days.map(day=>Math.min(m.target*1.2,m.net+r*day)/100);
+  if(forecastChart)forecastChart.destroy();
+  forecastChart=new Chart(el,{
+    type:"line",
+    data:{labels:days.map(d=>String(d)),datasets:[
+      {label:"Conservative",data:project(conservative),borderColor:"#756d65",borderDash:[6,5],borderWidth:2,pointRadius:0,tension:.15},
+      {label:"Current pace",data:project(current),borderColor:"#476b8c",borderWidth:3,pointRadius:0,tension:.15},
+      {label:"Strong momentum",data:project(strong),borderColor:"#295c48",borderWidth:2,pointRadius:0,tension:.15},
+      {label:t("goal"),data:days.map(()=>m.target/100),borderColor:"#d5a447",borderDash:[8,7],borderWidth:2,pointRadius:0}
+    ]},
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:{duration:450},
+      plugins:{legend:{display:true,position:"bottom",labels:{usePointStyle:true,boxWidth:8,font:{size:10}}},tooltip:{callbacks:{label:x=>x.dataset.label+": "+euro(x.parsed.y)}}},
+      scales:{
+        x:{title:{display:true,text:t("days")},grid:{display:false},ticks:{maxTicksLimit:8,font:{size:9}}},
+        y:{grid:{color:"rgba(117,109,101,.12)"},ticks:{callback:v=>euro(v),font:{size:9}}}
+      }
+    }
+  });
+}
+
 function render(){
   const d=window.RBApp?.fund;if(!d)return;
   const m=window.RBApp.compute(d),supporters=d.supporters||[];
@@ -76,13 +102,17 @@ function render(){
   const dates=m.pos.map(x=>new Date(String(x.date||"").slice(0,10)+"T12:00:00").getTime()).filter(Number.isFinite);
   const first=dates.length?Math.min(...dates):Date.now(),today=new Date();today.setHours(12,0,0,0);
   const elapsed=Math.max(1,Math.floor((today.getTime()-first)/86400000)+1);
+  const cutoff=today.getTime()-6*86400000;let recentNet=0;for(const x of m.rows){const ts=new Date(String(x.date||"").slice(0,10)+"T12:00:00").getTime();if(ts>=cutoff)recentNet+=(x.status==="refunded"?-1:1)*Number(x.amountCents||0)}
+  const recentDays=Math.max(1,Math.min(7,elapsed)),avgRate=m.net/elapsed,recentRate=Math.max(0,recentNet/recentDays),rate=recentRate>0?recentRate:avgRate,gap=Math.max(0,m.target-m.net),eta=gap===0?0:(rate>0?Math.ceil(gap/rate):null);
 
   if($("statEvenness"))$("statEvenness").textContent=supporters.length?ev.toFixed(2):"—";
   if($("statIQR"))$("statIQR").textContent=euro(iqr/100);
-  if($("statVelocity"))$("statVelocity").textContent=euro(m.net/100/elapsed)+"/day";
+  if($("statVelocity"))$("statVelocity").textContent=euro(rate/100)+"/day";
+  if($("statETA"))$("statETA").textContent=eta===0?t("goalReached"):(eta?("~"+eta+" "+t("days")):"—");
 
   drawLorenz(supporters);
-  drawSources(m.rows)
+  drawSources(m.rows);
+  drawForecast(d,m,rate,eta)
 }
 function tick(){
   try{render()}catch{}
