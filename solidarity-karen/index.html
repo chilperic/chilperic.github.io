@@ -1,152 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111315">
-<title>Solidarity with Karen</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#7f1d2d"><title>Solidarity for Karen</title>
 <style>
-:root{--bg:#f5f1e8;--paper:#fffdf8;--ink:#141618;--muted:#6c6f73;--red:#a82d38;--red2:#d4555c;--green:#315646;--gold:#d7ae59;--line:#d9d5ce}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
-body:before{content:"";display:block;height:7px;background:linear-gradient(90deg,var(--red) 0 52%,var(--ink) 52% 78%,var(--green) 78%)}
-.wrap{max-width:1100px;margin:auto;padding:18px 16px 48px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}
-.brand{font-weight:900;letter-spacing:-.02em}.brand small{display:block;font-size:.68rem;color:var(--muted);font-weight:650;letter-spacing:.08em;text-transform:uppercase}
-.lang{display:flex;background:#e8e3da;padding:3px;border-radius:10px}.lang button{border:0;background:transparent;padding:7px 10px;border-radius:7px;font-weight:800;color:var(--muted)}.lang button.active{background:white;color:var(--ink)}
-.hero{display:grid;grid-template-columns:1.05fr .95fr;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--paper);box-shadow:0 20px 50px #493c2a12}
-.copy{padding:42px}.eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--red);font-weight:900}
-h1{font-family:Georgia,serif;font-size:clamp(3.4rem,8vw,6.3rem);line-height:.86;letter-spacing:-.055em;margin:.55rem 0 1.2rem;font-weight:500}
-.copy p{font-size:1rem;line-height:1.62;color:#4f5154;max-width:620px}.copy p+p{margin-top:10px}.tagline{display:inline-block;margin-top:20px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;font-size:.78rem;font-weight:850}
-.progressbox{background:var(--ink);color:white;padding:34px;display:flex;flex-direction:column;justify-content:center}
-.goal{font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:#d8b464;font-weight:900}
-.total{font-size:clamp(4rem,10vw,7.5rem);line-height:.9;font-weight:950;letter-spacing:-.07em;margin:14px 0 2px}.target{color:#d8d5cf;font-weight:700}
-.bar{height:18px;border-radius:999px;background:#ffffff18;margin:26px 0 10px;overflow:hidden;border:1px solid #ffffff16}.bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--red2),var(--gold));transition:width .5s}
-.barline{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:#d6d2ca;font-weight:750}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}.stat{padding:15px;border:1px solid #ffffff18;border-radius:15px;background:#ffffff08}.stat b{display:block;font-size:1.7rem}.stat span{font-size:.72rem;color:#cfcac2}
-.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px}.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px}
-.card h2{font-size:1.2rem;margin:0 0 6px}.sub{font-size:.78rem;color:var(--muted);margin-bottom:14px}
-.ledger{display:grid}.entry{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.entry:last-child{border:0}
-.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#eee7dc;color:var(--red);font-weight:900}.name{font-weight:850}.meta{font-size:.74rem;color:var(--muted);margin-top:2px}.amt{font-weight:950}.empty{padding:24px 5px;text-align:center;color:var(--muted)}
-.why{background:var(--red);color:white;border:0}.why h2{font-family:Georgia,serif;font-size:2rem;line-height:1.05}.why p{color:#f4dddd;line-height:1.55}.why strong{color:white}.quote{font-size:1.2rem;font-weight:900;line-height:1.25;margin-top:18px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.step{background:#ede8df;padding:16px;border-radius:15px}.step b{display:block;margin-bottom:5px}.step span{font-size:.76rem;color:var(--muted);line-height:1.4}
-.note{font-size:.76rem;color:var(--muted);line-height:1.5;margin:16px 3px 0}
-footer{margin-top:22px;border-top:1px solid var(--line);padding-top:16px;display:flex;justify-content:space-between;gap:14px;font-weight:850}.symbols{font-size:1.25rem}
-.hidden{display:none!important}
-@media(max-width:760px){
- .wrap{padding:14px 12px 40px}.hero{grid-template-columns:1fr;border-radius:22px}.copy{padding:28px 22px 24px}.copy h1{font-size:clamp(3.15rem,17vw,4.6rem)}.copy p{font-size:.96rem}.progressbox{padding:26px 22px}.total{font-size:4.7rem}.grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.top{margin-bottom:12px}.brand{font-size:.92rem}
-}
-</style>
-</head>
-<body>
-<div class="wrap">
-<div class="top">
-  <div class="brand">THE RED BANNER IS RAISED<small>Collective solidarity · Solidarité collective</small></div>
-  <div class="lang"><button id="enBtn" class="active">EN</button><button id="frBtn">FR</button></div>
-</div>
-
-<section class="hero">
-  <div class="copy">
-    <div class="eyebrow" data-en="For Karen" data-fr="Pour Karen">For Karen</div>
-    <h1 data-en="We carry<br>it together." data-fr="On porte<br>ça ensemble.">We carry<br>it together.</h1>
-    <p data-en="Karen has lost her father. We cannot carry her grief for her, but we can carry part of the material burden with her." data-fr="Karen a perdu son père. Nous ne pouvons pas porter son deuil à sa place, mais nous pouvons porter avec elle une partie de la charge matérielle.">Karen has lost her father. We cannot carry her grief for her, but we can carry part of the material burden with her.</p>
-    <div class="tagline" data-en="No charity. Solidarity." data-fr="Pas de charité. Solidarité.">No charity. Solidarity.</div>
-  </div>
-  <div class="progressbox">
-    <div class="goal" data-en="Collective objective" data-fr="Objectif collectif">Collective objective</div>
-    <div class="total" id="total">€0</div>
-    <div class="target" id="targetText">of €700</div>
-    <div class="bar"><div id="fill"></div></div>
-    <div class="barline"><span id="pct">0%</span><span id="remaining">€700 remaining</span></div>
-    <div class="stats">
-      <div class="stat"><b id="count">0</b><span data-en="confirmed contributors" data-fr="contributeurs confirmés">confirmed contributors</span></div>
-      <div class="stat"><b id="next">€175</b><span data-en="next milestone" data-fr="prochain palier">next milestone</span></div>
-    </div>
-  </div>
-</section>
-
-<div class="grid">
-  <section class="card">
-    <h2 data-en="Confirmed contributions" data-fr="Contributions confirmées">Confirmed contributions</h2>
-    <div class="sub" data-en="Names appear only with consent." data-fr="Les noms apparaissent uniquement avec accord.">Names appear only with consent.</div>
-    <div class="ledger" id="ledger"></div>
-  </section>
-
-  <section class="card why">
-    <h2 data-en="Why we are doing this" data-fr="Pourquoi nous faisons cela">Why we are doing this</h2>
-    <p data-en="<strong>First objective:</strong> help cover Karen's trip to Ghana. Everything beyond that helps with funeral and mourning costs." data-fr="<strong>Premier objectif :</strong> contribuer au voyage de Karen vers le Ghana. Tout surplus aide ensuite à couvrir les dépenses liées aux funérailles et au deuil."><strong>First objective:</strong> help cover Karen's trip to Ghana. Everything beyond that helps with funeral and mourning costs.</p>
-    <div class="quote" data-en="Solidarity means collectivizing the pain, the joy and the effort." data-fr="La solidarité, c’est collectiviser la peine, la joie et l’effort.">Solidarity means collectivizing the pain, the joy and the effort.</div>
-  </section>
-</div>
-
-<section class="card" style="margin-top:16px">
-  <h2 data-en="How the tracker works" data-fr="Comment fonctionne le suivi">How the tracker works</h2>
-  <div class="steps">
-    <div class="step"><b data-en="1. Contribute what you can" data-fr="1. Contribuez selon vos moyens">1. Contribute what you can</b><span data-en="No fixed amount and no ranking." data-fr="Aucun montant imposé et aucun classement.">No fixed amount and no ranking.</span></div>
-    <div class="step"><b data-en="2. Confirm with Foko" data-fr="2. Confirmez avec Foko">2. Confirm with Foko</b><span data-en="Only confirmed contributions enter the public total." data-fr="Seules les contributions confirmées entrent dans le total public.">Only confirmed contributions enter the public total.</span></div>
-    <div class="step"><b data-en="3. Choose your privacy" data-fr="3. Choisissez votre confidentialité">3. Choose your privacy</b><span data-en="Your name can appear, or the contribution can stay anonymous." data-fr="Votre nom peut apparaître, ou la contribution peut rester anonyme.">Your name can appear, or the contribution can stay anonymous.</span></div>
-  </div>
-</section>
-
-<p class="note" id="updated"></p>
-<p class="note" data-en="This is a transparency tracker, not a payment page. No bank, PayPal or transaction details are published here." data-fr="Ceci est un outil de transparence, pas une page de paiement. Aucune coordonnée bancaire, PayPal ou donnée de transaction n’est publiée ici.">This is a transparency tracker, not a payment page. No bank, PayPal or transaction details are published here.</p>
-
-<footer><span>The Red Banner Is Raised</span><span style="display:flex;align-items:center;gap:12px"><button id="adminBtn" type="button" style="border:0;background:transparent;color:var(--muted);font-size:.76rem;font-weight:800;padding:6px 0">Organizer</button><span class="symbols">🚩🏴 Ⓐ ☭</span></span></footer>
-<dialog id="adminDialog" style="border:1px solid var(--line);border-radius:18px;padding:0;width:min(620px,calc(100% - 24px));max-height:88vh;overflow:auto;box-shadow:0 28px 90px #0003">
-  <div style="padding:22px">
-    <div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start">
-      <div><h2 style="margin:0 0 5px">Organizer panel</h2><p style="margin:0;color:var(--muted);font-size:.8rem">Private contributor management.</p></div>
-      <button id="adminClose" type="button" aria-label="Close" style="border:0;background:#eee7dc;width:32px;height:32px;border-radius:50%">×</button>
-    </div>
-    <div id="adminMount" style="margin-top:18px"></div>
-  </div>
-</dialog>
-<script src="./config.js" defer></script>
-<script src="./admin.js" defer></script>
-</div>
-
-<script>
-const TARGET=700;
-let lang='en';
-const euro=n=>new Intl.NumberFormat(lang==='fr'?'fr-FR':'de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
-const fmtDate=s=>{if(!s)return '';const d=new Date(s+'T12:00:00');return new Intl.DateTimeFormat(lang==='fr'?'fr-FR':'en-GB',{day:'numeric',month:'short',year:'numeric'}).format(d)};
-function applyLang(){
- document.documentElement.lang=lang;
- document.querySelectorAll('[data-en]').forEach(el=>{const value=el.dataset[lang]; if(value!==undefined) el.innerHTML=value});
- document.getElementById('enBtn').classList.toggle('active',lang==='en');
- document.getElementById('frBtn').classList.toggle('active',lang==='fr');
- if(window.__fund) render(window.__fund);
-}
-document.getElementById('enBtn').onclick=()=>{lang='en';applyLang()};
-document.getElementById('frBtn').onclick=()=>{lang='fr';applyLang()};
-function render(d){
- window.__fund=d;
- const rows=(d.contributions||[]).filter(x=>['confirmed','received'].includes(x.status||'confirmed') && Number(x.amount)>0);
- const total=rows.reduce((s,x)=>s+Number(x.amount),0);
- const remaining=Math.max(0,TARGET-total), pct=Math.min(100,total/TARGET*100);
- document.getElementById('total').textContent=euro(total);
- document.getElementById('targetText').textContent=(lang==='fr'?'sur ':'of ')+euro(TARGET);
- document.getElementById('pct').textContent=(Math.round(pct*10)/10).toLocaleString(lang==='fr'?'fr-FR':'en-GB')+'%';
- document.getElementById('remaining').textContent=remaining>0 ? euro(remaining)+' '+(lang==='fr'?'restants':'remaining') : (lang==='fr'?'Objectif atteint':'Goal reached');
- document.getElementById('count').textContent=rows.length;
- document.getElementById('fill').style.width=pct+'%';
- const levels=[175,350,525,700], next=levels.find(v=>v>total);
- document.getElementById('next').textContent=next?euro(next):(lang==='fr'?'Atteint':'Reached');
- const ledger=document.getElementById('ledger');
- if(!rows.length){
-   ledger.innerHTML='<div class="empty">'+(lang==='fr'?'Aucune contribution confirmée pour le moment.':'No confirmed contribution yet.')+'</div>';
- }else{
-   ledger.innerHTML=rows.slice().reverse().map(x=>{
-     const name=(x.publicNameConsent===true && x.name)?x.name:(lang==='fr'?'Anonyme':'Anonymous');
-     const initials=name==='Anonymous'||name==='Anonyme'?'•':name.trim().charAt(0).toUpperCase();
-     return '<div class="entry"><div class="avatar">'+initials+'</div><div><div class="name">'+name+'</div><div class="meta">'+fmtDate(x.date)+'</div></div><div class="amt">'+euro(Number(x.amount))+'</div></div>';
-   }).join('');
- }
- document.getElementById('updated').textContent=(lang==='fr'?'Dernière mise à jour : ':'Last updated: ')+(d.updated?fmtDate(String(d.updated).slice(0,10)):'—');
-}
-fetch('./data.json?ts='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('load');return r.json()}).then(render).catch(()=>{
- document.getElementById('ledger').innerHTML='<div class="empty">'+(lang==='fr'?'Impossible de charger le suivi. Réessayez en actualisant la page.':'Could not load the tracker. Please refresh the page.')+'</div>';
-});
-applyLang();
-</script>
-</body>
-</html>
+:root{--bg:#f4efe6;--paper:#fffdf8;--ink:#17191c;--muted:#6b6f73;--red:#9f2637;--red2:#c8515b;--green:#2d5745;--gold:#d4a85b;--line:#ddd5ca;--soft:#eee8df;--refund:#8d3240;--ok:#34644e}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 5%,#9f263712,transparent 28%),var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,select{font:inherit}.topline{height:7px;background:linear-gradient(90deg,var(--red) 0 50%,var(--ink) 50% 76%,var(--green) 76%)}.shell{width:min(1160px,calc(100% - 28px));margin:auto;padding:18px 0 52px}header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding-bottom:18px}.brand strong{display:block;font-size:.88rem;letter-spacing:.08em}.brand span{display:block;font-size:.67rem;color:var(--muted);margin-top:3px}.actions{display:flex;align-items:center;gap:8px}.lang{display:flex;background:#e8e2d9;padding:3px;border-radius:11px}.lang button{border:0;background:transparent;padding:8px 10px;border-radius:8px;font-size:.75rem;font-weight:850;color:var(--muted)}.lang button.active{background:#fff;color:var(--ink)}.organizer{border:1px solid var(--line);background:var(--paper);padding:9px 12px;border-radius:11px;font-weight:850}.hero{display:grid;grid-template-columns:1.08fr .92fr;border-radius:30px;overflow:hidden;background:var(--paper);border:1px solid var(--line);box-shadow:0 18px 55px #231c1617}.story{padding:clamp(30px,5vw,60px)}.eyebrow{font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(3.5rem,7.8vw,6.8rem);line-height:.87;letter-spacing:-.055em;margin:.6rem 0 1.35rem}.story p{max-width:620px;font-size:1.02rem;line-height:1.68;color:#50545a}.manifesto{display:inline-flex;margin-top:21px;padding:10px 13px;border-radius:999px;border:1px solid var(--line);font-size:.77rem;font-weight:900}.tracker{background:var(--ink);color:#fff;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;justify-content:center}.tracker .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:#e2ba6a}.big{font-size:clamp(4.2rem,9vw,7.2rem);line-height:.9;font-weight:950;letter-spacing:-.07em;margin:14px 0 2px}.target{color:#d4d1ca;font-weight:750}.progress{height:17px;border-radius:99px;background:#ffffff18;overflow:hidden;margin:26px 0 10px;border:1px solid #ffffff19}.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--red2),var(--gold));transition:width .5s}.progressMeta{display:flex;justify-content:space-between;gap:12px;font-size:.77rem;color:#d5d1c9;font-weight:800}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}.stat{padding:14px;border-radius:15px;background:#ffffff08;border:1px solid #ffffff14}.stat b{display:block;font-size:1.45rem}.stat span{font-size:.68rem;color:#cfcac2}.sectionGrid{display:grid;grid-template-columns:1.18fr .82fr;gap:16px;margin-top:16px}.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 8px 30px #231c160a}.cardHead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}.cardHead h2{margin:0;font-size:1.18rem}.cardHead p{margin:4px 0 0;color:var(--muted);font-size:.76rem}.pill{font-size:.68rem;font-weight:850;padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--muted)}.entry{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.entry:last-child{border-bottom:0}.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#eee7dc;color:var(--red);font-weight:900}.name{font-weight:850}.meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;font-size:.72rem;color:var(--muted);margin-top:2px}.statusBadge{padding:3px 6px;border-radius:99px;font-size:.64rem;font-weight:850;text-transform:uppercase}.statusBadge.refund{background:#f5e4e6;color:var(--refund)}.statusBadge.ok{background:#e8f1ec;color:var(--ok)}.amount{font-weight:950}.amount.refund{color:var(--refund)}.empty{text-align:center;padding:28px 8px;color:var(--muted)}.transparency{background:var(--green);color:#fff;border:0}.transparency h2{font-family:Georgia,serif;font-size:2.15rem;line-height:1.05;margin:0 0 14px}.transparency p{color:#dfe9e3;line-height:1.6}.quote{font-size:1.2rem;font-weight:900;line-height:1.3;margin-top:18px}.refundBox{margin-top:18px;padding:14px;border-radius:14px;background:#ffffff10;border:1px solid #ffffff1b}.refundBox b{display:block;margin-bottom:5px}.refundBox span{font-size:.78rem;color:#dce6e0}.how{margin-top:16px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.step{background:var(--soft);border-radius:15px;padding:16px}.step .n{font-size:.68rem;color:var(--red);font-weight:950}.step b{display:block;margin:5px 0}.step span{font-size:.76rem;color:var(--muted)}.note{font-size:.75rem;color:var(--muted);margin:16px 4px 0}footer{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-weight:850}.symbols{font-size:1.25rem}dialog{border:1px solid var(--line);border-radius:20px;padding:0;width:min(760px,calc(100% - 24px));max-height:90vh;overflow:auto;box-shadow:0 28px 100px #0003}dialog::backdrop{background:#1118;backdrop-filter:blur(5px)}#adminTopFloat{display:none!important}
+@media(max-width:780px){.shell{width:min(100% - 20px,1160px)}.brand strong{font-size:.77rem}.brand span{font-size:.61rem}.organizer{font-size:.72rem;padding:8px 10px}.hero,.sectionGrid{grid-template-columns:1fr}.story{padding:30px 22px 26px}h1{font-size:clamp(3.35rem,17vw,4.8rem)}.tracker{padding:28px 22px}.big{font-size:4.7rem}.steps{grid-template-columns:1fr}.card{padding:19px}}@media(max-width:430px){.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.actions{gap:5px}.lang button{padding:7px 8px}.organizer{font-size:.68rem}.entry{grid-template-columns:34px 1fr auto}.avatar{width:32px;height:32px}}
+</style></head><body><div class="topline"></div><main class="shell">
+<header><div class="brand"><strong>THE RED BANNER IS RAISED</strong><span>Solidarity for Karen · Solidarité avec Karen</span></div><div class="actions"><button class="organizer" id="adminBtn" type="button" data-en="Organizer" data-fr="Organisateur">Organizer</button><div class="lang"><button id="enBtn" class="active">EN</button><button id="frBtn">FR</button></div></div></header>
+<section class="hero"><div class="story"><div class="eyebrow" data-en="For Karen" data-fr="Pour Karen">For Karen</div><h1 data-en="We carry<br>it together." data-fr="On porte<br>ça ensemble.">We carry<br>it together.</h1><p data-en="Karen has lost her father. We cannot carry her grief for her, but we can make sure she does not carry all of the material burden alone." data-fr="Karen a perdu son père. Nous ne pouvons pas porter son deuil à sa place, mais nous pouvons faire en sorte qu’elle ne porte pas seule toute la charge matérielle.">Karen has lost her father. We cannot carry her grief for her, but we can make sure she does not carry all of the material burden alone.</p><div class="manifesto" data-en="No charity. Solidarity." data-fr="Pas de charité. Solidarité.">No charity. Solidarity.</div></div>
+<div class="tracker"><div class="label" data-en="Net collective fund" data-fr="Fonds collectif net">Net collective fund</div><div class="big" id="total">€0</div><div class="target" id="targetText">of €700</div><div class="progress"><div id="fill"></div></div><div class="progressMeta"><span id="pct">0%</span><span id="remaining">€700 remaining</span></div><div class="stats"><div class="stat"><b id="count">0</b><span data-en="contributors" data-fr="contributeurs">contributors</span></div><div class="stat"><b id="refundTotal">€0</b><span data-en="refunded" data-fr="remboursé">refunded</span></div><div class="stat"><b id="next">€175</b><span data-en="next milestone" data-fr="prochain palier">next milestone</span></div></div></div></section>
+<div class="sectionGrid"><section class="card"><div class="cardHead"><div><h2 data-en="Collective ledger" data-fr="Registre collectif">Collective ledger</h2><p data-en="Confirmed support and refunds are shown transparently." data-fr="Les contributions confirmées et les remboursements sont affichés de manière transparente.">Confirmed support and refunds are shown transparently.</p></div><span class="pill" data-en="LIVE" data-fr="EN DIRECT">LIVE</span></div><div id="ledger"></div></section>
+<section class="card transparency"><h2 data-en="Solidarity, not charity." data-fr="De la solidarité, pas de la charité.">Solidarity, not charity.</h2><p data-en="<strong>First priority:</strong> help cover Karen’s trip to Ghana. Anything beyond travel contributes to funeral and mourning costs." data-fr="<strong>Première priorité :</strong> contribuer au voyage de Karen vers le Ghana. Tout ce qui dépasse le voyage contribue aux frais des funérailles et du deuil."><strong>First priority:</strong> help cover Karen’s trip to Ghana. Anything beyond travel contributes to funeral and mourning costs.</p><div class="quote" data-en="Solidarity means collectivizing the pain, the joy and the effort." data-fr="La solidarité, c’est collectiviser la peine, la joie et l’effort.">Solidarity means collectivizing the pain, the joy and the effort.</div><div class="refundBox"><b data-en="Transparent corrections" data-fr="Corrections transparentes">Transparent corrections</b><span data-en="Refunds are shown publicly and deducted from the net total. Pending and cancelled entries do not count." data-fr="Les remboursements sont affichés publiquement et déduits du total net. Les contributions en attente ou annulées ne comptent pas.">Refunds are shown publicly and deducted from the net total. Pending and cancelled entries do not count.</span></div></section></div>
+<section class="card how"><div class="cardHead"><div><h2 data-en="How it works" data-fr="Comment ça marche">How it works</h2><p data-en="Simple for contributors. Transparent for everyone." data-fr="Simple pour les contributeurs. Transparent pour tout le monde.">Simple for contributors. Transparent for everyone.</p></div></div><div class="steps"><div class="step"><div class="n">01</div><b data-en="Contribute what you can" data-fr="Contribuez selon vos moyens">Contribute what you can</b><span data-en="No minimum and no ranking." data-fr="Aucun minimum et aucun classement.">No minimum and no ranking.</span></div><div class="step"><div class="n">02</div><b data-en="Confirm with Foko" data-fr="Confirmez avec Foko">Confirm with Foko</b><span data-en="Only verified contributions enter the fund." data-fr="Seules les contributions vérifiées entrent dans le fonds.">Only verified contributions enter the fund.</span></div><div class="step"><div class="n">03</div><b data-en="Choose your privacy" data-fr="Choisissez votre confidentialité">Choose your privacy</b><span data-en="Your name can be public or anonymous." data-fr="Votre nom peut être public ou anonyme.">Your name can be public or anonymous.</span></div></div></section>
+<p class="note" id="updated"></p><p class="note" data-en="This tracker is not a payment page. No bank, PayPal or transaction details are published." data-fr="Ce suivi n’est pas une page de paiement. Aucune coordonnée bancaire, PayPal ou donnée de transaction n’est publiée.">This tracker is not a payment page. No bank, PayPal or transaction details are published.</p>
+<footer><span>The Red Banner Is Raised</span><span class="symbols">🚩🏴 Ⓐ ☭</span></footer>
+<dialog id="adminDialog"><div style="padding:22px"><div style="display:flex;justify-content:space-between;gap:15px;align-items:flex-start"><div><h2 style="margin:0 0 5px">Organizer dashboard</h2><p style="margin:0;color:var(--muted);font-size:.8rem">Private fund administration.</p></div><button id="adminClose" type="button" aria-label="Close" style="border:0;background:#eee7dc;width:34px;height:34px;border-radius:50%;font-size:1.2rem">×</button></div><div id="adminMount" style="margin-top:18px"></div></div></dialog>
+<script src="./config.js"></script><script>
+const DEFAULT_TARGET=700;let lang='en';const euro=n=>new Intl.NumberFormat(lang==='fr'?'fr-FR':'de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);const fmtDate=s=>{if(!s)return'';const d=new Date(String(s).slice(0,10)+'T12:00:00');return new Intl.DateTimeFormat(lang==='fr'?'fr-FR':'en-GB',{day:'numeric',month:'short',year:'numeric'}).format(d)};
+function applyLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-en]').forEach(el=>{const v=el.dataset[lang];if(v!==undefined)el.innerHTML=v});enBtn.classList.toggle('active',lang==='en');frBtn.classList.toggle('active',lang==='fr');if(window.__fund)render(window.__fund)}enBtn.onclick=()=>{lang='en';applyLang()};frBtn.onclick=()=>{lang='fr';applyLang()};
+function render(d){window.__fund=d;const rows=(d.contributions||[]).filter(x=>['confirmed','received','refunded'].includes(x.status));const target=Number(d.targetCents||0)>0?Number(d.targetCents)/100:Number(d.target||DEFAULT_TARGET);const gross=rows.filter(x=>x.status!=='refunded').reduce((s,x)=>s+Number(x.amount??Number(x.amountCents||0)/100),0);const refunds=rows.filter(x=>x.status==='refunded').reduce((s,x)=>s+Number(x.amount??Number(x.amountCents||0)/100),0);const net=Math.max(0,gross-refunds),remaining=Math.max(0,target-net),pct=Math.min(100,net/target*100);total.textContent=euro(net);targetText.textContent=(lang==='fr'?'sur ':'of ')+euro(target);document.getElementById('pct').textContent=(Math.round(pct*10)/10).toLocaleString(lang==='fr'?'fr-FR':'en-GB')+'%';document.getElementById('remaining').textContent=remaining>0?euro(remaining)+' '+(lang==='fr'?'restants':'remaining'):(lang==='fr'?'Objectif atteint':'Goal reached');count.textContent=rows.filter(x=>x.status!=='refunded').length;refundTotal.textContent=euro(refunds);fill.style.width=pct+'%';const levels=[.25,.5,.75,1].map(x=>Math.round(target*x)),nx=levels.find(v=>v>net);next.textContent=nx?euro(nx):(lang==='fr'?'Atteint':'Reached');ledger.replaceChildren();if(!rows.length){const e=document.createElement('div');e.className='empty';e.textContent=lang==='fr'?'Aucune contribution confirmée.':'No confirmed contribution yet.';ledger.append(e)}else rows.slice().reverse().forEach(x=>{const val=Number(x.amount??Number(x.amountCents||0)/100),refund=x.status==='refunded',name=x.publicNameConsent===true&&x.name?x.name:(lang==='fr'?'Anonyme':'Anonymous');const e=document.createElement('div');e.className='entry';const a=document.createElement('div');a.className='avatar';a.textContent=(name==='Anonymous'||name==='Anonyme')?'•':name[0].toUpperCase();const m=document.createElement('div');const n=document.createElement('div');n.className='name';n.textContent=name;const meta=document.createElement('div');meta.className='meta';const ds=document.createElement('span');ds.textContent=fmtDate(x.date);const b=document.createElement('span');b.className='statusBadge '+(refund?'refund':'ok');b.textContent=refund?(lang==='fr'?'remboursé':'refunded'):(lang==='fr'?'confirmé':'confirmed');meta.append(ds,b);m.append(n,meta);const am=document.createElement('div');am.className='amount'+(refund?' refund':'');am.textContent=(refund?'−':'')+euro(val);e.append(a,m,am);ledger.append(e)});updated.textContent=(lang==='fr'?'Dernière mise à jour : ':'Last updated: ')+(d.updated?fmtDate(d.updated):'—')}
+applyLang();ledger.innerHTML='<div class="empty">'+(lang==='fr'?'Chargement…':'Loading live tracker…')+'</div>';
+</script><script src="./admin.js"></script></main></body></html>
