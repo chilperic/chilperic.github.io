@@ -1,139 +1,123 @@
-(()=>{const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);let secret=null,admin=null,active="overview";
-async function rpc(name,body={}){const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});const t=await r.text();if(!r.ok)throw Error(t||"request failed");return t?JSON.parse(t):null}
+(()=> {
+const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);
+let secret=null,admin=null,active="overview",campaigns=null,audit=null;
+
+async function rpc(name,body={}){
+ const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});
+ const txt=await r.text();if(!r.ok)throw Error(txt||"request_failed");return txt?JSON.parse(txt):null
+}
 async function digest(v){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
-async function refreshPublic(){try{const d=await rpc("karen_public_state");if(typeof window.render==="function")window.render(d)}catch{}}
-window.refreshKarenFund=refreshPublic;refreshPublic();setInterval(refreshPublic,30000);
+async function adminAction(action){return rpc("karen_admin_action",{p_secret_digest:secret,p_action:action})}
+async function campaignAction(action){return rpc("solidarity_campaign_action",{p_secret_digest:secret,p_action:action})}
+async function refreshPublic(){if(window.refreshKarenFund)await window.refreshKarenFund()}
+async function reload(){admin=await adminAction({action:"list"});renderAdmin();await refreshPublic()}
+async function loadCampaigns(){campaigns=await campaignAction({action:"list"});return campaigns}
+async function loadAudit(){audit=await rpc("solidarity_admin_audit",{p_secret_digest:secret});return audit}
 
 const css=document.createElement("style");css.textContent=`
-.admLogin{max-width:440px;margin:24px auto 10px;padding:22px;background:#fffaf2;border:1px solid #cfc5b8;border-radius:16px}
-.admLogin h3{margin:0 0 8px;font-size:1.05rem}.admLogin p{margin:0 0 16px;color:#837b73;font-size:.78rem;line-height:1.45}
-.admTabs{display:flex;gap:6px;overflow:auto;padding-bottom:8px;margin-bottom:14px;border-bottom:1px solid #cfc5b8}.admTab{border:0;background:#e8dfd4;color:#5f5852;padding:8px 10px;border-radius:999px;font-size:.7rem;font-weight:900;white-space:nowrap}.admTab.active{background:#151317;color:#fff}
-.admHead{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.admHead strong{font-size:1rem}.admHead small{display:block;color:#837b73;margin-top:3px}
-.admBtn{border:0;background:#151317;color:#fff;padding:9px 11px;border-radius:9px;font-weight:900;font-size:.74rem}.admBtn.alt{background:#fff;color:#151317;border:1px solid #cfc5b8}.admBtn.danger{background:#75202d}
-.admGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.admField{display:grid;gap:5px;font-size:.7rem;font-weight:900;color:#514c48}.admField input,.admField select,.admField textarea{width:100%;min-width:0;border:1px solid #cfc5b8;background:#fff;padding:9px 10px;border-radius:9px}.admField textarea{min-height:78px;resize:vertical}
-.admPanel{background:#fffaf2;border:1px solid #cfc5b8;border-radius:14px;padding:14px;margin-bottom:12px}.admPanel h4{margin:0 0 10px;font-size:.88rem}.admHint{font-size:.72rem;color:#837b73;line-height:1.45}.admStatus{font-size:.72rem;color:#837b73;margin-top:8px}
-.admMetrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.admMetric{padding:12px;border-radius:12px;background:#ebe3d7}.admMetric b{display:block;font-size:1.2rem}.admMetric span{font-size:.64rem;color:#837b73}
-.admList{display:grid}.admRow{padding:14px 0;border-bottom:1px solid #cfc5b8}.admRow:last-child{border-bottom:0}.admRowTop{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}.admRowTop b{font-size:.86rem}.admRowTop span{font-size:.8rem;font-weight:900}
-.admActions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
-@media(max-width:720px){.admGrid{grid-template-columns:1fr}.admMetrics{grid-template-columns:1fr 1fr}.admHead{align-items:flex-start}.admRowTop{align-items:flex-start;flex-direction:column}}
+.admin-login{max-width:460px;margin:28px auto;padding:24px;border:1px solid #d2c8bc;border-radius:16px;background:#fffaf3}.admin-login h3{margin:0 0 7px}.admin-login p{color:#746d67;font-size:.76rem;line-height:1.5;margin:0 0 16px}
+.admin-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.admin-head strong{display:block}.admin-head small{display:block;color:#746d67;font-size:.68rem;margin-top:3px}
+.admin-tabs{display:flex;gap:6px;overflow:auto;padding-bottom:10px;border-bottom:1px solid #d2c8bc;margin-bottom:15px}.admin-tab{border:0;border-radius:999px;padding:8px 10px;background:#e9e1d7;color:#625b55;font-size:.67rem;font-weight:900;white-space:nowrap}.admin-tab.active{background:#111014;color:#fff}
+.admin-panel{border:1px solid #d2c8bc;background:#fffaf3;border-radius:14px;padding:15px;margin-bottom:12px}.admin-panel h4{margin:0 0 10px;font-size:.88rem}.admin-panel h5{margin:0 0 8px;font-size:.78rem}.admin-hint{font-size:.7rem;color:#746d67;line-height:1.5;margin-bottom:10px}
+.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.admin-field{display:grid;gap:5px;font-size:.68rem;font-weight:900;color:#514b46}.admin-field input,.admin-field select,.admin-field textarea{width:100%;min-width:0;border:1px solid #d2c8bc;background:#fff;border-radius:9px;padding:9px}.admin-field textarea{min-height:82px;resize:vertical}
+.admin-btn{border:0;border-radius:9px;padding:9px 11px;background:#111014;color:#fff;font-size:.71rem;font-weight:900}.admin-btn.alt{background:#fff;color:#111014;border:1px solid #d2c8bc}.admin-btn.red{background:#74202d}.admin-btn.green{background:#295846}
+.admin-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.admin-status{font-size:.68rem;color:#746d67;margin-top:7px}
+.admin-metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.admin-metric{padding:12px;border-radius:12px;background:#ece3d7}.admin-metric b{display:block;font-size:1.15rem}.admin-metric span{font-size:.61rem;color:#746d67}
+.admin-row{padding:13px 0;border-bottom:1px solid #d2c8bc}.admin-row:last-child{border-bottom:0}.admin-row-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:8px}.admin-row-head b{font-size:.82rem}.admin-row-head span{font-size:.72rem;font-weight:900}
+.source-chip{display:inline-flex;margin-left:6px;padding:3px 6px;border-radius:999px;background:#e4eaf0;color:#536273;font-size:.55rem;font-weight:900;text-transform:uppercase}
+.audit-list{display:grid}.audit-item{display:grid;grid-template-columns:90px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid #d2c8bc;font-size:.68rem}.audit-item code{font-size:.62rem}.audit-item time{color:#746d67}
+.campaign-card{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid #d2c8bc;border-radius:12px;margin-top:8px}.campaign-card.active{background:#dfeae4;border-color:#bfd2c5}.campaign-card strong{display:block}.campaign-card span{font-size:.68rem;color:#746d67}
+@media(max-width:760px){.admin-grid{grid-template-columns:1fr}.admin-metrics{grid-template-columns:1fr 1fr}.audit-item{grid-template-columns:1fr}.admin-row-head{align-items:flex-start;flex-direction:column}}
 `;document.head.append(css);
 
 const dialog=$("adminDialog"),mount=$("adminMount");
+const make=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
+const input=(type,value="")=>{const e=document.createElement("input");e.type=type;e.value=value??"";return e};
+const field=(label,control)=>{const w=make("label",undefined,"admin-field");w.append(make("span",label),control);return w};
+const button=(text,fn,kind="")=>{const b=make("button",text,"admin-btn"+(kind?" "+kind:""));b.type="button";b.onclick=fn;return b};
+const money=c=>new Intl.NumberFormat(undefined,{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(Number(c||0)/100);
+const msg=()=>make("div","", "admin-status");
+
 const open=()=>{dialog.showModal();secret?renderAdmin():login()};
 $("adminBtn").onclick=open;$("adminClose").onclick=()=>dialog.close();
 
-const make=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
-const inp=(type,value="")=>{const i=document.createElement("input");i.type=type;i.value=value??"";return i};
-const field=(label,control)=>{const w=make("label",undefined,"admField");w.append(make("span",label),control);return w};
-const button=(text,fn,kind="")=>{const b=make("button",text,"admBtn"+(kind?" "+kind:""));b.type="button";b.onclick=fn;return b};
-
 function login(){
- mount.replaceChildren();const box=make("div",undefined,"admLogin");box.append(make("h3","Organizer access"),make("p","Use the private organizer password to manage contributions, refunds, privacy, the target and security."));
- const pass=inp("password");pass.autocomplete="current-password";const msg=make("div","", "admStatus");const unlock=button("Unlock dashboard",async()=>{msg.textContent="Checking…";try{secret=await digest(pass.value);admin=await rpc("karen_admin_action",{p_secret_digest:secret,p_action:{action:"list"}});renderAdmin()}catch{secret=null;msg.textContent="Incorrect password or admin service unavailable."}});
- box.append(field("Password",pass),unlock,msg);mount.append(box);pass.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();unlock.click()}});setTimeout(()=>pass.focus(),50)
+ mount.replaceChildren();const box=make("div",undefined,"admin-login");box.append(make("h3","Organizer access"),make("p","Private administration for campaigns, contributions, PayPal refunds, milestones, expenses, updates, reports and security."));
+ const pass=input("password");pass.autocomplete="current-password";const m=msg();const unlock=button("Unlock control room",async()=>{m.textContent="Checking…";try{secret=await digest(pass.value);admin=await adminAction({action:"list"});renderAdmin()}catch{secret=null;m.textContent="Incorrect password or admin service unavailable."}});
+ box.append(field("Password",pass),unlock,m);mount.append(box);pass.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();unlock.click()}});setTimeout(()=>pass.focus(),50)
 }
-
-async function reload(){admin=await rpc("karen_admin_action",{p_secret_digest:secret,p_action:{action:"list"}});renderAdmin();await refreshPublic()}
-async function save(action,msg){msg.textContent="Saving…";try{await rpc("karen_admin_action",{p_secret_digest:secret,p_action:action});await reload()}catch{msg.textContent="Could not save changes."}}
-
-async function paypalRefund(captureId,amountCents,msg){
-  if(!captureId||!(amountCents>0)){msg.textContent="Enter a valid refund amount.";return}
-  if(!confirm("Send this refund through PayPal? This action cannot be undone here."))return;
-  msg.textContent="Processing PayPal refund…";
-  try{
-    const r=await fetch("/api/paypal",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"refund",adminSecretDigest:secret,captureId,amountCents})});
-    const d=await r.json().catch(()=>({}));
-    if(!r.ok)throw Error(d.error||"refund_failed");
-    msg.textContent=d.status==="COMPLETED"?"Refund completed and recorded.":"Refund submitted to PayPal and recorded.";
-    await reload();
-  }catch(e){msg.textContent="PayPal refund failed. No local refund was added."}
+async function save(action,m){m.textContent="Saving…";try{await adminAction(action);m.textContent="Saved.";await reload()}catch{m.textContent="Could not save changes."}}
+async function paypalRefund(captureId,amountCents,m){
+ if(!captureId||!(amountCents>0)){m.textContent="Enter a valid refund amount.";return}
+ if(!confirm("Send this refund through PayPal?"))return;
+ m.textContent="Processing PayPal refund…";
+ try{const r=await fetch("/api/paypal",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"refund",adminSecretDigest:secret,captureId,amountCents})});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.error||"refund_failed");m.textContent="Refund submitted and recorded.";await reload()}catch{m.textContent="PayPal refund failed. No local refund was added."}
 }
-
 function tabs(){
- const t=make("div",undefined,"admTabs");
- [["overview","Overview"],["add","Add"],["manage","Manage"],["settings","Settings"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admTab"+(active===id?" active":""));b.type="button";b.onclick=()=>{active=id;renderAdmin()};t.append(b)});return t
+ const t=make("div",undefined,"admin-tabs");
+ [["overview","Overview"],["contributions","Contributions"],["campaign","Campaign"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();renderAdmin()};t.append(b)});return t
 }
-
-function overview(){
- const wrap=make("div");const rows=admin.contributions||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const panel=make("div",undefined,"admPanel");panel.append(make("h4","Fund overview"));const m=make("div",undefined,"admMetrics");[[net/100,"Net total"],[rows.filter(x=>["confirmed","received"].includes(x.status)).length,"Confirmed"],[refunds/100,"Refunded"],[(admin.targetCents||70000)/100,"Target"]].forEach(([v,l],i)=>{const c=make("div",undefined,"admMetric");c.append(make("b",i===1?String(v):new Intl.NumberFormat(undefined,{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(v)),make("span",l));m.append(c)});panel.append(m);wrap.append(panel);
- const recent=make("div",undefined,"admPanel");recent.append(make("h4","Recent records"));(rows.slice(0,5)).forEach(x=>{const r=make("div",undefined,"admRowTop");r.append(make("b",x.real_name),make("span",(x.amount_cents/100).toLocaleString(undefined,{style:"currency",currency:"EUR"})+" · "+x.status));recent.append(r)});wrap.append(recent);return wrap
+function overviewView(){
+ const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
+ const wrap=make("div");const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[net,"Net raised"],[spent,"Used"],[available,"Available"],[refunds,"Refunded"],[admin.targetCents||0,"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",money(v)),make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
+ const rec=make("div",undefined,"admin-panel");rec.append(make("h4","Recent contribution records"));rows.slice(0,6).forEach(x=>{const r=make("div",undefined,"admin-row-head");r.append(make("b",x.real_name),make("span",money(x.amount_cents)+" · "+x.status));rec.append(r)});wrap.append(rec);return wrap
 }
+function contributionsView(){
+ const wrap=make("div");
+ const add=make("div",undefined,"admin-panel");add.append(make("h4","Add manual contribution"),make("div","Use for bank transfer, cash, PayPal Pool, or any contribution you have independently verified.","admin-hint"));
+ const g=make("div",undefined,"admin-grid"),name=input("text"),amount=input("number"),date=input("date"),status=document.createElement("select"),visibility=document.createElement("select"),note=document.createElement("textarea");date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";["confirmed","received","pending"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;status.append(o)});visibility.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';g.append(field("Contributor",name),field("Amount (€)",amount),field("Date",date),field("Status",status),field("Visibility",visibility),field("Internal note",note));const m=msg();add.append(g,button("Add contribution",()=>{if(!name.value.trim()||!(Number(amount.value)>0)){m.textContent="Name and amount are required.";return}save({action:"add",real_name:name.value.trim(),amount_cents:Math.round(Number(amount.value)*100),contributed_on:date.value,status:status.value,public_name:visibility.value==="true",public_alias:visibility.value==="true"?name.value.trim():null,note:note.value.trim()||null},m)}),m);wrap.append(add);
 
-function addContribution(){
- const p=make("div",undefined,"admPanel");p.append(make("h4","Add contribution"),make("div","New entries are private by default unless you explicitly make the name public.","admHint"));const g=make("div",undefined,"admGrid");g.style.marginTop="10px";
- const name=inp("text"),amount=inp("number"),date=inp("date"),status=document.createElement("select"),visibility=document.createElement("select"),note=document.createElement("textarea");date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";["confirmed","received","pending"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;status.append(o)});visibility.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';
- g.append(field("Contributor name",name),field("Amount (€)",amount),field("Date",date),field("Status",status),field("Public visibility",visibility),field("Internal note",note));const msg=make("div","", "admStatus");const add=button("Add contribution",()=>{if(!name.value.trim()||!(Number(amount.value)>0)||!date.value){msg.textContent="Name, amount and date are required.";return}save({action:"add",real_name:name.value.trim(),amount_cents:Math.round(Number(amount.value)*100),contributed_on:date.value,status:status.value,public_name:visibility.value==="true",public_alias:visibility.value==="true"?name.value.trim():null,note:note.value.trim()||null},msg)});p.append(g,add,msg);return p
+ const manage=make("div",undefined,"admin-panel");manage.append(make("h4","Manage contributions"),make("div","PayPal API transactions keep verified amount/date locked. Pool and other manual contributions remain editable after verification.","admin-hint"));
+ (admin.contributions||[]).forEach(x=>{const paypal=x.source==="paypal",refundRow=paypal&&x.status==="refunded";const row=make("div",undefined,"admin-row");const head=make("div",undefined,"admin-row-head");const left=make("div");left.append(make("b",x.real_name),make("span",paypal?(refundRow?"PayPal refund":"PayPal API"):"Manual","source-chip"));head.append(left,make("span",money(x.amount_cents)));
+ const rg=make("div",undefined,"admin-grid"),rn=input("text",x.real_name),ra=input("number",(x.amount_cents/100).toFixed(2)),rd=input("date",x.contributed_on),rs=document.createElement("select"),rv=document.createElement("select"),rnote=document.createElement("textarea");ra.min=".01";ra.step=".01";rnote.value=x.note||"";rv.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';rv.value=x.public_name?"true":"false";const states=paypal?(refundRow?["refunded"]:["confirmed","received"]):["confirmed","received","pending","refunded","cancelled"];states.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.status===v;rs.append(o)});if(paypal){ra.readOnly=true;rd.readOnly=true}
+ rg.append(field("Name",rn),field(paypal?"Verified amount (€)":"Amount (€)",ra),field("Date",rd),field("Status",rs),field("Visibility",rv),field("Internal note",rnote));const rm=msg(),acts=make("div",undefined,"admin-actions");acts.append(button("Save",()=>save({action:"update",id:x.id,real_name:rn.value.trim(),...(paypal?{}:{amount_cents:Math.round(Number(ra.value)*100),contributed_on:rd.value,status:rs.value}),...(paypal&&!refundRow?{status:rs.value}:{}),public_name:rv.value==="true",public_alias:rv.value==="true"?rn.value.trim():null,note:rnote.value.trim()||null},rm)));
+ if(paypal&&!refundRow&&x.provider_ref){const ref=input("number",(x.amount_cents/100).toFixed(2));ref.min=".01";ref.max=(x.amount_cents/100).toFixed(2);ref.step=".01";acts.append(ref,button("Refund via PayPal",()=>paypalRefund(x.provider_ref,Math.round(Number(ref.value)*100),rm),"red"))}
+ row.append(head,rg,acts,rm);manage.append(row)});wrap.append(manage);return wrap
 }
+async function campaignView(){
+ const wrap=make("div");const c=admin.campaign||{};const edit=make("div",undefined,"admin-panel");edit.append(make("h4","Active campaign"));
+ const g=make("div",undefined,"admin-grid"),title=input("text",c.title||""),benef=input("text",c.beneficiary||""),subtitle=input("text",c.subtitle||""),status=document.createElement("select"),storyEn=document.createElement("textarea"),storyFr=document.createElement("textarea"),overEn=document.createElement("textarea"),overFr=document.createElement("textarea");["draft","active","goal_reached","closed","archived"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=c.status===v;status.append(o)});storyEn.value=c.story_en||"";storyFr.value=c.story_fr||"";overEn.value=c.overfunding_policy_en||"";overFr.value=c.overfunding_policy_fr||"";g.append(field("Title",title),field("Beneficiary",benef),field("Subtitle",subtitle),field("Status",status),field("Story EN",storyEn),field("Story FR",storyFr),field("Overfunding EN",overEn),field("Overfunding FR",overFr));const m=msg();edit.append(g,button("Save campaign",()=>save({action:"update_campaign",title:title.value,beneficiary:benef.value,subtitle:subtitle.value,status:status.value,story_en:storyEn.value,story_fr:storyFr.value,overfunding_en:overEn.value,overfunding_fr:overFr.value},m)),m);wrap.append(edit);
 
-function manage(){
- const p=make("div",undefined,"admPanel");
- p.append(make("h4","Manage contributions"),make("div","Manual records can be corrected here. PayPal-captured amounts are locked and refunds must go through PayPal so the public ledger stays reconciled with the payment provider.","admHint"));
- const list=make("div",undefined,"admList");
- (admin.contributions||[]).forEach(x=>{
-   const paypal=x.source==="paypal";
-   const paypalRefundRow=paypal&&x.status==="refunded";
-   const row=make("div",undefined,"admRow");
-   const top=make("div",undefined,"admRowTop");
-   const left=make("div");
-   const src=make("span",paypal?(paypalRefundRow?"PayPal refund":"PayPal"):"Manual");
-   src.style.cssText="display:inline-block;margin-left:7px;padding:3px 7px;border-radius:999px;background:"+(paypal?"#e4eef8":"#ebe3d7")+";color:#5f5852;font-size:.58rem;font-weight:900;text-transform:uppercase;vertical-align:middle";
-   const who=make("b",x.real_name);left.append(who,src);
-   top.append(left,make("span",(x.amount_cents/100).toLocaleString(undefined,{style:"currency",currency:"EUR"})));
-
-   const g=make("div",undefined,"admGrid");
-   const name=inp("text",x.real_name);
-   const amount=inp("number",(x.amount_cents/100).toFixed(2));
-   const date=inp("date",x.contributed_on);
-   const status=document.createElement("select");
-   const pub=document.createElement("select");
-   const note=document.createElement("textarea");
-   amount.min=".01";amount.step=".01";note.value=x.note||"";
-   pub.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';
-   pub.value=x.public_name?"true":"false";
-
-   const allowed=paypal ? (paypalRefundRow?["refunded"]:["confirmed","received"]) : ["confirmed","received","pending","refunded","cancelled"];
-   allowed.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.status===v;status.append(o)});
-
-   if(paypal){amount.readOnly=true;date.readOnly=true;amount.title="Verified PayPal amount";date.title="Recorded from PayPal";}
-
-   g.append(field("Name",name),field(paypal?"Verified amount (€)":"Amount (€)",amount),field("Date",date),field("Status",status),field("Visibility",pub),field("Internal note",note));
-   const msg=make("div","", "admStatus");
-   const actions=make("div",undefined,"admActions");
-
-   actions.append(button("Save details",()=>save({
-     action:"update",id:x.id,
-     real_name:name.value.trim(),
-     ...(paypal?{}:{amount_cents:Math.round(Number(amount.value)*100),contributed_on:date.value,status:status.value}),
-     ...(paypal&&!paypalRefundRow?{status:status.value}:{}),
-     public_name:pub.value==="true",
-     public_alias:pub.value==="true"?name.value.trim():null,
-     note:note.value.trim()||null
-   },msg)));
-
-   if(paypal&&!paypalRefundRow&&x.provider_ref){
-     const refundAmount=inp("number",(x.amount_cents/100).toFixed(2));
-     refundAmount.min=".01";refundAmount.max=(x.amount_cents/100).toFixed(2);refundAmount.step=".01";
-     refundAmount.style.cssText="max-width:130px;padding:9px;border:1px solid #cfc5b8;border-radius:9px";
-     const wrap=make("div");wrap.style.cssText="display:flex;gap:7px;align-items:center;flex-wrap:wrap";
-     wrap.append(refundAmount,button("Refund via PayPal",()=>paypalRefund(x.provider_ref,Math.round(Number(refundAmount.value)*100),msg),"danger"));
-     actions.append(wrap);
-   }
-
-   row.append(top,g,actions,msg);list.append(row);
- });
- p.append(list);return p
+ const library=make("div",undefined,"admin-panel");library.append(make("h4","Campaign library"),make("div","Create future campaigns here. Only one campaign is public/active at a time.","admin-hint"));if(!campaigns)await loadCampaigns();(campaigns?.campaigns||[]).forEach(x=>{const card=make("div",undefined,"campaign-card"+(x.is_active?" active":""));const d=make("div");d.append(make("strong",x.title),make("span",(x.status||"draft")+" · "+money(x.target_cents)));card.append(d,x.is_active?make("span","ACTIVE","source-chip"):button("Activate",async()=>{if(!confirm("Make this the public active campaign?"))return;await campaignAction({action:"activate",id:x.id});campaigns=null;admin=await adminAction({action:"list"});await loadCampaigns();renderAdmin();await refreshPublic()},"green"));library.append(card)});
+ const create=make("div",undefined,"admin-row");create.append(make("h5","Create new campaign"));const cg=make("div",undefined,"admin-grid"),ct=input("text"),cb=input("text"),cs=input("text"),cslug=input("text"),ctarget=input("number"),cstory=document.createElement("textarea"),cstoryfr=document.createElement("textarea");ctarget.min="1";ctarget.value="700";cg.append(field("Title",ct),field("Beneficiary",cb),field("Subtitle",cs),field("Slug",cslug),field("Target (€)",ctarget),field("Story EN",cstory),field("Story FR",cstoryfr));const cm=msg();create.append(cg,button("Create draft campaign",async()=>{cm.textContent="Creating…";try{await campaignAction({action:"create",title:ct.value.trim(),beneficiary:cb.value.trim(),subtitle:cs.value.trim(),slug:cslug.value.trim(),target_cents:Math.round(Number(ctarget.value)*100),currency:"EUR",theme:"assembly",story_en:cstory.value,story_fr:cstoryfr.value});campaigns=null;await loadCampaigns();cm.textContent="Campaign created.";renderAdmin()}catch{cm.textContent="Could not create campaign."}}, "alt"),cm);library.append(create);wrap.append(library);return wrap
 }
-
-function settings(){
- const p=make("div",undefined,"admPanel");p.append(make("h4","Fund target"),make("div","Change the public target without redeploying the website.","admHint"));const target=inp("number",String((admin.targetCents||70000)/100));target.min="1";target.step="1";const msg=make("div","", "admStatus");p.append(field("Target (€)",target),button("Save target",()=>save({action:"set_target",target_cents:Math.round(Number(target.value)*100)},msg)),msg);return p
+function milestonesView(){
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Milestones"),make("div","Milestones give collective progress meaning without ranking supporters.","admin-hint"));(admin.milestones||[]).forEach(x=>{const r=make("div",undefined,"admin-row-head");r.append(make("b",x.label_en),make("span",money(x.threshold_cents)));const box=make("div",undefined,"admin-row");box.append(r,button("Remove",()=>save({action:"delete_milestone",id:x.id},msg()),"alt"));p.append(box)});
+ const g=make("div",undefined,"admin-grid"),en=input("text"),fr=input("text"),threshold=input("number"),order=input("number","0");threshold.min="1";g.append(field("Label EN",en),field("Label FR",fr),field("Threshold (€)",threshold),field("Order",order));const m=msg();p.append(g,button("Add milestone",()=>save({action:"add_milestone",label_en:en.value,label_fr:fr.value,threshold_cents:Math.round(Number(threshold.value)*100),sort_order:Number(order.value)||0},m)),m);return p
 }
-
-function security(){
- const p=make("div",undefined,"admPanel");p.append(make("h4","Organizer security"),make("div","Changing the password invalidates the old one immediately. Use at least 10 characters.","admHint"));const g=make("div",undefined,"admGrid");g.style.marginTop="10px";const np=inp("password"),cp=inp("password");np.autocomplete="new-password";cp.autocomplete="new-password";g.append(field("New password",np),field("Confirm new password",cp));const msg=make("div","", "admStatus");const change=button("Change password",async()=>{if(np.value.length<10){msg.textContent="Use at least 10 characters.";return}if(np.value!==cp.value){msg.textContent="Passwords do not match.";return}msg.textContent="Changing…";try{const nd=await digest(np.value);await rpc("karen_admin_action",{p_secret_digest:secret,p_action:{action:"set_password",new_secret_digest:nd}});secret=nd;msg.textContent="Password changed successfully.";np.value="";cp.value=""}catch{msg.textContent="Could not change password."}});p.append(g,change,msg);return p
+function expensesView(){
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Expenses & disbursements"),make("div","Public recorded expenses reduce the available balance but not the amount raised.","admin-hint"));(admin.expenses||[]).forEach(x=>{const row=make("div",undefined,"admin-row-head");row.append(make("b",x.label_en),make("span",money(x.amount_cents)+" · "+x.status));const box=make("div",undefined,"admin-row");box.append(row,button("Remove",()=>save({action:"delete_expense",id:x.id},msg()),"alt"));p.append(box)});
+ const g=make("div",undefined,"admin-grid"),en=input("text"),fr=input("text"),amount=input("number"),date=input("date"),noteEn=document.createElement("textarea"),noteFr=document.createElement("textarea");date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";g.append(field("Label EN",en),field("Label FR",fr),field("Amount (€)",amount),field("Date",date),field("Public note EN",noteEn),field("Public note FR",noteFr));const m=msg();p.append(g,button("Record expense",()=>save({action:"add_expense",label_en:en.value,label_fr:fr.value,amount_cents:Math.round(Number(amount.value)*100),spent_on:date.value,status:"recorded",note_en:noteEn.value,note_fr:noteFr.value},m)),m);return p
 }
-
-function renderAdmin(){
- mount.replaceChildren();const h=make("div",undefined,"admHead");const title=make("div");title.append(make("strong","Organizer control room"),make("small","Private live administration"));h.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";login()},"alt"));mount.append(h,tabs());
- const view=active==="add"?addContribution():active==="manage"?manage():active==="settings"?settings():active==="security"?security():overview();mount.append(view)
+function updatesView(){
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign updates"),make("div","Publish short progress notes without changing the campaign story.","admin-hint"));(admin.updates||[]).forEach(x=>{const box=make("div",undefined,"admin-row");const row=make("div",undefined,"admin-row-head");row.append(make("b",x.title_en),make("span",new Date(x.published_at).toLocaleDateString()));box.append(row,button("Remove",()=>save({action:"delete_update",id:x.id},msg()),"alt"));p.append(box)});
+ const g=make("div",undefined,"admin-grid"),te=input("text"),tf=input("text"),be=document.createElement("textarea"),bf=document.createElement("textarea");g.append(field("Title EN",te),field("Title FR",tf),field("Body EN",be),field("Body FR",bf));const m=msg();p.append(g,button("Publish update",()=>save({action:"add_update",title_en:te.value,title_fr:tf.value,body_en:be.value,body_fr:bf.value,is_public:true},m)),m);return p
+}
+function reportsView(){
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Reports & exports"),make("div","Create portable records for archiving, group reporting or future migration.","admin-hint"));const acts=make("div",undefined,"admin-actions");
+ acts.append(button("Export full JSON",()=>{const blob=new Blob([JSON.stringify(admin,null,2)],{type:"application/json"});download(blob,(admin.campaign?.slug||"campaign")+"-private.json")}),
+ button("Export contributions CSV",()=>{const rows=[["Name","Amount EUR","Date","Status","Public","Source","Note"],...(admin.contributions||[]).map(x=>[x.real_name,(x.amount_cents/100).toFixed(2),x.contributed_on,x.status,x.public_name?"yes":"no",x.source||"manual",x.note||""])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(",")).join("\n");download(new Blob([csv],{type:"text/csv"}),(admin.campaign?.slug||"campaign")+"-contributions.csv")},"alt"));
+ p.append(acts);return p
+}
+function download(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function securityView(){
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Organizer security"),make("div","Change the organizer password. The old password stops working immediately.","admin-hint"));const g=make("div",undefined,"admin-grid"),np=input("password"),cp=input("password");np.autocomplete=cp.autocomplete="new-password";g.append(field("New password",np),field("Confirm password",cp));const m=msg();p.append(g,button("Change password",async()=>{if(np.value.length<10){m.textContent="Use at least 10 characters.";return}if(np.value!==cp.value){m.textContent="Passwords do not match.";return}m.textContent="Changing…";try{const nd=await digest(np.value);await adminAction({action:"set_password",new_secret_digest:nd});secret=nd;np.value=cp.value="";m.textContent="Password changed."}catch{m.textContent="Could not change password."}}),m);return p
+}
+function auditView(){
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Audit trail"),make("div","Latest 100 recorded changes. This is deliberately read-only.","admin-hint"));const list=make("div",undefined,"audit-list");(audit?.audit||[]).forEach(x=>{const row=make("div",undefined,"audit-item");row.append(make("strong",x.action+" · "+x.entity_type),make("code",x.entity_id||""),make("time",new Date(x.created_at).toLocaleString()));list.append(row)});p.append(list);return p
+}
+async function renderAdmin(){
+ mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;login()},"alt"));mount.append(head,tabs());
+ let view;
+ if(active==="contributions")view=contributionsView();
+ else if(active==="campaign")view=await campaignView();
+ else if(active==="milestones")view=milestonesView();
+ else if(active==="expenses")view=expensesView();
+ else if(active==="updates")view=updatesView();
+ else if(active==="reports")view=reportsView();
+ else if(active==="security")view=securityView();
+ else if(active==="audit")view=auditView();
+ else view=overviewView();
+ mount.append(view)
 }
 })();
