@@ -1,47 +1,29 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#8f1717">
-<title>Solidarity with Karen | Solidarité avec Karen</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#851a1e"><title>Collectivize the Burden | Karen Solidarity Fund</title>
 <style>
-:root{--red:#9f1d20;--black:#161616;--cream:#f7f1e6;--paper:#fffdf8;--muted:#68625a;--line:#ded5c7;--green:#2e5142}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--black);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:760px;margin:auto;padding:28px 18px 54px}.flag{height:8px;background:linear-gradient(90deg,var(--red) 0 50%,var(--black) 50%)}
-header{padding:28px 0 18px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:800;color:var(--red)}
-h1{font-size:clamp(2rem,7vw,3.8rem);line-height:.95;margin:.35rem 0 1rem;letter-spacing:-.04em}
-.lead{font-size:1.08rem;line-height:1.55;max-width:650px}.fr{color:var(--muted)}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;margin:18px 0;box-shadow:0 8px 30px #5d4a3020}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat{padding:16px;border-radius:14px;background:#f2eadc}.num{font-size:2rem;font-weight:850}.label{font-size:.82rem;color:var(--muted)}
-.goal{font-weight:750;margin-top:10px}.bar{height:12px;background:#e4dacb;border-radius:999px;overflow:hidden;margin-top:12px}.bar>div{height:100%;background:var(--red);width:0}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 6px;border-bottom:1px solid var(--line)}th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}td.amount{text-align:right;font-weight:800}
-.empty{padding:18px 0;color:var(--muted)}.quote{border-left:5px solid var(--red);padding:4px 0 4px 16px;font-size:1.12rem;font-weight:750;line-height:1.45}
-.small{font-size:.84rem;color:var(--muted);line-height:1.5}.privacy{background:#efe8dc;padding:12px 14px;border-radius:12px}
-footer{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-weight:800}.symbols{font-size:1.3rem}
-@media(max-width:520px){.stats{grid-template-columns:1fr 1fr}th:nth-child(3),td:nth-child(3){display:none}}
-</style></head>
-<body><div class="flag"></div><main class="wrap">
-<header><div class="eyebrow">The Red Banner Is Raised · Collective solidarity tracker</div>
-<h1>Solidarity with Karen<br><span class="fr">Solidarité avec Karen</span></h1>
-<p class="lead">We are collectively helping Karen carry part of the material burden following the loss of her father. Our first objective is her flight to Ghana; anything beyond that goes toward the costs surrounding the funeral and mourning.</p>
-<p class="lead fr">Nous aidons collectivement Karen à porter une partie de la charge matérielle après le décès de son père. Notre premier objectif est son billet pour le Ghana ; tout surplus contribuera aux dépenses liées aux funérailles et au deuil.</p></header>
-<section class="card"><div class="stats"><div class="stat"><div class="num" id="total">€0</div><div class="label">Collected · Collecté</div></div><div class="stat"><div class="num" id="count">0</div><div class="label">Contributors · Contributeurs</div></div></div>
-<div class="goal" id="goal">First objective · Premier objectif: flight to Ghana · billet pour le Ghana</div><div class="bar" id="barWrap" hidden><div id="bar"></div></div></section>
-<section class="card"><h2>Contributions · Contributions</h2><div id="list"></div></section>
-<section class="card"><div class="quote">No charity. Solidarity means collectivizing the pain, the joy and the effort.<br><span class="fr">Pas de charité. La solidarité, c’est collectiviser la peine, la joie et l’effort.</span></div></section>
-<p class="small privacy">Names are shown only when the contributor agrees; otherwise the contribution appears as Anonymous / Anonyme. Payment and banking details are never displayed here.</p>
-<p class="small" id="updated"></p>
-<footer><span class="symbols">🚩🏴 Ⓐ ☭</span> &nbsp; The Red Banner Is Raised</footer>
-</main>
-<script>
-const euro=n=>new Intl.NumberFormat(undefined,{style:'currency',currency:'EUR'}).format(n);
-fetch('./data.json?ts='+Date.now()).then(r=>r.json()).then(d=>{
- const rows=(d.contributions||[]).filter(x=>Number(x.amount)>0), total=rows.reduce((s,x)=>s+Number(x.amount),0);
- document.getElementById('total').textContent=euro(total); document.getElementById('count').textContent=rows.length;
- if(d.target&&Number(d.target)>0){document.getElementById('goal').textContent='Target · Objectif: '+euro(Number(d.target))+' — '+(d.goal||'Flight to Ghana · Billet pour le Ghana');document.getElementById('barWrap').hidden=false;document.getElementById('bar').style.width=Math.min(100,total/Number(d.target)*100)+'%'}
- const list=document.getElementById('list');
- if(!rows.length){list.innerHTML='<div class="empty">No contributions recorded yet · Aucune contribution enregistrée pour le moment.</div>'}
- else {list.innerHTML='<table><thead><tr><th>Name · Nom</th><th>Date</th><th>Note</th><th style="text-align:right">Amount · Montant</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+(x.name||'Anonymous · Anonyme')+'</td><td>'+(x.date||'')+'</td><td>'+(x.note||'')+'</td><td class="amount">'+euro(Number(x.amount))+'</td></tr>').join('')+'</tbody></table>'}
- document.getElementById('updated').textContent='Last updated · Dernière mise à jour: '+(d.updated||'—');
-}).catch(()=>{document.getElementById('list').innerHTML='<div class="empty">Tracker data temporarily unavailable.</div>'});
+:root{--ink:#171513;--red:#9b2025;--red2:#c53a38;--cream:#f3ecdf;--paper:#fffaf1;--muted:#6e665d;--line:#d8ccba;--green:#315446;--gold:#c99b49}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0,#fff8e9 0,#f3ecdf 42%,#e9decd 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.topline{height:9px;background:linear-gradient(90deg,var(--red) 0 46%,#171513 46% 73%,var(--green) 73%)}
+.wrap{max-width:900px;margin:auto;padding:24px 18px 60px}.hero{position:relative;overflow:hidden;background:#171513;color:#fffaf1;border-radius:28px;padding:32px;box-shadow:0 24px 70px #4a38252e}.hero:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:var(--red);right:-120px;top:-130px;opacity:.9}.kicker{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;font-weight:850;color:#e9b85e}.hero h1{position:relative;z-index:1;font-size:clamp(2.45rem,8vw,5.2rem);line-height:.88;letter-spacing:-.055em;margin:.45rem 0 1rem;max-width:760px}.hero p{position:relative;z-index:1;max-width:650px;font-size:1.05rem;line-height:1.55;color:#e9e0d4}.fr{color:#bdb2a6}.motto{margin-top:20px;font-weight:800;color:#fff}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}.card{background:rgba(255,250,241,.93);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 10px 35px #503a2218}.card h2{margin:0 0 14px;font-size:1.05rem}.money{font-size:clamp(3rem,10vw,5.5rem);line-height:1;font-weight:900;letter-spacing:-.06em}.of{font-size:1rem;color:var(--muted);font-weight:700}.progress{height:18px;background:#e3d8c8;border-radius:99px;overflow:hidden;margin:18px 0 9px;border:1px solid #d4c6b2}.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--red2),var(--gold));transition:width .5s}.progressmeta{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;color:var(--muted);font-weight:750}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#efe5d6;border-radius:16px;padding:16px}.stat .n{font-size:1.75rem;font-weight:900}.stat .l{font-size:.76rem;color:var(--muted);line-height:1.25}
+.purpose{border-left:5px solid var(--red);padding-left:15px;line-height:1.55}.milestones{display:flex;justify-content:space-between;margin-top:16px;font-size:.72rem;color:var(--muted)}.milestones span{width:24%;text-align:center}.timeline{margin-top:16px}.row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}.who{font-weight:850}.meta{font-size:.78rem;color:var(--muted);margin-top:3px}.amt{font-weight:900;font-size:1.05rem}.empty{text-align:center;padding:30px 10px;color:var(--muted)}
+.quote{font-size:clamp(1.35rem,4vw,2rem);line-height:1.15;font-weight:900;letter-spacing:-.025em}.quote .frq{display:block;margin-top:10px;color:var(--red)}
+.notice{font-size:.83rem;line-height:1.5;color:var(--muted);margin-top:16px}.pill{display:inline-block;padding:7px 10px;border-radius:999px;background:#eadcca;font-size:.72rem;font-weight:800;margin-top:8px}
+footer{display:flex;justify-content:space-between;gap:14px;align-items:center;border-top:1px solid var(--line);margin-top:22px;padding-top:20px;font-weight:800}.symbols{font-size:1.3rem}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:26px 22px}.hero h1{font-size:clamp(2.35rem,13vw,4rem)}.money{font-size:4rem}}
+</style></head><body><div class="topline"></div><main class="wrap">
+<section class="hero"><div class="kicker">The Red Banner Is Raised · Solidarity Fund</div><h1>Collectivize<br>the burden.</h1><p>We are helping Karen carry part of the material burden following the loss of her father. First objective: her flight to Ghana. Everything collected belongs to the solidarity fund for Karen.</p><p class="fr">Nous aidons Karen à porter collectivement une partie de la charge matérielle liée au décès de son père. Premier objectif : son billet pour le Ghana.</p><div class="motto">No charity. Solidarity. · Pas de charité. Solidarité.</div></section>
+<div class="grid"><section class="card"><h2>Collective progress · Progression collective</h2><div><span class="money" id="total">€0</span> <span class="of">/ €700</span></div><div class="progress"><div id="bar"></div></div><div class="progressmeta"><span id="pct">0%</span><span id="remaining">€700 remaining · restants</span></div><div class="milestones"><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div></section>
+<section class="card"><h2>At a glance · En bref</h2><div class="stats"><div class="stat"><div class="n" id="count">0</div><div class="l">contributors<br>contributeurs</div></div><div class="stat"><div class="n" id="avg">€0</div><div class="l">average contribution<br>contribution moyenne</div></div></div><div class="purpose"><p><strong>€700 objective.</strong> First priority: help cover Karen's travel to Ghana. Any amount beyond the flight contributes to the wider funeral and mourning costs.</p><p class="fr"><strong>Objectif 700 €.</strong> Priorité au voyage de Karen vers le Ghana, puis aux autres dépenses liées aux funérailles et au deuil.</p></div></section></div>
+<section class="card timeline"><h2>Collective contributions · Contributions collectives</h2><div id="list"></div><div class="pill">Names appear only with consent · Les noms apparaissent uniquement avec accord</div></section>
+<section class="card"><div class="quote">Solidarity means collectivizing the pain, the joy and the effort.<span class="frq">La solidarité, c'est collectiviser la peine, la joie et l'effort.</span></div></section>
+<p class="notice">This page is a transparency tracker, not a payment page. No bank, PayPal or transaction details are published. Contributions may be displayed anonymously on request. Amounts are updated after confirmation.</p>
+<p class="notice" id="updated"></p>
+<footer><span>The Red Banner Is Raised</span><span class="symbols">🚩🏴 Ⓐ ☭</span></footer>
+</main><script>
+const TARGET=700, euro=n=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:2}).format(n);
+fetch('./data.json?ts='+Date.now()).then(r=>r.json()).then(d=>{const rows=(d.contributions||[]).filter(x=>Number(x.amount)>0);const total=rows.reduce((s,x)=>s+Number(x.amount),0),count=rows.length,pct=Math.min(100,total/TARGET*100),rem=Math.max(0,TARGET-total);
+document.getElementById('total').textContent=euro(total);document.getElementById('count').textContent=count;document.getElementById('avg').textContent=count?euro(total/count):euro(0);document.getElementById('pct').textContent=Math.round(pct)+'% of objective · de l’objectif';document.getElementById('remaining').textContent=euro(rem)+' remaining · restants';document.getElementById('bar').style.width=pct+'%';
+const list=document.getElementById('list');if(!rows.length)list.innerHTML='<div class="empty">The collective fund is ready for its first contribution.<br><span class="fr">Le fonds collectif attend sa première contribution.</span></div>';else list.innerHTML=rows.slice().reverse().map(x=>'<div class="row"><div><div class="who">'+(x.name||'Anonymous · Anonyme')+'</div><div class="meta">'+(x.date||'')+(x.note?' · '+x.note:'')+'</div></div><div class="amt">'+euro(Number(x.amount))+'</div></div>').join('');
+document.getElementById('updated').textContent='Last updated · Dernière mise à jour: '+(d.updated||'—');
+}).catch(()=>document.getElementById('list').innerHTML='<div class="empty">Tracker data temporarily unavailable · Données temporairement indisponibles.</div>');
 </script></body></html>
