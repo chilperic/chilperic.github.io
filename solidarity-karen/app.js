@@ -149,8 +149,13 @@ function renderMilestones(d,m){
 }
 function renderPeople(d,m){
  const sec=$("supportersSection"),wrap=$("supporterWall");const show=d.campaign?.showSupporters!==false;sec.classList.toggle("hidden",!show);wrap.replaceChildren();if(!show)return;
- const rows=m.rows.filter(x=>x.status!=="refunded").slice().sort(supporterSort);if(!rows.length){wrap.innerHTML='<div class="empty-state">'+(lang==="fr"?"Aucun soutien confirmé.":"No confirmed supporters yet.")+"</div>";return}
- rows.forEach(x=>{const publicName=x.publicNameConsent===true&&x.name,name=publicName?x.name:(lang==="fr"?"Anonyme":"Anonymous");const chip=document.createElement("div");chip.className="person-chip";const dot=document.createElement("span");dot.className="dot";dot.textContent=publicName?x.name.trim().charAt(0).toUpperCase():"•";const text=document.createElement("div");const strong=document.createElement("strong");strong.textContent=name;const meta=document.createElement("span");meta.textContent=lang==="fr"?"soutien confirmé":"confirmed support";text.append(strong,meta);chip.append(dot,text);wrap.append(chip)})
+ const rows=m.rows.filter(x=>x.status!=="refunded");if(!rows.length){wrap.innerHTML='<div class="empty-state">'+(lang==="fr"?"Aucun soutien confirmé.":"No confirmed supporters yet.")+"</div>";return}
+ const named=rows.filter(x=>x.publicNameConsent===true&&x.name).slice().sort(supporterSort);
+ const anonymousCount=rows.length-named.length;
+ const chips=named.map(x=>({kind:"named",row:x}));
+ if(anonymousCount>0)chips.push({kind:"anonymous",count:anonymousCount,id:"anonymous"});
+ chips.sort((a,b)=>supporterSort(a.row||a,b.row||b));
+ chips.forEach(item=>{const publicName=item.kind==="named",name=publicName?item.row.name:(lang==="fr"?item.count+" soutiens anonymes":item.count+" anonymous supporter"+(item.count===1?"":"s"));const chip=document.createElement("div");chip.className="person-chip";const dot=document.createElement("span");dot.className="dot";dot.textContent=publicName?item.row.name.trim().charAt(0).toUpperCase():"•";const text=document.createElement("div");const strong=document.createElement("strong");strong.textContent=name;const meta=document.createElement("span");meta.textContent=publicName?(lang==="fr"?"nom public consenti":"public name by consent"):(lang==="fr"?"identités protégées":"identities protected");text.append(strong,meta);chip.append(dot,text);wrap.append(chip)})
 }
 function renderLedger(d,m){
  const details=$("ledgerDetails"),wrap=$("ledger");const show=d.campaign?.showLedger!==false;details.classList.toggle("hidden",!show);wrap.replaceChildren();if(!show)return;
