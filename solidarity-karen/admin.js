@@ -1,6 +1,6 @@
 (()=> {
 const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);
-let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null;
+let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null;
 
 async function rpc(name,body={}){
  const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});
@@ -13,6 +13,8 @@ async function adminTools(action){return rpc("solidarity_admin_tools",{p_secret_
 async function supporterAction(action){return rpc("solidarity_admin_supporters",{p_secret_digest:secret,p_action:action})}
 async function localeAction(action){return rpc("solidarity_locale_admin",{p_secret_digest:secret,p_action:action})}
 async function addContributionAction(data){return rpc("solidarity_admin_add_contribution",{p_secret_digest:secret,p_data:data})}
+async function templateAction(action){return rpc("solidarity_template_action",{p_secret_digest:secret,p_action:action})}
+async function loadTemplates(){templatesState=await templateAction({action:"list"});return templatesState}
 async function refreshPublic(){if(window.refreshKarenFund)await window.refreshKarenFund()}
 async function reload(){admin=await adminAction({action:"list"});renderAdmin();await refreshPublic()}
 async function loadCampaigns(){campaigns=await campaignAction({action:"list"});return campaigns}
@@ -212,6 +214,19 @@ async function campaignView(){
  },m));
  edit.append(saveBtn,m);wrap.append(edit,vis);
 
+ const templates=make("div",undefined,"admin-panel");
+ templates.append(make("h4","Campaign templates"),make("div","Start a new campaign from purpose-specific defaults. New campaigns remain drafts until you activate them.","admin-hint"));
+ if(!templatesState)await loadTemplates();
+ const tsel=document.createElement("select");
+ (templatesState?.templates||[]).forEach(t=>{const o=document.createElement("option");o.value=t.slug;o.textContent=t.name+" · "+t.description;tsel.append(o)});
+ const tt=input("text"),tb=input("text"),ts=input("text"),tslug=input("text"),tgoal=input("number");tgoal.min="1";
+ const refreshTemplateDefaults=()=>{const t=(templatesState?.templates||[]).find(x=>x.slug===tsel.value);if(t?.defaults?.target_cents)tgoal.value=(Number(t.defaults.target_cents)/100).toFixed(0)};
+ tsel.onchange=refreshTemplateDefaults;refreshTemplateDefaults();
+ const tg=make("div",undefined,"admin-grid");tg.append(field("Template",tsel),field("Title",tt),field("Beneficiary",tb),field("Subtitle",ts),field("Slug",tslug),field("Target (€)",tgoal));
+ const tm=msg();
+ templates.append(tg,button("Create draft from template",async()=>{if(!tt.value.trim()){tm.textContent="Title is required.";return}tm.textContent="Creating…";try{await templateAction({action:"create",template_slug:tsel.value,title:tt.value.trim(),beneficiary:tb.value.trim(),subtitle:ts.value.trim(),slug:tslug.value.trim(),target_cents:Math.round(Number(tgoal.value||0)*100)});campaigns=null;await loadCampaigns();tm.textContent="Draft campaign created.";renderAdmin()}catch{tm.textContent="Could not create campaign from template."}},"green"),tm);
+ wrap.append(templates);
+
  const library=make("div",undefined,"admin-panel");
  library.append(make("h4","Campaign library"),make("div","Create future campaigns here. Only one campaign is active publicly at a time.","admin-hint"));
  if(!campaigns)await loadCampaigns();
@@ -332,7 +347,7 @@ function auditView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Audit trail"),make("div","Latest 100 recorded changes. This is deliberately read-only.","admin-hint"));const list=make("div",undefined,"audit-list");(audit?.audit||[]).forEach(x=>{const row=make("div",undefined,"audit-item");row.append(make("strong",x.action+" · "+x.entity_type),make("code",x.entity_id||""),make("time",new Date(x.created_at).toLocaleString()));list.append(row)});p.append(list);return p
 }
 async function renderAdmin(){
- mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;login()},"alt"));mount.append(head,tabs());
+ mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;templatesState=null;login()},"alt"));mount.append(head,tabs());
  let view;
  if(active==="health"){if(!healthState)await loadHealth();view=healthView();}
  else if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
