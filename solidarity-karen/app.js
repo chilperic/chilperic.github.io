@@ -176,7 +176,11 @@ function render(d){
  $("brandTitle").textContent=c.title||"Solidarity Fund";$("campaignKicker").textContent=c.beneficiary?(lang==="fr"?"Pour ":"For ")+c.beneficiary:"SOLIDARITY";$("campaignTitle").textContent=c.subtitle||c.title||"We carry it together.";$("campaignStory").textContent=campaignText(c,"story")||(lang==="fr"?"Fonds collectif de solidarité.":"Collective solidarity fund.");$("campaignStatus").textContent=statusLabel(c.status);$("lastUpdated").textContent=(lang==="fr"?"Mis à jour ":"Updated ")+dateFmt(d.updated);
  $("raisedTotal").textContent=euro(m.net/100);$("goalText").textContent=(lang==="fr"?"sur ":"of ")+euro(m.target/100);$("progressPct").textContent=(Math.round(m.pct*10)/10)+"%";$("supporterCount").textContent=m.rows.filter(x=>x.status!=="refunded").length;$("remainingAmount").textContent=euro(Math.max(0,m.target-m.net)/100);$("progressLine").style.width=m.pct+"%";
  $("grossRaised").textContent=euro(m.gross/100);$("refundsTotal").textContent=euro(m.refunds/100);$("spentTotal").textContent=euro(m.spent/100);$("availableBalance").textContent=euro(m.available/100);$("availableTotal").textContent=euro(m.available/100);
- const paymentUrl=c.paymentUrl||C.paypalPoolUrl||"https://www.paypal.com/pool/9tfV5v7iJ3";["primaryPayBtn","mobilePayBtn"].forEach(id=>{const a=$(id);a.href=paymentUrl;const closed=["draft","closed","archived"].includes(c.status);a.classList.toggle("hidden",closed)});const payLabel=(lang==="fr"&&c.paymentLabel_fr)||c.paymentLabel_en||tr("payPalPool");document.querySelectorAll('[data-i18n="payPalPool"]').forEach(el=>el.textContent=payLabel);
+ const paymentUrl=c.paymentUrl||C.paypalPoolUrl||"https://www.paypal.com/pool/9tfV5v7iJ3";
+ const closed=["draft","closed","archived"].includes(c.status);
+ ["primaryPayBtn","mobilePayBtn","navPayBtn"].forEach(id=>{const a=$(id);if(!a)return;a.href=paymentUrl;a.classList.toggle("hidden",closed)});
+ const payLabel=(lang==="fr"&&c.paymentLabel_fr)||c.paymentLabel_en||tr("payPalPool");document.querySelectorAll('[data-i18n="payPalPool"]').forEach(el=>el.textContent=payLabel);
+ const ty=$("thankYouCard");if(ty){const txt=(lang==="fr"&&c.thankYou_fr)||c.thankYou_en||"";ty.textContent=txt;ty.classList.toggle("hidden",!closed||!txt)}
  const analyticsShow=c.showAnalytics!==false;$("trajectorySection").classList.toggle("hidden",!analyticsShow);if(analyticsShow){renderTrajectory(d,m);renderDailyBars(m);renderInsights(m)}
  renderFlow(m);renderMilestones(d,m);renderPeople(d,m);renderLedger(d,m);renderExpenses(d);renderUpdates(d);
  const policy=(lang==="fr"&&c.overfunding_fr)||c.overfunding_en||"";$("overfundingNote").textContent=policy;$("overfundingNote").classList.toggle("hidden",!policy);
@@ -189,7 +193,30 @@ window.refreshKarenFund=refresh;
 $("enBtn").onclick=()=>setLanguage("en");$("frBtn").onclick=()=>setLanguage("fr");$("reshuffleBtn").onclick=()=>{shuffleNonce=Date.now()+Math.floor(Math.random()*100000);sessionStorage.setItem("supporter_shuffle",String(shuffleNonce));if(fund)renderPeople(fund,compute(fund))};
 $("shareBtn").onclick=async()=>{const data={title:fund?.campaign?.title||"Solidarity Fund",text:(fund?.campaign?.subtitle||"We carry it together.")+" "+(fund?euro(compute(fund).net/100):""),url:location.href};try{if(navigator.share)await navigator.share(data);else{await navigator.clipboard.writeText(location.href);toast(lang==="fr"?"Lien copié":"Link copied")}}catch{}};
 $("downloadPublicBtn").onclick=()=>{if(!fund)return;const publicCopy={campaign:fund.campaign,updated:fund.updated,contributions:fund.contributions,milestones:fund.milestones,expenses:fund.expenses,updates:fund.updates};const blob=new Blob([JSON.stringify(publicCopy,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=(fund.campaign?.slug||"solidarity-fund")+"-public.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+
+async function initConsentFlow(){
+ const params=new URLSearchParams(location.search);
+ const token=params.get("consent");
+ if(!token)return;
+ const dialog=$("consentDialog"),mount=$("consentMount"),close=$("consentClose");
+ if(!dialog||!mount)return;
+ close.onclick=()=>dialog.close();
+ try{
+   const state=await rpc("solidarity_consent_state",{p_token:token});
+   mount.replaceChildren();
+   const intro=document.createElement("p");intro.style.cssText="font-size:.76rem;color:#766f68;line-height:1.5;margin:0 0 14px";intro.textContent=(lang==="fr"?"Contribution : ":"Contribution: ")+euro(Number(state.amountCents||0)/100)+" · "+dateFmt(state.date);
+   const anon=document.createElement("label");anon.className="consent-option";const r1=document.createElement("input");r1.type="radio";r1.name="consentMode";r1.value="anonymous";r1.checked=!state.publicName;const atext=document.createElement("div");const astr=document.createElement("strong");astr.textContent=lang==="fr"?"Rester anonyme":"Remain anonymous";const asp=document.createElement("span");asp.textContent=lang==="fr"?"Votre identité reste privée.":"Your identity stays private.";atext.append(astr,asp);anon.append(r1,atext);
+   const pub=document.createElement("label");pub.className="consent-option";const r2=document.createElement("input");r2.type="radio";r2.name="consentMode";r2.value="public";r2.checked=!!state.publicName;const ptext=document.createElement("div");const pstr=document.createElement("strong");pstr.textContent=lang==="fr"?"Afficher un nom ou alias":"Show a name or alias";const psp=document.createElement("span");psp.textContent=lang==="fr"?"Vous choisissez exactement ce qui est public.":"You choose exactly what becomes public.";ptext.append(pstr,psp);pub.append(r2,ptext);
+   const alias=document.createElement("input");alias.type="text";alias.maxLength=100;alias.placeholder=lang==="fr"?"Nom public ou alias":"Public name or alias";alias.value=state.publicAlias||"";alias.style.marginTop="10px";
+   const save=document.createElement("button");save.type="button";save.className="save-consent";save.textContent=lang==="fr"?"Enregistrer":"Save privacy choice";
+   const status=document.createElement("div");status.style.cssText="font-size:.7rem;color:#766f68;margin-top:8px";
+   const sync=()=>alias.style.display=r2.checked?"block":"none";r1.onchange=sync;r2.onchange=sync;sync();
+   save.onclick=async()=>{if(r2.checked&&!alias.value.trim()){status.textContent=lang==="fr"?"Entrez le nom ou alias à afficher.":"Enter the public name or alias.";return}status.textContent=lang==="fr"?"Enregistrement…":"Saving…";try{await rpc("solidarity_consent_set",{p_token:token,p_public_name:r2.checked,p_alias:r2.checked?alias.value.trim():null});status.textContent=lang==="fr"?"Préférence enregistrée.":"Privacy preference saved.";await refresh()}catch{status.textContent=lang==="fr"?"Impossible d’enregistrer.":"Could not save."}};
+   mount.append(intro,anon,pub,alias,save,status);dialog.showModal()
+ }catch{}
+}
+
 window.addEventListener("solidarity-toast",e=>toast(e.detail||"Done"));
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-setLanguage(lang);refresh();setInterval(refresh,30000);
+setLanguage(lang);refresh().then(()=>initConsentFlow());setInterval(refresh,30000);
 })();
