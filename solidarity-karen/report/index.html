@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111015"><link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./report.css"><title>Solidarity Report</title></head><body>
+<header class="report-top"><a href="../">← Campaign</a><div><strong>The Red Banner Is Raised</strong><span>Public campaign report</span></div><div><select id="languageSelect"></select><button id="printBtn">Print / PDF</button></div></header>
+<main class="report">
+<section class="cover"><div><span class="kicker">SOLIDARITY REPORT</span><h1 id="title">Campaign report</h1><p id="story"></p></div><div class="cover-total"><span>Net raised</span><strong id="net">€0</strong><small id="goal">€0</small></div></section>
+<section class="summary"><article><span>Supporter IDs</span><strong id="supporters">0</strong></article><article><span>Contribution events</span><strong id="events">0</strong></article><article><span>Refunds</span><strong id="refunds">€0</strong></article><article><span>Used</span><strong id="spent">€0</strong></article><article><span>Available</span><strong id="available">€0</strong></article><article><span>Progress</span><strong id="progress">0%</strong></article></section>
+<section class="block"><header><span>Trajectory</span><h2>Evolution of the collective fund</h2></header><canvas id="curve"></canvas></section>
+<section id="milestoneSection" class="block"><header><span>Milestones</span><h2>Collective progress</h2></header><div id="milestones" class="grid"></div></section>
+<section class="block two"><div><header><span>Supporters</span><h2>Privacy-safe registry</h2></header><div id="registry"></div></div><div><header><span>Money</span><h2>Disbursements</h2></header><div id="expenses"></div></div></section>
+<section id="updatesSection" class="block"><header><span>Journal</span><h2>Updates</h2></header><div id="updates" class="grid"></div></section>
+<section class="closing"><blockquote id="thanks">Solidarity means collectivizing the pain, the joy and the effort.</blockquote><p id="timestamp"></p></section>
+</main><footer><strong>The Red Banner Is Raised</strong><span>Public report · private identities excluded</span></footer>
+<script src="../config.js"></script><script src="../locales.js"></script><script src="./report.js"></script></body></html>
