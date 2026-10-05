@@ -23,7 +23,9 @@ const I18N={
   privacyByDefault:"Privacy by default",privacyDetail:"Names appear only with explicit consent.",noCompetition:"No competition",
   competitionDetail:"People are never ranked by contribution size.",correctionsVisible:"Corrections stay visible",
   correctionDetail:"Refunds and public expenses remain part of the record.",controlRoom:"Organizer control room",
-  controlRoomExplain:"Manage campaigns, people, money, updates and security without redeploying the site."
+  controlRoomExplain:"Manage campaigns, people, money, updates and security without redeploying the site.",
+  collectiveMomentum:"Collective momentum",momentumTitle:"Participation over time",momentumExplain:"This view tracks collective movement without ranking individual contributors.",
+  medianContribution:"Median contribution",participationDays:"Participation days",publicNames:"Public-name consent",recentMomentum:"Last 7 days"
  },
  fr:{
   brandSub:"Soin collectif, comptabilité transparente",share:"Partager",install:"Installer",organizer:"Organisateur",
@@ -41,7 +43,9 @@ const I18N={
   privacyByDefault:"Confidentialité par défaut",privacyDetail:"Les noms n’apparaissent qu’avec consentement explicite.",noCompetition:"Pas de compétition",
   competitionDetail:"Les personnes ne sont jamais classées selon leur contribution.",correctionsVisible:"Corrections visibles",
   correctionDetail:"Les remboursements et dépenses publiques restent dans l’historique.",controlRoom:"Espace organisateur",
-  controlRoomExplain:"Gérez campagnes, personnes, argent, actualités et sécurité sans redéployer le site."
+  controlRoomExplain:"Gérez campagnes, personnes, argent, actualités et sécurité sans redéployer le site.",
+  collectiveMomentum:"Élan collectif",momentumTitle:"Participation dans le temps",momentumExplain:"Cette vue suit le mouvement collectif sans classer les contributeurs.",
+  medianContribution:"Contribution médiane",participationDays:"Jours de participation",publicNames:"Consentement au nom public",recentMomentum:"7 derniers jours"
  }
 };
 
@@ -159,9 +163,24 @@ function renderUpdates(d){
    card.append(tm,h,p);wrap.append(card);
  });
 }
+function renderMomentum(d,m){
+ const chart=$("momentumChart");if(!chart)return;chart.replaceChildren();
+ const positive=m.rows.filter(x=>x.status!=="refunded");
+ if(!positive.length){chart.innerHTML='<div class="empty-state">'+(lang==="fr"?"Pas encore assez de données.":"Not enough activity yet.")+"</div>";return}
+ const grouped=new Map();
+ positive.forEach(x=>{const day=String(x.date||"").slice(0,10);grouped.set(day,(grouped.get(day)||0)+Number(x.amountCents||0))});
+ const days=[...grouped.entries()].sort((a,b)=>a[0].localeCompare(b[0])).slice(-14);
+ const max=Math.max(...days.map(x=>x[1]),1);
+ days.forEach(([day,value])=>{const col=document.createElement("div");col.className="momentum-day";const bar=document.createElement("div");bar.className="momentum-bar";bar.style.height=Math.max(4,Math.round(value/max*150))+"px";bar.title=euro(value/100)+" · "+dateFmt(day);const label=document.createElement("span");label.textContent=dateFmt(day);col.append(bar,label);chart.append(col)});
+ const amounts=positive.map(x=>Number(x.amountCents||0)).sort((a,b)=>a-b);const mid=Math.floor(amounts.length/2);const median=amounts.length%2?amounts[mid]:(amounts[mid-1]+amounts[mid])/2;
+ $("medianContribution").textContent=euro(median/100);$("participationDays").textContent=grouped.size;
+ const publicCount=positive.filter(x=>x.publicNameConsent===true&&x.name).length;$("publicNameRatio").textContent=Math.round(publicCount/positive.length*100)+"%";
+ const cutoff=Date.now()-7*86400000;const recent=positive.filter(x=>new Date(String(x.date).slice(0,10)+"T12:00:00").getTime()>=cutoff).reduce((s,x)=>s+Number(x.amountCents||0),0);$("recentMomentum").textContent=euro(recent/100)
+}
 function render(d){
  fund=d;window.__fund=d;
  const c=d.campaign||{},m=compute(d);
+ document.body.dataset.theme=c.theme||"assembly";
  document.title=(c.title||"Solidarity Fund")+" · Live tracker";
  $("brandTitle").textContent=c.title||"Solidarity Fund";
  $("campaignKicker").textContent=c.beneficiary?(lang==="fr"?"Pour ":"For ")+c.beneficiary:"SOLIDARITY";
@@ -177,7 +196,9 @@ function render(d){
  $("flowSummary").textContent=euro(m.net/100)+" → "+euro(m.available/100)+" "+(lang==="fr"?"disponibles":"available");
  const spentPct=m.net?Math.min(100,m.spent/m.net*100):0,availPct=m.net?Math.min(100,m.available/m.net*100):0;$("spentBar").style.width=spentPct+"%";$("availableBar").style.width=availPct+"%";
  $("footerCampaign").textContent=(c.title||"Solidarity platform")+" · "+statusLabel(c.status);
- renderSupporters(d,m);renderMilestones(d,m);renderLedger(m);renderExpenses(d);renderUpdates(d);
+ const policy=(lang==="fr"&&c.overfunding_fr)||c.overfunding_en||"";const policyEl=$("overfundingNote");if(policyEl){policyEl.textContent=policy;policyEl.classList.toggle("hidden",!policy)}
+ renderSupporters(d,m);renderMilestones(d,m);renderMomentum(d,m);renderLedger(m);renderExpenses(d);renderUpdates(d);
+ window.dispatchEvent(new CustomEvent("solidarity:state",{detail:d}));
 }
 window.render=render;
 async function refresh(){
@@ -199,6 +220,7 @@ $("downloadPublicBtn").onclick=()=>{
 };
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("installBtn")?.classList.remove("hidden")});
 $("installBtn").onclick=async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("installBtn").classList.add("hidden")};
+window.addEventListener("solidarity-toast",e=>toast(e.detail||"Done"));
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 
 setLanguage(lang);refresh();setInterval(refresh,30000);
