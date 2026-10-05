@@ -36,6 +36,19 @@ function login(){
 async function reload(){admin=await rpc("karen_admin_action",{p_secret_digest:secret,p_action:{action:"list"}});renderAdmin();await refreshPublic()}
 async function save(action,msg){msg.textContent="Saving…";try{await rpc("karen_admin_action",{p_secret_digest:secret,p_action:action});await reload()}catch{msg.textContent="Could not save changes."}}
 
+async function paypalRefund(captureId,amountCents,msg){
+  if(!captureId||!(amountCents>0)){msg.textContent="Enter a valid refund amount.";return}
+  if(!confirm("Send this refund through PayPal? This action cannot be undone here."))return;
+  msg.textContent="Processing PayPal refund…";
+  try{
+    const r=await fetch("/api/paypal",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"refund",adminSecretDigest:secret,captureId,amountCents})});
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok)throw Error(d.error||"refund_failed");
+    msg.textContent=d.status==="COMPLETED"?"Refund completed and recorded.":"Refund submitted to PayPal and recorded.";
+    await reload();
+  }catch(e){msg.textContent="PayPal refund failed. No local refund was added."}
+}
+
 function tabs(){
  const t=make("div",undefined,"admTabs");
  [["overview","Overview"],["add","Add"],["manage","Manage"],["settings","Settings"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admTab"+(active===id?" active":""));b.type="button";b.onclick=()=>{active=id;renderAdmin()};t.append(b)});return t
@@ -53,8 +66,62 @@ function addContribution(){
 }
 
 function manage(){
- const p=make("div",undefined,"admPanel");p.append(make("h4","Manage contributions"),make("div","Changing a record to refunded makes it appear publicly as a negative entry and reduces the net total.","admHint"));const list=make("div",undefined,"admList");
- (admin.contributions||[]).forEach(x=>{const row=make("div",undefined,"admRow");const top=make("div",undefined,"admRowTop");top.append(make("b",x.real_name),make("span",(x.amount_cents/100).toLocaleString(undefined,{style:"currency",currency:"EUR"})));const g=make("div",undefined,"admGrid");const name=inp("text",x.real_name),amount=inp("number",(x.amount_cents/100).toFixed(2)),date=inp("date",x.contributed_on),status=document.createElement("select"),pub=document.createElement("select"),note=document.createElement("textarea");amount.min=".01";amount.step=".01";["confirmed","received","pending","refunded","cancelled"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.status===v;status.append(o)});pub.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';pub.value=x.public_name?"true":"false";note.value=x.note||"";g.append(field("Name",name),field("Amount (€)",amount),field("Date",date),field("Status",status),field("Visibility",pub),field("Internal note",note));const msg=make("div","", "admStatus");const actions=make("div",undefined,"admActions");actions.append(button("Save changes",()=>save({action:"update",id:x.id,real_name:name.value.trim(),amount_cents:Math.round(Number(amount.value)*100),contributed_on:date.value,status:status.value,public_name:pub.value==="true",public_alias:pub.value==="true"?name.value.trim():null,note:note.value.trim()||null},msg)),button("Mark refunded",()=>save({action:"update",id:x.id,status:"refunded"},msg),"danger"));row.append(top,g,actions,msg);list.append(row)});p.append(list);return p
+ const p=make("div",undefined,"admPanel");
+ p.append(make("h4","Manage contributions"),make("div","Manual records can be corrected here. PayPal-captured amounts are locked and refunds must go through PayPal so the public ledger stays reconciled with the payment provider.","admHint"));
+ const list=make("div",undefined,"admList");
+ (admin.contributions||[]).forEach(x=>{
+   const paypal=x.source==="paypal";
+   const paypalRefundRow=paypal&&x.status==="refunded";
+   const row=make("div",undefined,"admRow");
+   const top=make("div",undefined,"admRowTop");
+   const left=make("div");
+   const src=make("span",paypal?(paypalRefundRow?"PayPal refund":"PayPal"):"Manual");
+   src.style.cssText="display:inline-block;margin-left:7px;padding:3px 7px;border-radius:999px;background:"+(paypal?"#e4eef8":"#ebe3d7")+";color:#5f5852;font-size:.58rem;font-weight:900;text-transform:uppercase;vertical-align:middle";
+   const who=make("b",x.real_name);left.append(who,src);
+   top.append(left,make("span",(x.amount_cents/100).toLocaleString(undefined,{style:"currency",currency:"EUR"})));
+
+   const g=make("div",undefined,"admGrid");
+   const name=inp("text",x.real_name);
+   const amount=inp("number",(x.amount_cents/100).toFixed(2));
+   const date=inp("date",x.contributed_on);
+   const status=document.createElement("select");
+   const pub=document.createElement("select");
+   const note=document.createElement("textarea");
+   amount.min=".01";amount.step=".01";note.value=x.note||"";
+   pub.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';
+   pub.value=x.public_name?"true":"false";
+
+   const allowed=paypal ? (paypalRefundRow?["refunded"]:["confirmed","received"]) : ["confirmed","received","pending","refunded","cancelled"];
+   allowed.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.status===v;status.append(o)});
+
+   if(paypal){amount.readOnly=true;date.readOnly=true;amount.title="Verified PayPal amount";date.title="Recorded from PayPal";}
+
+   g.append(field("Name",name),field(paypal?"Verified amount (€)":"Amount (€)",amount),field("Date",date),field("Status",status),field("Visibility",pub),field("Internal note",note));
+   const msg=make("div","", "admStatus");
+   const actions=make("div",undefined,"admActions");
+
+   actions.append(button("Save details",()=>save({
+     action:"update",id:x.id,
+     real_name:name.value.trim(),
+     ...(paypal?{}:{amount_cents:Math.round(Number(amount.value)*100),contributed_on:date.value,status:status.value}),
+     ...(paypal&&!paypalRefundRow?{status:status.value}:{}),
+     public_name:pub.value==="true",
+     public_alias:pub.value==="true"?name.value.trim():null,
+     note:note.value.trim()||null
+   },msg)));
+
+   if(paypal&&!paypalRefundRow&&x.provider_ref){
+     const refundAmount=inp("number",(x.amount_cents/100).toFixed(2));
+     refundAmount.min=".01";refundAmount.max=(x.amount_cents/100).toFixed(2);refundAmount.step=".01";
+     refundAmount.style.cssText="max-width:130px;padding:9px;border:1px solid #cfc5b8;border-radius:9px";
+     const wrap=make("div");wrap.style.cssText="display:flex;gap:7px;align-items:center;flex-wrap:wrap";
+     wrap.append(refundAmount,button("Refund via PayPal",()=>paypalRefund(x.provider_ref,Math.round(Number(refundAmount.value)*100),msg),"danger"));
+     actions.append(wrap);
+   }
+
+   row.append(top,g,actions,msg);list.append(row);
+ });
+ p.append(list);return p
 }
 
 function settings(){
