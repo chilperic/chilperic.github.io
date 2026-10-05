@@ -11,7 +11,7 @@ const I18N={
   brandSub:"Collective care, transparent accounting",organizer:"Organizer",netRaised:"Net raised",goalProgress:"goal progress",supporters:"supporters",remaining:"remaining",
   payPalPool:"Contribute with PayPal",payNote:"Opens the collective PayPal Pool. Contributions appear in the tracker after verification.",
   trajectoryKicker:"Collective trajectory",trajectoryTitle:"How the fund is moving",lastSevenDays:"last 7 days",cumulativeNet:"Cumulative net fund",netFund:"Net fund",goal:"Goal",
-  dailyMovement:"Daily movement",medianContribution:"Median contribution",participationDays:"Participation days",publicNames:"Public-name consent",available:"Available balance",
+  dailyMovement:"Daily movement",medianContribution:"Median contribution",participationDays:"Participation days",nextMilestone:"Next milestone",available:"Available balance",
   collectiveProgress:"Collective progress",milestones:"Milestones",peopleNotRankings:"People, not rankings",solidarityWall:"Solidarity wall",
   wallExplain:"Random order by design. No ranking by contribution size.",reshuffle:"Reshuffle",transparentByDesign:"Transparent by design",moneyFlowTitle:"Where the money stands",
   downloadData:"Export",grossRaised:"Gross raised",refunds:"Refunds",used:"Used",raised:"Raised",campaignJournal:"Campaign journal",updates:"Updates",
@@ -23,7 +23,7 @@ const I18N={
   brandSub:"Soin collectif, comptabilité transparente",organizer:"Organisateur",netRaised:"Collecte nette",goalProgress:"de l’objectif",supporters:"soutiens",remaining:"restants",
   payPalPool:"Contribuer avec PayPal",payNote:"Ouvre la cagnotte PayPal collective. Les contributions apparaissent après vérification.",
   trajectoryKicker:"Trajectoire collective",trajectoryTitle:"Comment le fonds évolue",lastSevenDays:"7 derniers jours",cumulativeNet:"Fonds net cumulé",netFund:"Fonds net",goal:"Objectif",
-  dailyMovement:"Mouvement quotidien",medianContribution:"Contribution médiane",participationDays:"Jours de participation",publicNames:"Consentement au nom public",available:"Solde disponible",
+  dailyMovement:"Mouvement quotidien",medianContribution:"Contribution médiane",participationDays:"Jours de participation",nextMilestone:"Prochaine étape",available:"Solde disponible",
   collectiveProgress:"Progrès collectif",milestones:"Étapes",peopleNotRankings:"Des personnes, pas un classement",solidarityWall:"Mur de solidarité",
   wallExplain:"Ordre aléatoire par conception. Aucun classement selon le montant.",reshuffle:"Mélanger",transparentByDesign:"Transparent par conception",moneyFlowTitle:"Situation du fonds",
   downloadData:"Exporter",grossRaised:"Collecte brute",refunds:"Remboursements",used:"Utilisé",raised:"Collecté",campaignJournal:"Journal de campagne",updates:"Actualités",
@@ -120,13 +120,13 @@ function renderDailyBars(m){
  days.forEach(([day,v],i)=>{const cx=L+(i+.5)*(iw/days.length);const hin=(v.in/max)*ih,hout=(v.out/max)*ih;svg.append(svgEl("rect",{x:cx-bw-2,y:baseline-hin,width:bw,height:hin,rx:5,fill:"#285a46"}));if(v.out)svg.append(svgEl("rect",{x:cx+2,y:baseline-hout,width:bw,height:hout,rx:5,fill:"#b33245"}));svg.append(svgEl("text",{x:cx,y:H-15,"text-anchor":"middle","font-size":"9",fill:"#766f68"},dateFmt(day,true)))});
  $("activeDays").textContent=days.length+" "+(lang==="fr"?"jours":"days")
 }
-function renderInsights(m){
+function renderInsights(d,m){
  const positive=m.rows.filter(x=>x.status!=="refunded"),amounts=positive.map(x=>Number(x.amountCents||0)).sort((a,b)=>a-b);
  const median=amounts.length?(amounts.length%2?amounts[Math.floor(amounts.length/2)]:(amounts[amounts.length/2-1]+amounts[amounts.length/2])/2):0;
  const days=new Set(positive.map(x=>String(x.date||"").slice(0,10)));
- const publicCount=positive.filter(x=>x.publicNameConsent===true&&x.name).length;
  const cutoff=Date.now()-7*86400000,recent=positive.filter(x=>new Date(String(x.date).slice(0,10)+"T12:00:00").getTime()>=cutoff).reduce((s,x)=>s+Number(x.amountCents||0),0);
- $("medianContribution").textContent=euro(median/100);$("participationDays").textContent=days.size;$("publicNameRatio").textContent=positive.length?Math.round(publicCount/positive.length*100)+"%":"0%";$("trajectoryDelta").textContent=(recent>=0?"+":"")+euro(recent/100)
+ const next=(d.milestones||[]).map(x=>({label:(lang==="fr"&&x.label_fr)||x.label_en||"",value:Number(x.thresholdCents||0)})).filter(x=>x.value>m.net).sort((a,b)=>a.value-b.value)[0];
+ $("medianContribution").textContent=euro(median/100);$("participationDays").textContent=days.size;$("nextMilestone").textContent=next?(next.label+" · "+euro(next.value/100)):(lang==="fr"?"Objectif atteint":"Goal reached");$("trajectoryDelta").textContent=(recent>=0?"+":"")+euro(recent/100)
 }
 function renderFlow(m){
  const svg=$("flowChart");if(!svg)return;svg.replaceChildren();
@@ -176,12 +176,13 @@ function render(d){
  $("brandTitle").textContent=c.title||"Solidarity Fund";$("campaignKicker").textContent=c.beneficiary?(lang==="fr"?"Pour ":"For ")+c.beneficiary:"SOLIDARITY";$("campaignTitle").textContent=c.subtitle||c.title||"We carry it together.";$("campaignStory").textContent=campaignText(c,"story")||(lang==="fr"?"Fonds collectif de solidarité.":"Collective solidarity fund.");$("campaignStatus").textContent=statusLabel(c.status);$("lastUpdated").textContent=(lang==="fr"?"Mis à jour ":"Updated ")+dateFmt(d.updated);
  $("raisedTotal").textContent=euro(m.net/100);$("goalText").textContent=(lang==="fr"?"sur ":"of ")+euro(m.target/100);$("progressPct").textContent=(Math.round(m.pct*10)/10)+"%";$("supporterCount").textContent=m.rows.filter(x=>x.status!=="refunded").length;$("remainingAmount").textContent=euro(Math.max(0,m.target-m.net)/100);$("progressLine").style.width=m.pct+"%";
  $("grossRaised").textContent=euro(m.gross/100);$("refundsTotal").textContent=euro(m.refunds/100);$("spentTotal").textContent=euro(m.spent/100);$("availableBalance").textContent=euro(m.available/100);$("availableTotal").textContent=euro(m.available/100);
+ $("refundsTotal").parentElement?.classList.toggle("hidden",m.refunds===0);$("spentTotal").parentElement?.classList.toggle("hidden",m.spent===0);
  const paymentUrl=c.paymentUrl||C.paypalPoolUrl||"https://www.paypal.com/pool/9tfV5v7iJ3";
  const closed=["draft","closed","archived"].includes(c.status);
  ["primaryPayBtn","mobilePayBtn","navPayBtn"].forEach(id=>{const a=$(id);if(!a)return;a.href=paymentUrl;a.classList.toggle("hidden",closed)});
  const payLabel=(lang==="fr"&&c.paymentLabel_fr)||c.paymentLabel_en||tr("payPalPool");document.querySelectorAll('[data-i18n="payPalPool"]').forEach(el=>el.textContent=payLabel);
  const ty=$("thankYouCard");if(ty){const txt=(lang==="fr"&&c.thankYou_fr)||c.thankYou_en||"";ty.textContent=txt;ty.classList.toggle("hidden",!closed||!txt)}
- const analyticsShow=c.showAnalytics!==false;$("trajectorySection").classList.toggle("hidden",!analyticsShow);if(analyticsShow){renderTrajectory(d,m);renderDailyBars(m);renderInsights(m)}
+ const analyticsShow=c.showAnalytics!==false;$("trajectorySection").classList.toggle("hidden",!analyticsShow);if(analyticsShow){renderTrajectory(d,m);renderDailyBars(m);renderInsights(d,m)}
  renderFlow(m);renderMilestones(d,m);renderPeople(d,m);renderLedger(d,m);renderExpenses(d);renderUpdates(d);
  const policy=(lang==="fr"&&c.overfunding_fr)||c.overfunding_en||"";$("overfundingNote").textContent=policy;$("overfundingNote").classList.toggle("hidden",!policy);
  $("footerCampaign").textContent=(c.title||"Solidarity platform")+" · "+statusLabel(c.status)
