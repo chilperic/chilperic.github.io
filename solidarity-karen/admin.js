@@ -1,6 +1,6 @@
 (()=> {
 const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);
-let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null;
+let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null,reconciliationState=null;
 
 async function rpc(name,body={}){
  const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});
@@ -22,6 +22,8 @@ async function loadAudit(){audit=await rpc("solidarity_admin_audit",{p_secret_di
 async function loadSupporters(){supporters=await supporterAction({action:"list"});return supporters}
 async function loadLocales(){localeState=await localeAction({action:"get"});return localeState}
 async function loadHealth(){healthState=await rpc("solidarity_admin_health",{p_secret_digest:secret});return healthState}
+async function reconciliationAction(action){return rpc("solidarity_reconciliation_action",{p_secret_digest:secret,p_action:action})}
+async function loadReconciliation(){reconciliationState=await reconciliationAction({action:"list"});return reconciliationState}
 
 const css=document.createElement("style");css.textContent=`
 .admin-login{max-width:460px;margin:28px auto;padding:24px;border:1px solid #d2c8bc;border-radius:16px;background:#fffaf3}.admin-login h3{margin:0 0 7px}.admin-login p{color:#746d67;font-size:.76rem;line-height:1.5;margin:0 0 16px}
@@ -64,7 +66,7 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- [["overview","Overview"],["health","Health"],["supporters","Supporters"],["contributions","Contributions"],["campaign","Campaign"],["languages","Languages"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["integrations","Integrations"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();renderAdmin()};t.append(b)});return t
+ [["overview","Overview"],["health","Health"],["supporters","Supporters"],["contributions","Contributions"],["reconciliation","Reconciliation"],["campaign","Campaign"],["languages","Languages"],["milestones","Milestones"],["expenses","Expenses"],["updates","Updates"],["integrations","Integrations"],["reports","Reports"],["audit","Audit"],["security","Security"]].forEach(([id,label])=>{const b=make("button",label,"admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});return t
 }
 function healthView(){
  const p=make("div",undefined,"admin-panel");
@@ -174,6 +176,80 @@ function contributionsView(){
    row.append(head,rg,acts,rm);manage.append(row)
  });
  wrap.append(manage);return wrap
+}
+
+function parseCsvRow(line,delimiter){
+ const out=[];let cur="",quoted=false;
+ for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(quoted&&line[i+1]==='"'){cur+='"';i++}else quoted=!quoted}else if(ch===delimiter&&!quoted){out.push(cur);cur=""}else cur+=ch}
+ out.push(cur);return out
+}
+function parseAmount(raw){
+ let x=String(raw||"").trim().replace(/[^0-9,.-]/g,"");if(!x)return NaN;
+ const comma=x.lastIndexOf(","),dot=x.lastIndexOf(".");
+ if(comma>-1&&dot>-1){if(comma>dot)x=x.replace(/\./g,"").replace(",",".");else x=x.replace(/,/g,"")}
+ else if(comma>-1)x=x.replace(",",".");
+ return Number(x)
+}
+async function importReconciliationCsv(file,statusEl){
+ statusEl.textContent="Reading CSV…";
+ const text=await file.text(),lines=text.split(/\r?\n/).filter(x=>x.trim());
+ if(lines.length<2){statusEl.textContent="CSV has no data rows.";return}
+ const delimiter=(lines[0].split(";").length>lines[0].split(",").length)?";":",";
+ const headers=parseCsvRow(lines[0],delimiter).map(x=>x.trim().toLowerCase());
+ const find=(cands)=>headers.findIndex(h=>cands.some(c=>h===c||h.includes(c)));
+ const idCol=find(["transaction id","transactionid","transaktionscode","transaction_id","reference","referenz"]);
+ const dateCol=find(["date","datum"]);
+ const nameCol=find(["name","payer","sender","absender"]);
+ const amountCol=find(["amount","betrag","gross","net"]);
+ const currencyCol=find(["currency","währung","waehrung"]);
+ if(amountCol<0){statusEl.textContent="Could not identify an amount column.";return}
+ let imported=0,skipped=0;
+ for(let i=1;i<lines.length;i++){
+   const row=parseCsvRow(lines[i],delimiter);const amount=parseAmount(row[amountCol]);
+   if(!(amount>0)){skipped++;continue}
+   const currency=(currencyCol>=0?String(row[currencyCol]||"EUR").trim().toUpperCase():"EUR");
+   const rawDate=dateCol>=0?String(row[dateCol]||"").trim():"";
+   let paidAt=null;if(rawDate){const d=new Date(rawDate);if(!Number.isNaN(d.getTime()))paidAt=d.toISOString()}
+   try{
+     await reconciliationAction({action:"import",provider:"paypal_pool",provider_ref:idCol>=0?String(row[idCol]||"").trim():null,amount_cents:Math.round(amount*100),currency,paid_at:paidAt,payer_label:nameCol>=0?String(row[nameCol]||"").trim():null,raw:Object.fromEntries(headers.map((h,j)=>[h,row[j]??""]))});
+     imported++;
+   }catch{skipped++}
+ }
+ reconciliationState=null;await loadReconciliation();statusEl.textContent="Imported "+imported+" row"+(imported===1?"":"s")+(skipped?" · skipped "+skipped:"");renderAdmin()
+}
+function reconciliationView(){
+ const wrap=make("div");
+ const imp=make("div",undefined,"admin-panel");
+ imp.append(make("h4","PayPal Pool reconciliation"),make("div","Import a PayPal CSV/export or add payments manually. The queue never changes public totals until an item is matched to an existing contribution or converted into a new one.","admin-hint"));
+ const file=input("file");file.accept=".csv,text/csv,text/plain";const im=msg();file.onchange=()=>{if(file.files?.[0])importReconciliationCsv(file.files[0],im).catch(()=>im.textContent="CSV import failed.")};
+ const manualGrid=make("div",undefined,"admin-grid"),mRef=input("text"),mName=input("text"),mAmount=input("number"),mDate=input("datetime-local");mAmount.min=".01";mAmount.step=".01";
+ manualGrid.append(field("Provider reference",mRef),field("Payer label (private)",mName),field("Amount (€)",mAmount),field("Paid at",mDate));
+ const manualMsg=msg();
+ imp.append(field("Import CSV",file),im,manualGrid,button("Add unmatched payment",async()=>{if(!(Number(mAmount.value)>0)){manualMsg.textContent="Amount required.";return}manualMsg.textContent="Adding…";try{await reconciliationAction({action:"import",provider:"paypal_pool",provider_ref:mRef.value.trim()||null,amount_cents:Math.round(Number(mAmount.value)*100),currency:"EUR",paid_at:mDate.value?new Date(mDate.value).toISOString():null,payer_label:mName.value.trim()||null,raw:null});reconciliationState=null;await loadReconciliation();manualMsg.textContent="Added.";renderAdmin()}catch{manualMsg.textContent="Could not add payment."}}),manualMsg);
+ wrap.append(imp);
+
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Reconciliation queue"));
+ const rows=reconciliationState?.items||[];
+ if(!rows.length){p.append(make("div","No imported payments yet.","admin-hint"));wrap.append(p);return wrap}
+ rows.forEach(x=>{
+   const row=make("div",undefined,"admin-row"),head=make("div",undefined,"admin-row-head"),left=make("div");
+   left.append(make("b",money(x.amountCents)),make("span",(x.status||"unmatched").toUpperCase(),"source-chip"));head.append(left,make("span",(x.payerLabel||"Unknown payer")+" · "+(x.paidAt?new Date(x.paidAt).toLocaleString():"no date")));
+   const meta=make("div",(x.providerRef?"Ref "+x.providerRef+" · ":"")+(x.currency||"EUR"),"admin-hint"),m=msg(),actions=make("div",undefined,"admin-actions");
+   if(x.status==="unmatched"){
+     const sugg=document.createElement("select");const none=document.createElement("option");none.value="";none.textContent="Suggested existing contribution…";sugg.append(none);
+     (x.suggestions||[]).forEach(y=>{const o=document.createElement("option");o.value=y.contributionId;o.textContent=(y.supporterId||"no ID")+" · "+y.realName+" · "+y.date;sugg.append(o)});
+     actions.append(sugg,button("Match existing",async()=>{if(!sugg.value){m.textContent="Choose a suggestion.";return}m.textContent="Matching…";try{await reconciliationAction({action:"match",id:x.id,contribution_id:sugg.value});reconciliationState=null;await loadReconciliation();m.textContent="Matched.";renderAdmin()}catch{m.textContent="Could not match."}},"green"));
+
+     const sup=document.createElement("select"),newO=document.createElement("option");newO.value="";newO.textContent="New supporter";sup.append(newO);
+     (supporters?.supporters||[]).forEach(y=>{const o=document.createElement("option");o.value=y.id;o.textContent=y.supporterId+" · "+y.realName;sup.append(o)});
+     actions.append(sup,button("Create contribution + match",async()=>{m.textContent="Creating…";try{const d=await addContributionAction({supporter_id:sup.value||null,real_name:sup.value?null:(x.payerLabel||"PayPal Pool contributor"),amount_cents:x.amountCents,original_amount:Number(x.amountCents)/100,original_currency:x.currency||"EUR",contributed_on:x.paidAt?String(x.paidAt).slice(0,10):new Date().toISOString().slice(0,10),status:"confirmed",source:"paypal_pool",public_name:false,note:x.providerRef?("PayPal Pool ref "+x.providerRef):"Imported PayPal Pool payment"});await reconciliationAction({action:"match",id:x.id,contribution_id:d.id});supporters=null;reconciliationState=null;admin=await adminAction({action:"list"});await loadSupporters();await loadReconciliation();m.textContent="Contribution created and matched.";renderAdmin();await refreshPublic()}catch{m.textContent="Could not create/match contribution."}}));
+     actions.append(button("Ignore",async()=>{await reconciliationAction({action:"ignore",id:x.id});reconciliationState=null;await loadReconciliation();renderAdmin()},"alt"));
+   }else{
+     actions.append(button("Reopen",async()=>{await reconciliationAction({action:"reopen",id:x.id});reconciliationState=null;await loadReconciliation();renderAdmin()},"alt"));
+   }
+   row.append(head,meta,actions,m);p.append(row)
+ });
+ wrap.append(p);return wrap
 }
 
 async function campaignView(){
@@ -351,11 +427,12 @@ function auditView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Audit trail"),make("div","Latest 100 recorded changes. This is deliberately read-only.","admin-hint"));const list=make("div",undefined,"audit-list");(audit?.audit||[]).forEach(x=>{const row=make("div",undefined,"audit-item");row.append(make("strong",x.action+" · "+x.entity_type),make("code",x.entity_id||""),make("time",new Date(x.created_at).toLocaleString()));list.append(row)});p.append(list);return p
 }
 async function renderAdmin(){
- mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;templatesState=null;login()},"alt"));mount.append(head,tabs());
+ mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small","Private live administration"));head.append(title,button("Lock",()=>{secret=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;templatesState=null;reconciliationState=null;login()},"alt"));mount.append(head,tabs());
  let view;
  if(active==="health"){if(!healthState)await loadHealth();view=healthView();}
  else if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
+ else if(active==="reconciliation"){if(!reconciliationState)await loadReconciliation();if(!supporters)await loadSupporters();view=reconciliationView();}
  else if(active==="campaign")view=await campaignView();
  else if(active==="languages"){if(!localeState)await loadLocales();view=await languagesView();}
  else if(active==="milestones")view=milestonesView();
