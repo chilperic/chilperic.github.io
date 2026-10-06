@@ -544,6 +544,14 @@ window.RBAdminHost={
   msg,
   reload:async()=>{admin=await adminAction({action:"list"});supporters=null;await loadSupporters();await renderAdmin();await refreshPublic()}
 };
+function consumeSessionLink(){
+ const url=new URL(location.href),token=url.searchParams.get("session");
+ if(!token)return;
+ sessionStorage.setItem("solidarity_named_session",token);
+ url.searchParams.delete("session");
+ history.replaceState({},document.title,url.pathname+url.search+url.hash)
+}
+consumeSessionLink();
 async function restoreNamedSession(){
  const token=sessionStorage.getItem("solidarity_named_session");if(!token)return;
  try{secret=token;await loadAuthContext();dialog.showModal();await preloadAuthorizedData(false);startAutoRefresh();renderAdmin()}catch{sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null}
