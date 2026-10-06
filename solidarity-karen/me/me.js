@@ -49,5 +49,5 @@ $("saveBtn").onclick=async()=>{
  catch{$("status").textContent=tr("error")}
 };
 $("languageSelect").onchange=e=>{lang=e.target.value;localStorage.setItem("solidarity_lang",lang);applyLanguage();load()};
-fillLanguages();applyLanguage();load();
+fillLanguages();applyLanguage();load();setInterval(load,30000);
 })();
