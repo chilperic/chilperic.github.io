@@ -67,6 +67,53 @@
     </div>
   </section>
 
+  <section id="liveDashboard" class="campaign-dashboard">
+    <div class="dashboard-intro">
+      <div>
+        <span class="dashboard-kicker" data-i18n="liveDashboard">Live campaign data</span>
+        <h2 data-i18n="liveDashboardTitle">The collective effort is visible.</h2>
+        <p data-i18n="liveDashboardText">These figures and plots update automatically. No ranking, no hidden dashboard.</p>
+      </div>
+      <div class="dashboard-live"><i></i><span data-i18n="autoUpdated">Auto-updated</span></div>
+    </div>
+
+    <div class="campaign-stat-grid">
+      <article><span data-i18n="meanContribution">Mean contribution</span><strong id="homeMean">€0</strong></article>
+      <article><span data-i18n="medianContribution">Median contribution</span><strong id="homeMedian">€0</strong></article>
+      <article><span data-i18n="recentMomentum">7-day momentum</span><strong id="homeMomentumValue">€0</strong></article>
+      <article><span data-i18n="contributionEvents">Contribution events</span><strong id="homeEvents">0</strong></article>
+    </div>
+
+    <div class="campaign-dashboard-grid">
+      <article class="campaign-data-card campaign-data-wide">
+        <div class="campaign-data-head"><div><span data-i18n="momentum">Momentum</span><h3 data-i18n="momentumTitle">Daily movement + rolling pace</h3></div><b id="homeVelocity">—</b></div>
+        <div class="campaign-chart-box"><canvas id="homeMomentumChart"></canvas></div>
+      </article>
+
+      <article class="campaign-data-card">
+        <div class="campaign-data-head"><div><span data-i18n="supporterGrowth">Supporter growth</span><h3 data-i18n="supporterGrowthTitle">Cumulative unique supporters</h3></div></div>
+        <div class="campaign-chart-box"><canvas id="homeGrowthChart"></canvas></div>
+      </article>
+
+      <article class="campaign-data-card">
+        <div class="campaign-data-head"><div><span data-i18n="distribution">Distribution</span><h3 data-i18n="distributionTitle">Contribution-size profile</h3></div></div>
+        <div class="campaign-chart-box"><canvas id="homeDistributionChart"></canvas></div>
+      </article>
+
+      <article class="campaign-data-card">
+        <div class="campaign-data-head"><div><span data-i18n="sourceMix">Sources</span><h3 data-i18n="sourceMixTitle">How contributions arrived</h3></div></div>
+        <div class="campaign-chart-box"><canvas id="homeSourceChart"></canvas></div>
+      </article>
+
+      <article class="campaign-data-card">
+        <div class="campaign-data-head"><div><span data-i18n="livePulse">Live pulse</span><h3 data-i18n="peopleStream">Supporter-ID stream</h3></div></div>
+        <div id="recentActivity" class="campaign-activity"></div>
+      </article>
+    </div>
+
+    <a href="./observatory/" class="full-observatory-link" data-i18n="fullObservatory">Open the full Observatory →</a>
+  </section>
+
   <section id="campaignMilestones" class="campaign-milestones">
     <div><span data-i18n="milestones">Milestones</span><h2 data-i18n="collectiveProgress">Collective progress</h2></div>
     <div id="milestoneLine"></div>
@@ -79,7 +126,7 @@
       <p data-i18n="randomOrder">Stable IDs preserve privacy while keeping the fund auditable.</p>
     </div>
     <div id="supporterSummary" class="supporter-summary"></div>
-    <a href="./observatory/#supportersSection" class="quiet-link" data-i18n="exploreData">Explore the data →</a>
+    <div class="registry-note" data-i18n="peopleStreamText">Stable IDs keep participation visible without exposing private names.</div>
   </section>
 
   <section class="campaign-manifesto">
@@ -103,6 +150,9 @@
 
 <script src="./config.js"></script>
 <script src="./locales.js"></script>
+<script src="./campaign-dashboard-locales.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="./campaign-dashboard.js"></script>
 <script src="./campaign.js"></script>
 </body>
 </html>
