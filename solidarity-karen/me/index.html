@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111015"><link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./me.css"><title>Your solidarity record</title></head><body>
+<header><a href="../">← Campaign</a><strong>The Red Banner Is Raised</strong><label><span>🌐</span><select id="languageSelect"></select></label></header>
+<main>
+<section class="identity-card"><span class="kicker">PRIVATE CONTRIBUTOR PORTAL</span><h1 id="supporterId">S-••••••••</h1><p id="portalIntro">This private link lets you control how your supporter identity appears publicly.</p></section>
+<section class="history-card"><div class="section-head"><span>History</span><h2>Your contribution record</h2></div><div id="history"></div></section>
+<section class="privacy-card"><div class="section-head"><span>Privacy</span><h2>How should you appear?</h2></div>
+<label class="choice"><input type="radio" name="visibility" id="anonymousChoice"><div><strong>Remain anonymous</strong><span>Your stable supporter ID stays public, but your name does not.</span></div></label>
+<label class="choice"><input type="radio" name="visibility" id="publicChoice"><div><strong>Show a name or alias</strong><span>You choose exactly what becomes public.</span></div></label>
+<input id="alias" type="text" maxlength="100" placeholder="Public name or alias">
+<button id="saveBtn" type="button">Save privacy choice</button><p id="status"></p>
+</section>
+</main>
+<footer><strong>The Red Banner Is Raised</strong><span>Private supporter self-service</span></footer>
+<script src="../config.js"></script><script src="../locales.js"></script><script src="./me.js"></script></body></html>
