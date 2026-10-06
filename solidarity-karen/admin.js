@@ -191,7 +191,7 @@ function contributionsView(){
  date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";originalAmount.min=".01";originalAmount.step=".01";originalCurrency.maxLength=3;originalCurrency.style.textTransform="uppercase";
  ["confirmed","received","pending"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;status.append(o)});
  visibility.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';
- source.innerHTML='<option value="manual">Manual / bank / cash</option><option value="paypal_pool">PayPal Pool</option>';if(window.RBEventsAdmin)window.RBEventsAdmin.addContributionSources(source,admin);
+ source.innerHTML='<option value="manual">Manual / bank / cash</option><option value="paypal_pool">PayPal Pool</option>';(window.RBEventsAdmin?.getContributionSources(admin)||[]).forEach(e=>{const o=document.createElement("option");o.value=e.value;o.textContent=e.label;source.append(o)});if(window.RBEventsAdmin)window.RBEventsAdmin.addContributionSources(source,admin);
  const syncNew=()=>{const isNew=!supporterSelect.value;name.disabled=!isNew;visibility.disabled=!isNew;name.placeholder=isNew?"Private real name":"Inherited from supporter ID"};
  supporterSelect.onchange=syncNew;syncNew();
  g.append(field("Supporter ID",supporterSelect),field("New supporter name",name),field("Campaign amount ("+campaignCurrency+")",amount),field("Original amount (optional)",originalAmount),field("Original currency",originalCurrency),field("Date",date),field("Status",status),field("Source",source),field("New supporter visibility",visibility),field("Internal note",note));
