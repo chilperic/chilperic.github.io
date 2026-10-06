@@ -1,18 +1,35 @@
 {
-  "name": "Solidarity Fund",
+  "name": "Red Banner Solidarity",
   "short_name": "Solidarity",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4efe6",
-  "theme_color": "#111014",
-  "description": "Transparent, privacy-respecting collective solidarity fund.",
+  "background_color": "#f5efe4",
+  "theme_color": "#111015",
+  "description": "A privacy-respecting solidarity campaign, observatory and organizer control room.",
   "icons": [
     {
       "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Campaign",
+      "short_name": "Campaign",
+      "url": "./"
+    },
+    {
+      "name": "Observatory",
+      "short_name": "Data",
+      "url": "./observatory/"
+    },
+    {
+      "name": "Organizer",
+      "short_name": "Organizer",
+      "url": "./organizer/"
     }
   ]
 }
