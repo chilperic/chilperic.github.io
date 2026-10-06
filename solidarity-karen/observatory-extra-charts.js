@@ -25,6 +25,7 @@ function momentum(d,m){
  const rows=[...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
  const vals=rows.map(x=>x[1]),roll=vals.map((_,i)=>{const a=Math.max(0,i-2),arr=vals.slice(a,i+1);return arr.reduce((s,v)=>s+v,0)/arr.length});
  charts.momentum=new Chart(el,{
+  type:"bar",
   data:{labels:rows.map(x=>date(x[0])),datasets:[
    {type:"bar",label:t("dailyNet"),data:vals,backgroundColor:vals.map(v=>v<0?css("--red"):css("--green")),borderRadius:7,order:2},
    {type:"line",label:t("rollingAverage"),data:roll,borderColor:css("--gold"),backgroundColor:"rgba(213,164,71,.14)",fill:true,tension:.38,borderWidth:3,pointRadius:3,order:1}
