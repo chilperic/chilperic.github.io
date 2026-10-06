@@ -125,18 +125,19 @@ function contributionsView(){
  const supporterSelect=document.createElement("select");
  const newOpt=document.createElement("option");newOpt.value="";newOpt.textContent="New supporter";supporterSelect.append(newOpt);
  (supporters?.supporters||[]).forEach(s=>{const o=document.createElement("option");o.value=s.id;o.textContent=s.supporterId+" · "+s.realName;supporterSelect.append(o)});
- const name=input("text"),amount=input("number"),originalAmount=input("number"),originalCurrency=input("text","EUR"),date=input("date"),status=document.createElement("select"),visibility=document.createElement("select"),note=document.createElement("textarea"),source=document.createElement("select");
+ const campaignCurrency=(admin.campaign?.currency||"EUR").toUpperCase();const name=input("text"),amount=input("number"),originalAmount=input("number"),originalCurrency=input("text",campaignCurrency),date=input("date"),status=document.createElement("select"),visibility=document.createElement("select"),note=document.createElement("textarea"),source=document.createElement("select");
  date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";originalAmount.min=".01";originalAmount.step=".01";originalCurrency.maxLength=3;originalCurrency.style.textTransform="uppercase";
  ["confirmed","received","pending"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;status.append(o)});
  visibility.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';
  source.innerHTML='<option value="manual">Manual / bank / cash</option><option value="paypal_pool">PayPal Pool</option>';
  const syncNew=()=>{const isNew=!supporterSelect.value;name.disabled=!isNew;visibility.disabled=!isNew;name.placeholder=isNew?"Private real name":"Inherited from supporter ID"};
  supporterSelect.onchange=syncNew;syncNew();
- g.append(field("Supporter ID",supporterSelect),field("New supporter name",name),field("Campaign amount (€)",amount),field("Original amount (optional)",originalAmount),field("Original currency",originalCurrency),field("Date",date),field("Status",status),field("Source",source),field("New supporter visibility",visibility),field("Internal note",note));
+ g.append(field("Supporter ID",supporterSelect),field("New supporter name",name),field("Campaign amount ("+campaignCurrency+")",amount),field("Original amount (optional)",originalAmount),field("Original currency",originalCurrency),field("Date",date),field("Status",status),field("Source",source),field("New supporter visibility",visibility),field("Internal note",note));
  const m=msg();
  add.append(g,button("Add contribution",async()=>{
    if(!(Number(amount.value)>0)){m.textContent="Amount is required.";return}
    if(!supporterSelect.value&&!name.value.trim()){m.textContent="Name is required for a new supporter.";return}
+   const originalCode=(originalCurrency.value.trim()||campaignCurrency).toUpperCase();if(originalCode!==campaignCurrency&&!originalAmount.value){m.textContent="Original amount is required when the original currency differs from the campaign currency.";return}
    m.textContent="Saving…";
    try{
      const d=await addContributionAction({
@@ -147,7 +148,7 @@ function contributionsView(){
        public_name:!supporterSelect.value&&visibility.value==="true",
        public_alias:!supporterSelect.value&&visibility.value==="true"?name.value.trim():null,
        original_amount:originalAmount.value?Number(originalAmount.value):Number(amount.value),
-       original_currency:(originalCurrency.value.trim()||"EUR").toUpperCase(),
+       original_currency:originalCode,
        note:note.value.trim()||null
      });
      supporters=null;admin=await adminAction({action:"list"});await loadSupporters();m.textContent="Saved as "+(d.supporterId||"supporter");renderAdmin();await refreshPublic()
