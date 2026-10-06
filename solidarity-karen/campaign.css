@@ -62,7 +62,7 @@ html[dir="rtl"] .curve-now{right:auto;left:18px;text-align:left}
  .campaign-hero{grid-template-columns:1fr;min-height:auto}.campaign-fund{margin:0 20px 32px}.signature-curve{grid-template-columns:1fr}.campaign-people{grid-template-columns:1fr}.quiet-link{justify-self:start}
 }
 @media(max-width:700px){
- body{padding-bottom:74px}.campaign-nav{padding:9px 12px;align-items:flex-start}.campaign-brand svg{width:50px}.campaign-brand strong{font-size:.69rem}.campaign-brand small{display:none}.campaign-nav nav>a{display:none}.campaign-language{max-width:120px}.campaign-language select{max-width:82px}
+ body{padding-bottom:74px}.campaign-nav{padding:9px 12px;align-items:flex-start}.campaign-brand svg{width:50px}.campaign-brand strong{font-size:.69rem}.campaign-brand small{display:none}.campaign-nav nav>a{display:none}.campaign-nav nav>a.organizer-nav-link{display:inline-flex;padding:7px 9px;border:1px solid var(--line);border-radius:999px;background:var(--paper2);font-size:.62rem}.campaign-language{max-width:120px}.campaign-language select{max-width:82px}
  .campaign-copy{padding:36px 18px 28px}.campaign-copy h1{font-size:clamp(4rem,21vw,5.8rem)}.campaign-fund{padding:28px 18px;border-radius:22px}.fund-facts{grid-template-columns:1fr 1fr}.fund-facts>div:last-child{grid-column:1/-1}
  .campaign-flags span:first-child{width:115vw;height:170px;right:-58vw}.campaign-flags span:last-child{width:115vw;height:145px;right:-35vw}
  .signature-curve,.campaign-milestones,.campaign-people,.campaign-manifesto{padding-left:16px;padding-right:16px}.curve-stage{min-height:300px}.curve-stage canvas{min-height:280px}
