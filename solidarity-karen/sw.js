@@ -1,8 +1,8 @@
-const CACHE="solidarity-shell-v12";
+const CACHE="solidarity-shell-v13";
 const ASSETS=[
 "./","./index.html","./campaign.css","./campaign.js","./config.js","./locales.js",
 "./icon.svg","./manifest.webmanifest",
-"./observatory/","./styles.css","./dashboard-charts.js","./public-core.js","./public-sections.js","./advanced-stats.js","./consent.js",
+"./observatory/","./styles.css","./observatory-locales.js","./chart-polish.js","./dashboard-charts.js","./public-core.js","./public-sections.js","./advanced-stats.js","./observatory-extra-charts.js","./chart-tools.js","./consent.js",
 "./organizer/","./admin.js",
 "./report/","./report/report.css","./report/report.js","./me/","./me/me.css","./me/me.js"
 ];
