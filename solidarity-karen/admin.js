@@ -50,9 +50,9 @@ function startAutoRefresh(){
 }
 
 const ROLE_TABS={
- owner:["overview","health","supporters","contributions","reconciliation","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
+ owner:["overview","health","supporters","contributions","reconciliation","events","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
  treasurer:["overview","health","supporters","contributions","reconciliation","expenses","integrations","reports","security"],
- organizer:["overview","supporters","campaign","languages","milestones","updates","reports","security"],
+ organizer:["overview","supporters","events","campaign","languages","milestones","updates","reports","security"],
  auditor:["overview","health","supporters","reports","audit","security"]
 };
 
@@ -115,7 +115,7 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- const labels={overview:"Overview",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
+ const labels={overview:"Overview",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
  const ids=ROLE_TABS[authContext?.role||"owner"]||ROLE_TABS.owner;
  if(!ids.includes(active))active="overview";
  ids.forEach(id=>{const b=make("button",labels[id], "admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions"||id==="reconciliation")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});
@@ -191,7 +191,7 @@ function contributionsView(){
  date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";originalAmount.min=".01";originalAmount.step=".01";originalCurrency.maxLength=3;originalCurrency.style.textTransform="uppercase";
  ["confirmed","received","pending"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;status.append(o)});
  visibility.innerHTML='<option value="false">Anonymous publicly</option><option value="true">Show name publicly</option>';
- source.innerHTML='<option value="manual">Manual / bank / cash</option><option value="paypal_pool">PayPal Pool</option>';
+ source.innerHTML='<option value="manual">Manual / bank / cash</option><option value="paypal_pool">PayPal Pool</option>';if(window.RBEventsAdmin)window.RBEventsAdmin.addContributionSources(source,admin);
  const syncNew=()=>{const isNew=!supporterSelect.value;name.disabled=!isNew;visibility.disabled=!isNew;name.placeholder=isNew?"Private real name":"Inherited from supporter ID"};
  supporterSelect.onchange=syncNew;syncNew();
  g.append(field("Supporter ID",supporterSelect),field("New supporter name",name),field("Campaign amount ("+campaignCurrency+")",amount),field("Original amount (optional)",originalAmount),field("Original currency",originalCurrency),field("Date",date),field("Status",status),field("Source",source),field("New supporter visibility",visibility),field("Internal note",note));
@@ -410,7 +410,7 @@ function expensesView(){
  const g=make("div",undefined,"admin-grid"),en=input("text"),fr=input("text"),amount=input("number"),date=input("date"),noteEn=document.createElement("textarea"),noteFr=document.createElement("textarea");date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";g.append(field("Label EN",en),field("Label FR",fr),field("Amount (€)",amount),field("Date",date),field("Public note EN",noteEn),field("Public note FR",noteFr));const m=msg();p.append(g,button("Record expense",()=>save({action:"add_expense",label_en:en.value,label_fr:fr.value,amount_cents:Math.round(Number(amount.value)*100),spent_on:date.value,status:"recorded",note_en:noteEn.value,note_fr:noteFr.value},m)),m);return p
 }
 function updatesView(){
- const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign updates"),make("div","Publish short progress notes without changing the campaign story.","admin-hint"));(admin.updates||[]).forEach(x=>{const box=make("div",undefined,"admin-row");const row=make("div",undefined,"admin-row-head");row.append(make("b",x.title_en),make("span",new Date(x.published_at).toLocaleDateString()));box.append(row,button("Remove",()=>save({action:"delete_update",id:x.id},msg()),"alt"));p.append(box)});
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign updates"),make("div","Publish short progress notes without changing the campaign story.","admin-hint"));(admin.updates||[]).filter(x=>!window.RBEventsAdmin?.isEventRecord(x)).forEach(x=>{const box=make("div",undefined,"admin-row");const row=make("div",undefined,"admin-row-head");row.append(make("b",x.title_en),make("span",new Date(x.published_at).toLocaleDateString()));box.append(row,button("Remove",()=>save({action:"delete_update",id:x.id},msg()),"alt"));p.append(box)});
  const g=make("div",undefined,"admin-grid"),te=input("text"),tf=input("text"),be=document.createElement("textarea"),bf=document.createElement("textarea");g.append(field("Title EN",te),field("Title FR",tf),field("Body EN",be),field("Body FR",bf));const m=msg();p.append(g,button("Publish update",()=>save({action:"add_update",title_en:te.value,title_fr:tf.value,body_en:be.value,body_fr:bf.value,is_public:true},m)),m);return p
 }
 async function integrationsView(){
@@ -515,6 +515,7 @@ async function renderAdmin(){
  else if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
  else if(active==="reconciliation"){if(!reconciliationState)await loadReconciliation();if(!supporters)await loadSupporters();view=reconciliationView();}
+ else if(active==="events")view=window.RBEventsAdmin?.render(window.RBAdminHost)||make("div","Events module unavailable.","admin-panel");
  else if(active==="campaign")view=await campaignView();
  else if(active==="languages"){if(!localeState)await loadLocales();view=await languagesView();}
  else if(active==="milestones")view=milestonesView();
@@ -527,6 +528,22 @@ async function renderAdmin(){
  else view=overviewView();
  mount.append(view)
 }
+window.RBAdminHost={
+  getCredential:()=>secret,
+  getAdmin:()=>admin,
+  getSupporters:()=>supporters,
+  rpc,
+  adminAction,
+  addContributionAction,
+  refreshPublic,
+  money,
+  make,
+  input,
+  field,
+  button,
+  msg,
+  reload:async()=>{admin=await adminAction({action:"list"});supporters=null;await loadSupporters();await renderAdmin();await refreshPublic()}
+};
 async function restoreNamedSession(){
  const token=sessionStorage.getItem("solidarity_named_session");if(!token)return;
  try{secret=token;await loadAuthContext();dialog.showModal();await preloadAuthorizedData(false);startAutoRefresh();renderAdmin()}catch{sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null}
