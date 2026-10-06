@@ -180,3 +180,43 @@ body.goal-reached .fund-progress>div{background:linear-gradient(90deg,#d5a447,#f
  .campaign-people{gap:18px}
  .registry-note{max-width:none}
 }
+
+/* Campaign events */
+.campaign-events{
+  padding:clamp(42px,6vw,72px) clamp(20px,5vw,70px);
+  background:linear-gradient(180deg,#111015,#17141a);
+  color:#f7f2eb;
+  border-bottom:1px solid #ffffff16;
+  position:relative;overflow:hidden
+}
+.campaign-events:before{
+  content:"";position:absolute;right:-12vw;top:24px;width:42vw;height:130px;
+  background:#c12f45;transform:rotate(-8deg);opacity:.18;
+  clip-path:polygon(0 10%,100% 0,84% 88%,0 100%)
+}
+.events-intro{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:22px}
+.events-kicker{font-size:.59rem;letter-spacing:.17em;text-transform:uppercase;color:#e1ac55;font-weight:950}
+.events-intro h2{font-family:Georgia,serif;font-size:clamp(2.35rem,4vw,4rem);font-weight:500;letter-spacing:-.045em;margin:8px 0 8px}
+.events-intro p{font-size:.76rem;color:#c8c0b7;max-width:640px;line-height:1.55;margin:0}
+.events-count{color:#f5efe4;text-decoration:none;border:1px solid #ffffff24;border-radius:999px;padding:7px 10px;font-size:.63rem;font-weight:850}
+.events-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;position:relative;z-index:2}
+.event-card{position:relative;background:#f5efe4;color:#111015;border-radius:20px;padding:18px;border:1px solid #ffffff14;box-shadow:0 22px 70px rgba(0,0,0,.18);overflow:hidden}
+.event-card:before{content:"";position:absolute;left:0;top:0;width:100%;height:3px;background:linear-gradient(90deg,#c12f45,#d5a447,#295c48)}
+.event-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.event-type,.event-status{font-size:.55rem;font-weight:950;letter-spacing:.08em;text-transform:uppercase}
+.event-type{color:#c12f45}.event-status{color:#756d65}
+.event-card h3{font-family:Georgia,serif;font-size:1.65rem;font-weight:500;line-height:1.03;letter-spacing:-.03em;margin:12px 0 8px}
+.event-card>p{font-size:.72rem;line-height:1.5;color:#655d55;margin:0 0 12px}
+.event-meta{display:flex;flex-wrap:wrap;gap:7px 12px;font-size:.63rem;color:#756d65;margin:10px 0 14px}
+.event-finance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;border-top:1px solid #d2c6b7;padding-top:12px}
+.event-finance span{display:block;font-size:.53rem;text-transform:uppercase;letter-spacing:.07em;color:#756d65;font-weight:850}
+.event-finance strong{display:block;font-size:1rem;margin-top:4px}
+.event-progress{height:8px;border-radius:999px;background:#ded5c8;overflow:hidden;margin-top:12px}
+.event-progress i{display:block;height:100%;background:linear-gradient(90deg,#c12f45,#d5a447);border-radius:999px}
+.event-pay{display:flex;justify-content:center;align-items:center;text-decoration:none;background:#0070ba;color:#fff;border-radius:11px;padding:11px 13px;margin-top:12px;font-size:.72rem;font-weight:950}
+@media(max-width:700px){
+ .campaign-events{padding-left:16px;padding-right:16px}
+ .events-intro{align-items:flex-start;flex-direction:column}
+ .events-grid{grid-template-columns:1fr}
+ .event-finance{grid-template-columns:1fr 1fr}
+}
