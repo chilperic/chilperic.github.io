@@ -40,6 +40,7 @@ body:has(#adminDialog[open]){overflow:auto!important}
 <script src="../locales.js"></script>
 <script>const embeddedAdmin=document.getElementById("adminDialog");embeddedAdmin.showModal=()=>embeddedAdmin.setAttribute("open","");embeddedAdmin.close=()=>embeddedAdmin.removeAttribute("open");</script>
 <script src="../admin.js"></script>
+<script src="../events-admin.js"></script>
 <script>
 window.addEventListener("DOMContentLoaded",()=>document.getElementById("adminBtn").click());
 </script>
