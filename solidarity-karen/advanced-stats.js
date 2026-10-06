@@ -29,10 +29,11 @@ function drawLorenz(supporters){
   vals.forEach((v,i)=>{cum+=v;actual.push({x:(i+1)/Math.max(1,vals.length)*100,y:total?cum/total*100:0})});
   const equality=[{x:0,y:0},{x:100,y:100}];
   if(lorenzChart)lorenzChart.destroy();
+  const lctx=el.getContext("2d"),lgrad=lctx.createLinearGradient(0,0,0,280);lgrad.addColorStop(0,"rgba(193,47,69,.22)");lgrad.addColorStop(1,"rgba(193,47,69,.015)");
   lorenzChart=new Chart(el,{
     type:"line",
     data:{datasets:[
-      {label:t("evenness"),data:actual,borderColor:"#c12f45",backgroundColor:"rgba(193,47,69,.10)",fill:true,tension:.18,borderWidth:3,pointRadius:2},
+      {label:t("evenness"),data:actual,borderColor:"#c12f45",backgroundColor:lgrad,fill:true,tension:.22,borderWidth:3,pointRadius:3,pointHoverRadius:7,pointBackgroundColor:"#fffaf2",pointBorderColor:"#c12f45",pointBorderWidth:2},
       {label:"Equality",data:equality,borderColor:"#d5a447",borderDash:[7,6],borderWidth:2,pointRadius:0}
     ]},
     options:{
@@ -59,8 +60,8 @@ function drawSources(rows){
     type:"doughnut",
     data:{labels,datasets:[{data:values,borderWidth:0}]},
     options:{
-      responsive:true,maintainAspectRatio:false,cutout:"62%",
-      plugins:{legend:{display:true,position:"bottom",labels:{usePointStyle:true,boxWidth:8,font:{size:10}}},tooltip:{callbacks:{label:x=>x.label+": "+euro(x.parsed)}}}
+      responsive:true,maintainAspectRatio:false,cutout:"68%",animation:{duration:750,easing:"easeOutQuart"},
+      plugins:{legend:{display:true,position:"bottom",labels:{usePointStyle:true,boxWidth:8,font:{size:10}}},tooltip:{callbacks:{label:x=>x.label+": "+euro(x.parsed)}},centerText:{text:euro(values.reduce((a,b)=>a+b,0)),subtext:t("gross")}}
     }
   })
 }
@@ -74,14 +75,14 @@ function drawForecast(d,m,rate,eta){
   forecastChart=new Chart(el,{
     type:"line",
     data:{labels:days.map(d=>String(d)),datasets:[
-      {label:"Conservative",data:project(conservative),borderColor:"#756d65",borderDash:[6,5],borderWidth:2,pointRadius:0,tension:.15},
-      {label:"Current pace",data:project(current),borderColor:"#476b8c",borderWidth:3,pointRadius:0,tension:.15},
-      {label:"Strong momentum",data:project(strong),borderColor:"#295c48",borderWidth:2,pointRadius:0,tension:.15},
-      {label:t("goal"),data:days.map(()=>m.target/100),borderColor:"#d5a447",borderDash:[8,7],borderWidth:2,pointRadius:0}
+      {label:"Conservative",data:project(conservative),borderColor:"#756d65",borderDash:[6,5],borderWidth:2,pointRadius:0,tension:.22,order:3},
+      {label:"Strong momentum",data:project(strong),borderColor:"#295c48",backgroundColor:"rgba(41,92,72,.08)",borderWidth:2,pointRadius:0,tension:.22,fill:"-1",order:4},
+      {label:"Current pace",data:project(current),borderColor:"#476b8c",backgroundColor:"rgba(71,107,140,.10)",borderWidth:3,pointRadius:0,tension:.28,order:2},
+      {label:t("goal"),data:days.map(()=>m.target/100),borderColor:"#d5a447",borderDash:[8,7],borderWidth:2,pointRadius:0,order:1}
     ]},
     options:{
       responsive:true,maintainAspectRatio:false,animation:{duration:450},
-      plugins:{legend:{display:true,position:"bottom",labels:{usePointStyle:true,boxWidth:8,font:{size:10}}},tooltip:{callbacks:{label:x=>x.dataset.label+": "+euro(x.parsed.y)}}},
+      plugins:{legend:{display:true,position:"bottom",labels:{usePointStyle:true,boxWidth:8,font:{size:10}}},tooltip:{backgroundColor:"rgba(17,16,21,.96)",padding:12,cornerRadius:10,callbacks:{title:x=>x.length?("Day "+x[0].label):"",label:x=>x.dataset.label+": "+euro(x.parsed.y)}}},
       scales:{
         x:{title:{display:true,text:t("days")},grid:{display:false},ticks:{maxTicksLimit:8,font:{size:9}}},
         y:{grid:{color:"rgba(117,109,101,.12)"},ticks:{callback:v=>euro(v),font:{size:9}}}
