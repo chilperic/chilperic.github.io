@@ -253,7 +253,7 @@
           statusEl.textContent="Set a start date/time before publishing.";
           return;
         }
-        await saveEvent(host,collect(),editing?._recordId:null,statusEl);
+        await saveEvent(host,collect(),editing?editing._recordId:null,statusEl);
       }),
       button("Reset suggestion",()=>load(defaultDraft(host.getAdmin())),"alt")
     );
