@@ -1,4 +1,4 @@
-const CACHE="solidarity-shell-v11";
+const CACHE="solidarity-shell-v12";
 const ASSETS=[
 "./","./index.html","./campaign.css","./campaign.js","./config.js","./locales.js",
 "./icon.svg","./manifest.webmanifest",
