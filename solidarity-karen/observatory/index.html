@@ -99,6 +99,10 @@
         <article><span data-i18n="eta">Estimated goal time</span><strong id="statETA">—</strong></article>
       </div>
 
+      <div class="dashboard-group-heading">
+        <span class="section-kicker" data-i18n="dashboardFundDynamics">Fund dynamics</span>
+        <h3 data-i18n="dashboardFundDynamicsText">How money enters, accumulates, accelerates and approaches the goal.</h3>
+      </div>
       <div class="dashboard-grid">
         <article class="viz-panel viz-main">
           <div class="viz-head">
@@ -151,6 +155,38 @@
         <article class="viz-panel">
           <div class="viz-head"><div><span data-i18n="sources">Sources</span><h3 data-i18n="sourceMix">Contribution source mix</h3></div></div>
           <div class="chart-box"><canvas id="sourceChart"></canvas></div>
+        </article>
+      </div>
+
+      <div class="dashboard-group-heading deep-heading">
+        <span class="section-kicker" data-i18n="deepSignals">Deep signals</span>
+        <h3 data-i18n="deepSignalsText">Participation growth, cadence, persistence and accounting structure.</h3>
+      </div>
+
+      <div class="dashboard-grid dashboard-grid-deep">
+        <article class="viz-panel viz-wide">
+          <div class="viz-head"><div><span data-i18n="momentum">Momentum</span><h3 data-i18n="momentumTitle">Daily net and rolling momentum</h3></div></div>
+          <div class="chart-box"><canvas id="momentumChart"></canvas></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="viz-head"><div><span data-i18n="supporterGrowth">Growth</span><h3 data-i18n="supporterGrowthTitle">Cumulative unique supporters</h3></div></div>
+          <div class="chart-box"><canvas id="supporterGrowthChart"></canvas></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="viz-head"><div><span data-i18n="supporterSpan">Participation span</span><h3 data-i18n="supporterSpanTitle">When supporters joined and how long they remained active</h3></div></div>
+          <div class="chart-box chart-box-tall"><canvas id="supporterSpanChart"></canvas></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="viz-head"><div><span data-i18n="fingerprint">Fingerprint</span><h3 data-i18n="fingerprintTitle">Contribution percentile curve</h3></div></div>
+          <div class="chart-box"><canvas id="fingerprintChart"></canvas></div>
+        </article>
+
+        <article class="viz-panel">
+          <div class="viz-head"><div><span data-i18n="moneyFlow">Money flow</span><h3>Accounting waterfall</h3></div></div>
+          <div class="chart-box"><canvas id="waterfallChart"></canvas></div>
         </article>
       </div>
     </section>
@@ -218,10 +254,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <script src="../config.js"></script>
 <script src="../locales.js"></script>
+<script src="../observatory-locales.js"></script>
+<script src="../chart-polish.js"></script>
 <script src="../dashboard-charts.js"></script>
 <script src="../public-core.js"></script>
 <script src="../public-sections.js"></script>
 <script src="../advanced-stats.js"></script>
+<script src="../observatory-extra-charts.js"></script>
+<script src="../chart-tools.js"></script>
 
 <script>window.RBApp.start();</script>
 
