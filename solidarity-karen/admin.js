@@ -167,7 +167,7 @@ function contributionsView(){
    const rm=msg(),acts=make("div",undefined,"admin-actions");
    acts.append(
      button("Save transaction",()=>save({action:"update",id:x.id,real_name:rn.value.trim(),...(paypal?{}:{amount_cents:Math.round(Number(ra.value)*100),contributed_on:rd.value,status:rs.value}),...(paypal&&!refundRow?{status:rs.value}:{}),public_name:rv.value==="true",public_alias:rv.value==="true"?rn.value.trim():null,note:rnote.value.trim()||null},rm)),
-     button("Create privacy link",async()=>{rm.textContent="Creating private link…";try{const d=await adminTools({action:"create_consent_link",contribution_id:x.id,days:30});const url=location.origin+location.pathname+"?consent="+encodeURIComponent(d.token);await navigator.clipboard.writeText(url);rm.textContent="Private privacy link copied. It expires in 30 days."}catch{rm.textContent="Could not create privacy link."}},"alt")
+     button("Create privacy link",async()=>{rm.textContent="Creating private link…";try{const d=await adminTools({action:"create_consent_link",contribution_id:x.id,days:30});const url=new URL("../me/",location.href);url.searchParams.set("token",d.token);await navigator.clipboard.writeText(url);rm.textContent="Private privacy link copied. It expires in 30 days."}catch{rm.textContent="Could not create privacy link."}},"alt")
    );
    if(paypal&&!refundRow&&x.provider_ref){const ref=input("number",(x.amount_cents/100).toFixed(2));ref.min=".01";ref.max=(x.amount_cents/100).toFixed(2);ref.step=".01";acts.append(ref,button("Refund via PayPal",()=>paypalRefund(x.provider_ref,Math.round(Number(ref.value)*100),rm),"red"))}
    row.append(head,rg,acts,rm);manage.append(row)
