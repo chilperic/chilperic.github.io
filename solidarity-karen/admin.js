@@ -99,7 +99,7 @@ function login(){
      }else{
        secret=d;sessionStorage.removeItem("solidarity_named_session");await loadAuthContext();
      }
-     active="overview";await preloadAuthorizedData(false);startAutoRefresh();renderAdmin()
+     active="overview";await preloadAuthorizedData(false);if(!secret||!admin)throw Error("session_unavailable");startAutoRefresh();renderAdmin()
    }catch{secret=null;authContext=null;sessionStorage.removeItem("solidarity_named_session");m.textContent="Incorrect credentials or account unavailable."}
  });
  box.append(field("Username (optional)",username),field("Password",pass),unlock,m);mount.append(box);
@@ -488,6 +488,11 @@ function securityView(){
  [[authContext?.displayName||"Owner","Identity"],[(authContext?.role||"owner").toUpperCase(),"Role"],[authContext?.username||"owner","Username"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",v),make("span",l));grid.append(c)});
  const sm=msg();session.append(grid,button("Sign out",async()=>{try{if(!authContext?.breakGlass&&secret)await rpc("solidarity_organizer_logout",{p_token:secret})}catch{}sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null;admin=null;login()},"alt"),sm);wrap.append(session);
 
+ if(!authContext?.breakGlass){
+ const panel=make("div",undefined,"admin-panel"),p1=input("password"),p2=input("password"),status=msg(),grid=make("div",undefined,"admin-grid");p1.autocomplete=p2.autocomplete="new-password";
+ panel.append(make("h4","Your account password"),make("p","Choose a permanent password for your named account. Earlier sessions, including a recovery link, will be revoked.","admin-hint"));grid.append(field("New password",p1),field("Confirm new password",p2));
+ panel.append(grid,button("Save my password",async()=>{if(p1.value.length<10){status.textContent="Use at least 10 characters.";return}if(p1.value!==p2.value){status.textContent="Passwords do not match.";return}status.textContent="Saving…";try{const next=await rpc("solidarity_organizer_change_password",{p_token:secret,p_new_secret_digest:await digest(p1.value)});secret=next.token;authContext=next;sessionStorage.setItem("solidarity_named_session",secret);p1.value=p2.value="";status.textContent="Password saved. Sign in with username "+next.username+" next time.";accountsState=null;}catch{status.textContent="Could not change password. Check your session and try again."}}),status);wrap.append(panel);
+ }
  if(!can("owner"))return wrap;
 
  const breakGlass=make("div",undefined,"admin-panel");
@@ -509,6 +514,7 @@ function auditView(){
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Audit trail"),make("div","Latest 100 recorded changes. This is deliberately read-only.","admin-hint"));const list=make("div",undefined,"audit-list");(audit?.audit||[]).forEach(x=>{const row=make("div",undefined,"audit-item");row.append(make("strong",x.action+" · "+x.entity_type),make("code",x.entity_id||""),make("time",new Date(x.created_at).toLocaleString()));list.append(row)});p.append(list);return p
 }
 async function renderAdmin(){
+ if(!secret||!admin)return login();
  mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small",(authContext?.displayName||"Owner")+" · "+(authContext?.role||"owner")+" · private live administration"));head.append(title,button("Lock",async()=>{try{if(!authContext?.breakGlass&&secret)await rpc("solidarity_organizer_logout",{p_token:secret})}catch{}sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;templatesState=null;reconciliationState=null;accountsState=null;login()},"alt"));mount.append(head,tabs());
  let view;
  if(active==="health"){if(!healthState)await loadHealth();view=healthView();}
@@ -545,16 +551,17 @@ window.RBAdminHost={
   reload:async()=>{admin=await adminAction({action:"list"});supporters=null;await loadSupporters();await renderAdmin();await refreshPublic()}
 };
 function consumeSessionLink(){
- const url=new URL(location.href),token=url.searchParams.get("session");
+ const url=new URL(location.href),fragment=new URLSearchParams(url.hash.slice(1)),token=fragment.get("session")||url.searchParams.get("session");
  if(!token)return;
  sessionStorage.setItem("solidarity_named_session",token);
- url.searchParams.delete("session");
+ url.searchParams.delete("session");fragment.delete("session");url.hash=fragment.toString();
+ active="security";
  history.replaceState({},document.title,url.pathname+url.search+url.hash)
 }
 consumeSessionLink();
 async function restoreNamedSession(){
  const token=sessionStorage.getItem("solidarity_named_session");if(!token)return;
- try{secret=token;await loadAuthContext();dialog.showModal();await preloadAuthorizedData(false);startAutoRefresh();renderAdmin()}catch{sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null}
+ try{secret=token;await loadAuthContext();dialog.showModal();await preloadAuthorizedData(false);if(!secret||!admin)throw Error("session_unavailable");startAutoRefresh();renderAdmin()}catch{sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null}
 }
 window.addEventListener("focus",()=>{if(secret)preloadAuthorizedData(false)});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&secret)preloadAuthorizedData(false)});
