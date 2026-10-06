@@ -1,6 +1,6 @@
 (()=> {
 const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);
-let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null,reconciliationState=null,authContext=null,accountsState=null;
+let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null,reconciliationState=null,authContext=null,accountsState=null,lastAdminSync=null,autoRefreshTimer=null;
 
 async function rpc(name,body={}){
  const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});
@@ -28,6 +28,27 @@ async function loadAuthContext(){authContext=await rpc("solidarity_credential_co
 async function accountsAction(action){return rpc("solidarity_organizer_accounts_action",{p_owner_credential:secret,p_action:action})}
 async function loadAccounts(){accountsState=await accountsAction({action:"list"});return accountsState}
 function can(...roles){return roles.includes(authContext?.role||"owner")}
+async function preloadAuthorizedData(renderNow=false){
+ if(!secret)return;
+ const role=authContext?.role||"owner",tabs=ROLE_TABS[role]||ROLE_TABS.owner;
+ try{admin=await adminAction({action:"list"})}catch(e){if(!authContext?.breakGlass){sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null;admin=null;login()}return}
+ const jobs=[];
+ if(tabs.includes("supporters")||tabs.includes("contributions")||tabs.includes("reconciliation"))jobs.push(loadSupporters());
+ if(tabs.includes("health"))jobs.push(loadHealth());
+ if(tabs.includes("reconciliation"))jobs.push(loadReconciliation());
+ if(tabs.includes("campaign"))jobs.push(loadCampaigns());
+ if(tabs.includes("languages"))jobs.push(loadLocales());
+ if(tabs.includes("audit"))jobs.push(loadAudit());
+ if(role==="owner")jobs.push(loadAccounts());
+ await Promise.allSettled(jobs);
+ lastAdminSync=new Date();
+ if(renderNow||["overview","health","audit"].includes(active))await renderAdmin()
+}
+function startAutoRefresh(){
+ clearInterval(autoRefreshTimer);
+ autoRefreshTimer=setInterval(()=>{if(!document.hidden&&secret)preloadAuthorizedData(false)},15000)
+}
+
 const ROLE_TABS={
  owner:["overview","health","supporters","contributions","reconciliation","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
  treasurer:["overview","health","supporters","contributions","reconciliation","expenses","integrations","reports","security"],
@@ -78,7 +99,7 @@ function login(){
      }else{
        secret=d;sessionStorage.removeItem("solidarity_named_session");await loadAuthContext();
      }
-     admin=await adminAction({action:"list"});active="overview";renderAdmin()
+     active="overview";await preloadAuthorizedData(false);startAutoRefresh();renderAdmin()
    }catch{secret=null;authContext=null;sessionStorage.removeItem("solidarity_named_session");m.textContent="Incorrect credentials or account unavailable."}
  });
  box.append(field("Username (optional)",username),field("Password",pass),unlock,m);mount.append(box);
@@ -118,8 +139,16 @@ function healthView(){
 
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
- const wrap=make("div");const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[net,"Net raised"],[spent,"Used"],[available,"Available"],[refunds,"Refunded"],[admin.targetCents||0,"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",money(v)),make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
- const rec=make("div",undefined,"admin-panel");rec.append(make("h4","Recent contribution records"));rows.slice(0,6).forEach(x=>{const r=make("div",undefined,"admin-row-head");r.append(make("b",x.real_name),make("span",money(x.amount_cents)+" · "+x.status));rec.append(r)});wrap.append(rec);return wrap
+ const wrap=make("div");
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[money(net),"Net raised"],[money(spent),"Used"],[money(available),"Available"],[money(refunds),"Refunded"],[money(admin.targetCents||0),"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",String(v)),make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
+
+ const live=make("div",undefined,"admin-panel");live.append(make("h4","Live operations"),make("div","These values load automatically when the control room opens and continue refreshing in the background.","admin-hint"));
+ const lg=make("div",undefined,"admin-metrics");
+ const supporterCount=(supporters?.supporters||[]).length,eventCount=rows.filter(x=>["confirmed","received","refunded"].includes(x.status)).length,unmatched=(reconciliationState?.items||[]).filter(x=>x.status==="unmatched").length,health=healthState?.score,langs=(localeState?.enabledLocales||admin.campaign?.enabled_locales||[]).length;
+ [[supporterCount,"Supporter IDs"],[eventCount,"Contribution events"],[unmatched,"Unmatched payments"],[health==null?"—":health+"%","Data health"],[langs||"—","Languages"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",String(v)),make("span",l));lg.append(c)});
+ live.append(lg,make("div",lastAdminSync?("Last automatic sync · "+lastAdminSync.toLocaleTimeString()):"Loading live data…","admin-status"));wrap.append(live);
+
+ const rec=make("div",undefined,"admin-panel");rec.append(make("h4","Recent contribution records"));rows.slice(0,8).forEach(x=>{const r=make("div",undefined,"admin-row-head");const left=make("div");left.append(make("b",x.real_name),make("span",(x.source||"manual").toUpperCase(),"source-chip"));r.append(left,make("span",money(x.amount_cents)+" · "+x.status));rec.append(r)});wrap.append(rec);return wrap
 }
 function supportersView(){
  const editable=can("owner","organizer");
@@ -500,7 +529,9 @@ async function renderAdmin(){
 }
 async function restoreNamedSession(){
  const token=sessionStorage.getItem("solidarity_named_session");if(!token)return;
- try{secret=token;await loadAuthContext();admin=await adminAction({action:"list"});dialog.showModal();renderAdmin()}catch{sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null}
+ try{secret=token;await loadAuthContext();dialog.showModal();await preloadAuthorizedData(false);startAutoRefresh();renderAdmin()}catch{sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null}
 }
+window.addEventListener("focus",()=>{if(secret)preloadAuthorizedData(false)});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&secret)preloadAuthorizedData(false)});
 restoreNamedSession();
 })();
