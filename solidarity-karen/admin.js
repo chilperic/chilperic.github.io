@@ -42,7 +42,7 @@ async function preloadAuthorizedData(renderNow=false){
  if(role==="owner")jobs.push(loadAccounts());
  await Promise.allSettled(jobs);
  lastAdminSync=new Date();
- if(renderNow||["overview","health","audit"].includes(active))await renderAdmin()
+ if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true']")))await renderAdmin()
 }
 function startAutoRefresh(){
  clearInterval(autoRefreshTimer);
@@ -77,7 +77,7 @@ const make=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefi
 const input=(type,value="")=>{const e=document.createElement("input");e.type=type;e.value=value??"";return e};
 const field=(label,control)=>{const w=make("label",undefined,"admin-field");w.append(make("span",label),control);return w};
 const button=(text,fn,kind="")=>{const b=make("button",text,"admin-btn"+(kind?" "+kind:""));b.type="button";b.onclick=fn;return b};
-const money=c=>new Intl.NumberFormat(undefined,{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(Number(c||0)/100);
+const money=c=>new Intl.NumberFormat(undefined,{style:"currency",currency:"EUR",minimumFractionDigits:Number(c||0)%100?2:0,maximumFractionDigits:Number(c||0)%100?2:0}).format(Number(c||0)/100);
 const msg=()=>make("div","", "admin-status");
 
 const open=()=>{dialog.showModal();secret?renderAdmin():login()};
@@ -137,10 +137,35 @@ function healthView(){
  p.append(issues,actions,m);return p
 }
 
+function targetEditor(){
+ const p=make("section",undefined,"admin-panel target-editor");
+ p.append(make("h4","Campaign target"));
+ const current=make("div",undefined,"target-current");
+ const amount=make("strong",money(admin.targetCents||admin.campaign?.target_cents||0));
+ current.append(make("span","Current target"),amount);p.append(current);
+ if(!can("owner","organizer")){p.append(make("div","The owner or an organizer can change the campaign target.","admin-hint"));return p}
+ const goal=input("text");goal.inputMode="decimal";goal.placeholder="e.g. 1000.00";goal.autocomplete="off";
+ const preview=make("div","Enter an amount to preview the new target.","target-preview");preview.setAttribute("aria-live","polite");
+ const status=msg();status.setAttribute("role","status");
+ const parse=()=>{const v=goal.value.trim().replace(",",".");if(!/^\d+(\.\d{1,2})?$/.test(v))return null;const cents=Math.round(Number(v)*100);return Number.isSafeInteger(cents)&&cents>0&&cents<=2147483647?cents:null};
+ const net=()=>{const rows=admin.contributions||[];return rows.reduce((sum,x)=>sum+(["confirmed","received"].includes(x.status)?Number(x.amount_cents):x.status==="refunded"?-Number(x.amount_cents):0),0)};
+ let saving=false;
+ const saveTarget=button("Save new target",async()=>{
+  if(saving)return;const cents=parse();if(cents===null){status.textContent="Enter a positive amount with up to two decimal places.";goal.focus();return}
+  saving=true;saveTarget.disabled=true;goal.disabled=true;status.textContent="Saving new target…";
+  try{await adminAction({action:"set_target",target_cents:cents});admin=await adminAction({action:"list"});amount.textContent=money(admin.targetCents);document.querySelectorAll("[data-current-target]").forEach(x=>x.textContent=money(admin.targetCents));goal.value="";p.dataset.dirty="false";preview.textContent="New target: "+money(admin.targetCents)+" · Remaining: "+money(Math.max(0,admin.targetCents-net()));status.textContent="Target saved. Public totals and charts will use the new target.";await refreshPublic()}
+  catch{status.textContent="Could not confirm the update. Refresh and check the current target before trying again."}
+  finally{saving=false;saveTarget.disabled=false;goal.disabled=false}
+ },"red");
+ goal.addEventListener("input",()=>{p.dataset.dirty=String(!!goal.value);status.textContent="";const cents=parse();preview.textContent=cents===null?"Enter a positive amount with up to two decimal places.":"New target: "+money(cents)+" · Remaining: "+money(Math.max(0,cents-net()))+" · Progress: "+Math.min(100,Math.max(0,Math.round(net()/cents*100)))+"%"});
+ goal.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();saveTarget.click()}});
+ p.append(field("New target (€)",goal),preview,saveTarget,status);return p
+}
+
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
- const wrap=make("div");
- const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[money(net),"Net raised"],[money(spent),"Used"],[money(available),"Available"],[money(refunds),"Refunded"],[money(admin.targetCents||0),"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");c.append(make("b",String(v)),make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
+ const wrap=make("div");wrap.append(targetEditor());
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[money(net),"Net raised"],[money(spent),"Used"],[money(available),"Available"],[money(refunds),"Refunded"],[money(admin.targetCents||0),"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");const val=make("b",String(v));if(l==="Target")val.dataset.currentTarget="true";c.append(val,make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
 
  const live=make("div",undefined,"admin-panel");live.append(make("h4","Live operations"),make("div","These values load automatically when the control room opens and continue refreshing in the background.","admin-hint"));
  const lg=make("div",undefined,"admin-metrics");
@@ -313,7 +338,7 @@ function reconciliationView(){
 }
 
 async function campaignView(){
- const wrap=make("div"),c=admin.campaign||{};
+ const wrap=make("div"),c=admin.campaign||{};wrap.append(targetEditor());
  const edit=make("div",undefined,"admin-panel");
  edit.append(make("h4","Public campaign experience"),make("div","Control what the public sees. Technical configuration remains private.","admin-hint"));
  const g=make("div",undefined,"admin-grid");
@@ -471,8 +496,8 @@ function createShareCard(){
  ctx.fillStyle="#b33245";ctx.beginPath();ctx.arc(1080,90,210,0,Math.PI*2);ctx.fill();
  ctx.fillStyle="#151317";ctx.font="700 30px system-ui";ctx.fillText((admin.campaign?.title||"Solidarity Fund").toUpperCase(),90,95);
  ctx.fillStyle="#766f68";ctx.font="500 23px system-ui";ctx.fillText(admin.campaign?.subtitle||"We carry it together.",90,140);
- ctx.fillStyle="#151317";ctx.font="900 92px system-ui";ctx.fillText(new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(net/100),90,290);
- ctx.fillStyle="#766f68";ctx.font="600 28px system-ui";ctx.fillText("of "+new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(target/100)+" · "+Math.round(pct)+"% · "+rows.filter(x=>["confirmed","received"].includes(x.status)).length+" supporters",95,335);
+ ctx.fillStyle="#151317";ctx.font="900 92px system-ui";ctx.fillText(new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",minimumFractionDigits:net%100?2:0,maximumFractionDigits:net%100?2:0}).format(net/100),90,290);
+ ctx.fillStyle="#766f68";ctx.font="600 28px system-ui";ctx.fillText("of "+new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR",minimumFractionDigits:target%100?2:0,maximumFractionDigits:target%100?2:0}).format(target/100)+" · "+Math.round(pct)+"% · "+rows.filter(x=>["confirmed","received"].includes(x.status)).length+" supporters",95,335);
  ctx.fillStyle="#d8d0c5";ctx.fillRect(90,390,900,24);ctx.fillStyle="#b33245";ctx.fillRect(90,390,900*(pct/100),24);
  ctx.fillStyle="#295846";ctx.font="800 26px system-ui";ctx.fillText("No charity. Solidarity.",90,485);
  ctx.fillStyle="#766f68";ctx.font="500 21px system-ui";ctx.fillText(location.origin+location.pathname,90,540);
