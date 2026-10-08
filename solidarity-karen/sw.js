@@ -1,4 +1,4 @@
-const CACHE="solidarity-shell-v20";
+const CACHE="solidarity-shell-v21";
 const ASSETS=[
 "./","./index.html","./campaign.css","./campaign.js","./campaign-dashboard-locales.js","./campaign-dashboard.js","./events-public.js","./config.js","./locales.js",
 "./icon.svg","./manifest.webmanifest","./brand.css","./experience-locales.js","./campaign-insights.js","./assets/red-banner-mark.png","./assets/chart.umd.min.js","./assets/qrcode.min.js",

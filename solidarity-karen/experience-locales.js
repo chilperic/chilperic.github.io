@@ -16,4 +16,16 @@ const extra={
 en:{qr:'Show QR',now:'Now',scanToContribute:'Scan to contribute'},fr:{qr:'Afficher le QR',now:'Maintenant',scanToContribute:'Scanner pour contribuer'},de:{qr:'QR anzeigen',now:'Jetzt',scanToContribute:'Scannen zum Beitragen'},es:{qr:'Mostrar QR',now:'Ahora',scanToContribute:'Escanear para contribuir'},it:{qr:'Mostra QR',now:'Ora',scanToContribute:'Scansiona per contribuire'},pt:{qr:'Mostrar QR',now:'Agora',scanToContribute:'Digitalizar para contribuir'},nl:{qr:'QR tonen',now:'Nu',scanToContribute:'Scan om bij te dragen'},ar:{qr:'عرض رمز QR',now:'الآن',scanToContribute:'امسح للمساهمة'}
 };
 for(const [lang,values] of Object.entries(extra))Object.assign(window.SOLIDARITY_LOCALES.ui[lang],values);
+
+const targetLabels={
+ en:{targetUpdated:'Target updated',previousTarget:'Previously',targetOn:'Updated',targetExplanation:'The contribution total is unchanged.'},
+ fr:{targetUpdated:'Objectif actualisé',previousTarget:'Auparavant',targetOn:'Actualisé le',targetExplanation:'Le total des contributions reste inchangé.'},
+ de:{targetUpdated:'Ziel aktualisiert',previousTarget:'Bisher',targetOn:'Aktualisiert am',targetExplanation:'Die Beitragssumme bleibt unverändert.'},
+ es:{targetUpdated:'Objetivo actualizado',previousTarget:'Anteriormente',targetOn:'Actualizado el',targetExplanation:'El total de contribuciones no cambia.'},
+ it:{targetUpdated:'Obiettivo aggiornato',previousTarget:'Prima',targetOn:'Aggiornato il',targetExplanation:'Il totale dei contributi resta invariato.'},
+ pt:{targetUpdated:'Meta atualizada',previousTarget:'Anteriormente',targetOn:'Atualizada em',targetExplanation:'O total de contribuições permanece igual.'},
+ nl:{targetUpdated:'Doel bijgewerkt',previousTarget:'Voorheen',targetOn:'Bijgewerkt op',targetExplanation:'Het totaal aan bijdragen blijft gelijk.'},
+ ar:{targetUpdated:'تم تحديث الهدف',previousTarget:'سابقًا',targetOn:'تم التحديث في',targetExplanation:'إجمالي المساهمات لم يتغير.'}
+};
+for(const [lang,values] of Object.entries(targetLabels))Object.assign(window.SOLIDARITY_LOCALES.ui[lang],values);
 })();

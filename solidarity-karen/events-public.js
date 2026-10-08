@@ -86,8 +86,10 @@ function render(state){
      const goal=document.createElement("div");goal.innerHTML="<span>"+text(lang,"goal")+"</span><strong>"+euro(e.goalCents/100)+"</strong>";finance.append(goal);
    }
 
-   card.append(top,h,desc,meta);
-   if(fundraising||st.net){card.append(finance);const note=document.createElement("p");note.className="event-ledger-note";note.textContent=text(lang,"included");card.append(note)}
+   const heading=document.createElement("div");heading.className="event-heading";
+   if(e.startsAt){const date=document.createElement("time");date.className="event-date-tile";date.dateTime=e.startsAt;const d=document.createElement("strong"),m=document.createElement("span");d.textContent=new Intl.DateTimeFormat(lang,{timeZone:e.timeZone||"Europe/Berlin",day:"2-digit"}).format(new Date(e.startsAt));m.textContent=new Intl.DateTimeFormat(lang,{timeZone:e.timeZone||"Europe/Berlin",month:"short"}).format(new Date(e.startsAt));date.append(d,m);heading.append(date)}
+   heading.append(h);card.append(top,heading,desc,meta);
+   if(st.net||e.goalCents){card.append(finance);const note=document.createElement("p");note.className="event-ledger-note";note.textContent=text(lang,"included");card.append(note)}
    if(e.goalCents&&fundraising){
      const progress=document.createElement("div");progress.className="event-progress";
      const fill=document.createElement("i");fill.style.width=Math.min(100,st.net/Number(e.goalCents)*100)+"%";progress.append(fill);progress.setAttribute("role","progressbar");progress.setAttribute("aria-label",text(lang,"goal"));progress.setAttribute("aria-valuenow",String(Math.min(100,Math.round(st.net/Number(e.goalCents)*100))));progress.setAttribute("aria-valuemin","0");progress.setAttribute("aria-valuemax","100");card.append(progress);
@@ -98,7 +100,7 @@ function render(state){
      const reference=document.createElement("div");reference.className="event-reference";
      const note=document.createElement("span");note.textContent=text(lang,"reference")+": "+paymentNote(e);
      const copy=document.createElement("button");copy.type="button";copy.textContent=text(lang,"copy");copy.onclick=async()=>{try{await navigator.clipboard.writeText(paymentNote(e));copy.textContent=text(lang,"copied")}catch{const range=document.createRange();range.selectNodeContents(note);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range)}};
-     reference.append(note,copy);card.append(reference);
+     reference.append(note,copy);const details=document.createElement("details"),summary=document.createElement("summary");details.className="event-payment-details";summary.textContent=text(lang,"reference");details.append(summary,reference);card.append(details);
      const pay=document.createElement("a");pay.className="event-pay";pay.href=payUrl;pay.target="_blank";pay.rel="noopener noreferrer";pay.textContent=text(lang,"contribute");card.append(pay);
    }
    if(e.venueAddress){const directions=document.createElement("a");directions.className="event-calendar";directions.href="https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(e.venueName+", "+e.venueAddress);directions.target="_blank";directions.rel="noopener noreferrer";directions.textContent=state.t("trainingDirections");card.append(directions)}

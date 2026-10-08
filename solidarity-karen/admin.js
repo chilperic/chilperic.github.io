@@ -140,26 +140,46 @@ function healthView(){
 function targetEditor(){
  const p=make("section",undefined,"admin-panel target-editor");
  p.append(make("h4","Campaign target"));
- const current=make("div",undefined,"target-current");
- const amount=make("strong",money(admin.targetCents||admin.campaign?.target_cents||0));
- current.append(make("span","Current target"),amount);p.append(current);
+ let expectedTarget=Number(admin.targetCents??admin.campaign?.target_cents??0);
+ const current=make("div",undefined,"target-current"),amount=make("strong",money(expectedTarget));
+ current.append(make("span","Current public target"),amount);p.append(current);
  if(!can("owner","organizer")){p.append(make("div","The owner or an organizer can change the campaign target.","admin-hint"));return p}
- const goal=input("text");goal.inputMode="decimal";goal.placeholder="e.g. 1000.00";goal.autocomplete="off";
- const preview=make("div","Enter an amount to preview the new target.","target-preview");preview.setAttribute("aria-live","polite");
+ const goal=input("text");goal.inputMode="decimal";goal.placeholder="e.g. 1500.00";goal.autocomplete="off";
+ const preview=make("div","Enter a new amount to preview the campaign progress.","target-preview");preview.setAttribute("aria-live","polite");
  const status=msg();status.setAttribute("role","status");
  const parse=()=>{const v=goal.value.trim().replace(",",".");if(!/^\d+(\.\d{1,2})?$/.test(v))return null;const cents=Math.round(Number(v)*100);return Number.isSafeInteger(cents)&&cents>0&&cents<=2147483647?cents:null};
  const net=()=>{const rows=admin.contributions||[];return rows.reduce((sum,x)=>sum+(["confirmed","received"].includes(x.status)?Number(x.amount_cents):x.status==="refunded"?-Number(x.amount_cents):0),0)};
  let saving=false;
  const saveTarget=button("Save new target",async()=>{
-  if(saving)return;const cents=parse();if(cents===null){status.textContent="Enter a positive amount with up to two decimal places.";goal.focus();return}
-  saving=true;saveTarget.disabled=true;goal.disabled=true;status.textContent="Saving new target…";
-  try{await adminAction({action:"set_target",target_cents:cents});admin=await adminAction({action:"list"});amount.textContent=money(admin.targetCents);document.querySelectorAll("[data-current-target]").forEach(x=>x.textContent=money(admin.targetCents));goal.value="";p.dataset.dirty="false";preview.textContent="New target: "+money(admin.targetCents)+" · Remaining: "+money(Math.max(0,admin.targetCents-net()));status.textContent="Target saved. Public totals and charts will use the new target.";await refreshPublic()}
-  catch{status.textContent="Could not confirm the update. Refresh and check the current target before trying again."}
-  finally{saving=false;saveTarget.disabled=false;goal.disabled=false}
- },"red");
- goal.addEventListener("input",()=>{p.dataset.dirty=String(!!goal.value);status.textContent="";const cents=parse();preview.textContent=cents===null?"Enter a positive amount with up to two decimal places.":"New target: "+money(cents)+" · Remaining: "+money(Math.max(0,cents-net()))+" · Progress: "+Math.min(100,Math.max(0,Math.round(net()/cents*100)))+"%"});
+  if(saving)return;const cents=parse();if(cents===null||cents===expectedTarget)return;
+  saving=true;p.dataset.dirty="true";saveTarget.disabled=true;goal.disabled=true;status.textContent="Saving new target…";
+  try{
+   const result=await adminAction({action:"set_target",target_cents:cents,expected_target_cents:expectedTarget});
+   if(result?.targetCents!==cents)throw Error("target_unconfirmed");
+   expectedTarget=cents;admin.targetCents=cents;amount.textContent=money(cents);
+   if(admin.campaign)admin.campaign.target_cents=cents;
+   document.querySelectorAll("[data-current-target]").forEach(x=>x.textContent=money(cents));
+   goal.value="";p.dataset.dirty="false";p.classList.add("target-saved");
+   preview.textContent="New public target: "+money(cents)+" · Still needed: "+money(Math.max(0,cents-net()));
+   status.textContent="Saved. The campaign now shows "+money(cents)+" and the previous target. Open campaign to view it.";
+   try{localStorage.setItem("solidarity_campaign_changed",String(Date.now()))}catch{}
+   await refreshPublic();
+  }catch(error){
+   if(String(error.message).includes("target_conflict")){
+    try{admin=await adminAction({action:"list"});expectedTarget=Number(admin.targetCents);amount.textContent=money(expectedTarget);status.textContent="Another organizer changed the target to "+money(expectedTarget)+". Review your amount and save again."}
+    catch{status.textContent="The target changed elsewhere. Reload the page before saving."}
+   }else status.textContent="The update could not be confirmed. Check the current target before trying again.";
+  }finally{saving=false;goal.disabled=false;saveTarget.disabled=parse()===null||parse()===expectedTarget}
+ },"red");saveTarget.disabled=true;
+ goal.addEventListener("input",()=>{
+  p.dataset.dirty=String(!!goal.value);p.classList.remove("target-saved");status.textContent="";
+  const cents=parse();saveTarget.disabled=cents===null||cents===expectedTarget;
+  preview.textContent=cents===null?"Enter a positive amount with up to two decimal places.":cents===expectedTarget?"This is already the current target.":"New target: "+money(cents)+" · Still needed: "+money(Math.max(0,cents-net()))+" · Progress: "+Math.max(0,Math.round(net()/cents*100))+"%";
+ });
  goal.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();saveTarget.click()}});
- p.append(field("New target (€)",goal),preview,saveTarget,status);return p
+ const actions=make("div",undefined,"target-actions"),link=make("a","Open campaign","admin-btn alt");link.href="../";link.target="_blank";link.rel="noopener";actions.append(saveTarget,link);
+ p.append(field("New target (€)",goal),preview,actions,status);
+ return p;
 }
 
 function overviewView(){
