@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#a51e2c">
   <meta name="description" content="The Red Banner Is Raised — a shared space to organize events, exchange ideas, make plans and support one another.">
+  <meta name="robots" content="noindex, nofollow">
   <title>The Red Banner Is Raised · Community hub</title>
   <link rel="icon" href="./assets/red-banner-mark.png" type="image/png">
   <link rel="stylesheet" href="./hub.css">
@@ -36,7 +37,7 @@
         <button class="nav-item" data-view="ideas" type="button"><span class="nav-icon">✎</span>Ideas & proposals</button>
       </nav>
       <div class="sidebar-bottom">
-        <div class="preview-status"><span class="preview-pulse"></span><div><strong>Local preview</strong><small>Changes stay on this device</small></div></div>
+        <div class="preview-status"><span class="preview-pulse" id="syncPulse"></span><div><strong id="syncTitle">Connecting to the shared board</strong><small id="syncDetail">Checking the group space…</small></div></div>
         <a href="./campaign.html" class="campaign-shortcut"><span class="shortcut-mark">↗</span><span><strong>Fundraising campaign</strong><small>Training · 17 October</small></span></a>
       </div>
     </aside>
@@ -126,6 +127,6 @@
 
   <dialog id="profileDialog" class="modal small-modal"><form id="profileForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">YOUR CONTRIBUTION</span><h2>How should we call you?</h2></div><button class="modal-close" type="button" data-close="profileDialog" aria-label="Close">×</button></div><label>Name or group nickname<input name="name" maxlength="40" placeholder="e.g. Foko"></label><p class="form-hint">Your name appears beside your local preview messages.</p><div class="modal-actions"><button class="button button-outline" type="button" data-close="profileDialog">Cancel</button><button class="button button-red" type="submit">Save name</button></div></form></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="./hub.js"></script>
+  <script src="./config.js"></script><script src="./hub.js"></script>
 </body>
 </html>
