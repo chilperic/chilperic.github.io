@@ -1,78 +1,131 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#e33237">
-<meta name="description" content="Solidarity for Karen. Join the training on 17 October, 11:30–13:30, at Functional Garage 0211 in Düsseldorf. Fundraising closes 22 October.">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./assets/red-banner-mark.png" type="image/png">
-<link rel="stylesheet" href="./campaign.css">
-<title>Solidarity for Karen · The Red Banner</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#a51e2c">
+  <meta name="description" content="The Red Banner Is Raised — a shared space to organize events, exchange ideas, make plans and support one another.">
+  <title>The Red Banner Is Raised · Community hub</title>
+  <link rel="icon" href="./assets/red-banner-mark.png" type="image/png">
+  <link rel="stylesheet" href="./hub.css">
 </head>
 <body>
-<a class="skip-link" href="#campaignEvents">Skip to the training</a>
-<header class="campaign-nav">
-  <a class="campaign-brand" href="./" aria-label="The Red Banner Is Raised · Home">
-    <img src="./assets/red-banner-mark.png" alt="" width="60" height="60">
-    <span><strong>The Red Banner<br>Is Raised</strong><small id="brandCampaign">Solidarity for Karen</small></span>
-  </a>
-  <nav aria-label="Main navigation">
-    <a href="#campaignEvents" class="training-nav" data-i18n="trainingNav">Training</a>
-    <a href="#liveDashboard" data-i18n="liveDashboard">Live campaign data</a>
-    <a href="#campaignSupporters" data-i18n="people">Supporter registry</a>
-    <a class="organizer-nav-link" href="./organizer/" data-i18n="organizer">Organizer</a>
-    <label class="campaign-language"><span class="sr-only">Language</span><select id="languageSelect" aria-label="Language"></select></label>
-  </nav>
-</header>
-<main>
-  <section class="campaign-overview">
-    <div class="campaign-heading">
-      <div class="campaign-copy"><span class="campaign-kicker" id="campaignKicker">FOR KAREN</span><h1 id="campaignTitle">Solidarity for Karen</h1><p id="campaignStory">Loading campaign…</p></div>
-      <div class="campaign-deadline" id="campaignDeadline"><span data-i18n="fundraisingUntil">Fundraising until</span><strong id="deadlineDate">22 October</strong><span id="deadlineCountdown"></span><small data-i18n="birthdayNote">Before Karen’s birthday on 23 October.</small></div>
-    </div>
-    <div class="campaign-front">
-      <section id="campaignEvents" class="campaign-events hidden" aria-labelledby="eventsHeading">
-        <div class="events-intro"><div><span class="events-kicker" data-i18n="trainingNav">Training</span><h2 id="eventsHeading">Solidarity events</h2><p id="eventsIntro">Meet, move, learn and build material support together.</p></div><span class="events-count" id="eventsCount">1 event</span></div>
-        <div id="eventsGrid" class="events-grid"></div>
+  <a class="skip-link" href="#main">Skip to the community board</a>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="The Red Banner Is Raised home">
+      <img src="./assets/red-banner-mark.png" alt="" width="48" height="48">
+      <span class="brand-name">The Red Banner<br>Is Raised</span>
+    </a>
+    <div class="topbar-center"><span class="online-mark"></span><span>Our shared space</span><span class="topbar-divider">·</span><span id="todayLabel"></span></div>
+    <div class="topbar-tools"><label class="sr-only" for="languageSelect">Language</label><select id="languageSelect" aria-label="Language"><option value="en">EN</option><option value="de">DE</option><option value="fr">FR</option></select><button class="avatar" id="profileButton" type="button" title="Set your name" aria-label="Set your name">T</button></div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-label">COMMUNITY</div>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="home" type="button"><span class="nav-icon">⌂</span>Overview</button>
+        <button class="nav-item" data-view="events" type="button"><span class="nav-icon">✳</span>Events <span class="nav-count" id="eventNavCount">3</span></button>
+        <button class="nav-item" data-view="polls" type="button"><span class="nav-icon">◉</span>Polls <span class="nav-dot"></span></button>
+        <button class="nav-item" data-view="brunch" type="button"><span class="nav-icon">✿</span>People’s Brunch</button>
+        <button class="nav-item" data-view="messages" type="button"><span class="nav-icon">▤</span>Messages</button>
+      </nav>
+      <div class="sidebar-label sidebar-label-spaced">SHARED CARE</div>
+      <nav class="main-nav">
+        <a class="nav-item nav-link" href="./campaign.html"><span class="nav-icon">♡</span>Karen solidarity fund</a>
+        <button class="nav-item" data-view="ideas" type="button"><span class="nav-icon">✎</span>Ideas & proposals</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="preview-status"><span class="preview-pulse"></span><div><strong>Local preview</strong><small>Changes stay on this device</small></div></div>
+        <a href="./campaign.html" class="campaign-shortcut"><span class="shortcut-mark">↗</span><span><strong>Fundraising campaign</strong><small>Training · 17 October</small></span></a>
+      </div>
+    </aside>
+
+    <main id="main" class="main-content">
+      <div class="mobile-greeting"><span class="eyebrow">THE RED BANNER IS RAISED</span><h1>Make plans together.</h1></div>
+      <section class="welcome-strip" aria-label="Welcome">
+        <div><span class="eyebrow">OUR SPACE · OUR PLANS</span><h1>Make plans together.</h1><p>Eat, move, learn, travel, organise. Put the idea on the table and shape it collectively.</p></div>
+        <button class="button button-light" id="openProposal" type="button"><span>＋</span> Propose something</button>
+        <div class="banner-seal" aria-hidden="true"><span>R</span><i></i><i></i><i></i></div>
       </section>
-      <aside class="campaign-fund" aria-label="Campaign fund">
-        <div class="fund-top"><span class="fund-label" data-i18n="raised">Raised</span><span class="campaign-status"><span id="campaignStatus">LIVE</span></span></div>
-        <strong id="raisedTotal">—</strong><div class="fund-goal"><span data-i18n="goal">Goal</span><b id="goalText">—</b></div>
-        <div id="targetChangeNotice" class="target-change-notice hidden" aria-live="polite"></div>
-        <div class="fund-progress" role="progressbar" aria-label="Campaign progress" aria-valuemin="0" aria-valuemax="100"><div id="progressLine"></div></div>
-        <div class="fund-facts"><div><b id="progressPct">0%</b><span data-i18n="progress">Progress</span></div><div><b id="supporterCount">0</b><span data-i18n="supporters">Supporters</span></div><div><b id="remainingAmount">€0</b><span data-i18n="remaining">Remaining</span></div></div>
-        <a id="heroPayBtn" class="paypal-primary" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><span class="paypal-word">PayPal</span><strong id="paymentLabel">Contribute now</strong></a>
-        <div class="fund-actions"><button id="qrBtn" class="qr-button" type="button" data-i18n="qr">Show QR</button><button id="shareCampaign" class="qr-button" type="button" data-i18n="shareCampaign">Share campaign</button></div>
-        <div class="fund-sync"><time id="lastUpdated"></time><span id="connectionStatus" role="status" data-i18n="autoUpdated">Auto-updated</span></div>
-      </aside>
-    </div>
-  </section>
-  <section class="signature-curve" aria-labelledby="curveHeading">
-    <div class="curve-copy"><span class="section-number">01</span><span data-i18n="evolution">Evolution</span><h2 id="curveHeading" data-i18n="cumulativeCurve">Cumulative contribution curve</h2><p data-i18n="campaignCurveText">Confirmed contributions over time. The dashed line is the goal.</p><button class="chart-export" type="button" data-export-chart="campaignCurve" data-i18n="exportPlot">Save plot</button></div>
-    <div class="curve-stage"><canvas id="campaignCurve" width="1200" height="430" aria-label="Cumulative confirmed contributions"></canvas><div class="curve-now"><span data-i18n="now">Now</span><strong id="curveNow">€0</strong></div></div>
-  </section>
-  <section id="liveDashboard" class="campaign-dashboard" aria-labelledby="dashboardHeading">
-    <div class="dashboard-intro"><div><span class="dashboard-kicker"><span class="section-number">02</span><span data-i18n="liveDashboard">Live campaign data</span></span><h2 id="dashboardHeading" data-i18n="liveDashboardTitle">The collective effort is visible.</h2><p data-i18n="liveDashboardText">These figures and plots update automatically.</p></div><div class="dashboard-controls"><label><span data-i18n="chartPeriod">Plot period</span><select id="dashboardRange"><option value="all" data-i18n="allTime">All time</option><option value="7" data-i18n="last7Days">Last 7 days</option><option value="30" data-i18n="last30Days">Last 30 days</option></select></label><button id="exportPublicData" class="secondary-button" type="button" data-i18n="exportData">Export public data</button></div></div>
-    <div class="campaign-stat-grid"><article><span data-i18n="meanContribution">Mean contribution</span><strong id="homeMean">€0</strong></article><article><span data-i18n="medianContribution">Median contribution</span><strong id="homeMedian">€0</strong></article><article><span data-i18n="recentMomentum">7-day momentum</span><strong id="homeMomentumValue">€0</strong></article><article><span data-i18n="contributionEvents">Contribution records</span><strong id="homeEvents">0</strong></article></div>
-    <div class="campaign-dashboard-grid">
-      <article class="campaign-data-card campaign-data-wide"><div class="campaign-data-head"><div><span data-i18n="momentum">Momentum</span><h3 data-i18n="momentumTitle">Daily movement + rolling pace</h3></div><b id="homeVelocity">—</b><button class="chart-export" type="button" data-export-chart="homeMomentumChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeMomentumChart" aria-label="Daily contributions and rolling mean"></canvas></div></article>
-      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="supporterGrowth">Supporter growth</span><h3 data-i18n="supporterGrowthTitle">Cumulative unique supporters</h3></div><button class="chart-export" type="button" data-export-chart="homeGrowthChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeGrowthChart" aria-label="Cumulative unique supporters"></canvas></div></article>
-      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="distribution">Distribution</span><h3 data-i18n="distributionTitle">Contribution-size profile</h3></div><button class="chart-export" type="button" data-export-chart="homeDistributionChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeDistributionChart" aria-label="Contribution size distribution"></canvas></div></article>
-      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="sourceMix">Sources</span><h3 data-i18n="sourceMixTitle">How contributions arrived</h3></div><button class="chart-export" type="button" data-export-chart="homeSourceChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeSourceChart" aria-label="Contribution sources"></canvas></div></article>
-      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="goal">Goal</span><h3 data-i18n="goalPosition">Raised and remaining</h3></div><button class="chart-export" type="button" data-export-chart="homeGoalChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeGoalChart" aria-label="Raised funds and remaining target"></canvas></div></article>
-      <article class="campaign-data-card campaign-data-wide"><div class="campaign-data-head"><div><span data-i18n="livePulse">Live pulse</span><h3 data-i18n="peopleStream">Supporter-ID stream</h3></div></div><div id="recentActivity" class="campaign-activity"></div></article>
-    </div>
-    <div class="fund-position"><div><span data-i18n="gross">Gross</span><strong id="homeGross">€0</strong></div><div><span data-i18n="refunds">Refunds</span><strong id="homeRefunds">€0</strong></div><div><span data-i18n="used">Used</span><strong id="homeSpent">€0</strong></div><div><span data-i18n="available">Available</span><strong id="homeAvailable">€0</strong></div></div>
-    <a href="./observatory/" class="full-observatory-link" data-i18n="fullObservatory">Full Observatory</a>
-  </section>
-  <section id="campaignMilestones" class="campaign-milestones"><div><span class="section-number">03</span><span data-i18n="milestones">Milestones</span><h2 data-i18n="collectiveProgress">Collective progress</h2></div><div id="milestoneLine"></div></section>
-  <section id="campaignSupporters" class="campaign-people"><div class="people-message"><span class="section-number">04</span><span data-i18n="people">Supporter registry</span><h2 data-i18n="peopleNotRanked">Identified, never ranked.</h2><p data-i18n="peopleStreamText">Stable IDs keep participation visible without exposing private names.</p><input id="supporterSearch" type="search" autocomplete="off" aria-label="Find a supporter ID" placeholder="Find a supporter ID"></div><div><div id="supporterSummary" class="supporter-summary"></div><div id="supporterPagination" class="supporter-pagination"></div></div></section>
-  <section class="campaign-manifesto"><blockquote data-i18n="quote">Solidarity means collectivizing the pain, the joy and the effort.</blockquote></section>
-</main>
-<footer><a href="./" class="footer-brand"><img src="./assets/red-banner-mark.png" width="40" height="40" alt=""><strong>The Red Banner Is Raised</strong></a><span id="footerCampaign">Solidarity for Karen</span><a href="./organizer/" data-i18n="organizer">Organizer</a></footer>
-<a id="mobilePayBtn" class="mobile-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><span id="mobilePaymentLabel">Contribute with PayPal</span></a>
-<dialog id="qrDialog"><div class="qr-head"><strong data-i18n="scanToContribute">Scan to contribute</strong><button id="qrClose" type="button" aria-label="Close">×</button></div><div id="qrMount"></div><a id="qrPayLink" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer">PayPal</a></dialog>
-<script src="./config.js"></script><script src="./locales.js"></script><script src="./campaign-dashboard-locales.js"></script><script src="./experience-locales.js"></script><script src="./assets/chart.umd.min.js"></script><script src="./campaign-dashboard.js"></script><script src="./events-public.js"></script><script src="./campaign-insights.js"></script><script src="./campaign.js"></script>
+
+      <div class="view-heading" id="viewHeading"><div><span class="eyebrow">FRIDAY, 9 OCTOBER</span><h2>This is what’s moving.</h2></div><button class="text-button" id="shareHub" type="button">Share the hub <span>↗</span></button></div>
+
+      <section class="priority-grid" id="priorityGrid" aria-label="Upcoming events and active poll">
+        <article class="feature-card feature-karen">
+          <div class="feature-card-top"><span class="feature-label"><span class="red-dot"></span> HAPPENING FIRST</span><span class="event-date-badge"><b>17</b><small>OCT</small></span></div>
+          <div class="feature-card-main"><span class="event-type-label">SOLIDARITY · TRAINING</span><h3>Train together for Karen</h3><p>Functional Garage 0211 · Düsseldorf</p><div class="event-time"><span>11:30</span><span class="time-line"></span><span>13:30</span></div></div>
+          <div class="feature-card-foot"><span><b>Fundraising closes 22 Oct</b><small>Before Karen’s birthday · 23 Oct</small></span><a class="round-arrow" href="./campaign.html" aria-label="Open Karen solidarity campaign">↗</a></div>
+        </article>
+
+        <article class="feature-card feature-karting">
+          <div class="feature-card-top"><span class="feature-label"><span class="yellow-dot"></span> NEXT UP</span><span class="event-date-badge dark"><b>24</b><small>OCT</small></span></div>
+          <div class="karting-art" aria-hidden="true"><div class="track track-one"></div><div class="track track-two"></div><span class="track-dot"></span><span class="track-flag">RACE<br>TOGETHER</span></div>
+          <div class="feature-card-main"><span class="event-type-label">SUGGESTED BY THE GROUP</span><h3>Karting</h3><p>Saturday, 24 October · time to be decided</p></div>
+          <div class="feature-card-foot"><span><b id="kartingResponse">0 people interested</b><small>Help us settle the details</small></span><button class="round-arrow interest-button" id="kartingInterest" type="button" aria-label="Mark interest in karting">＋</button></div>
+        </article>
+
+        <article class="poll-card" id="featuredPoll">
+          <div class="poll-top"><span class="feature-label"><span class="green-dot"></span> OPEN POLL</span><span class="poll-deadline">NOVEMBER · FRIDAYS + SATURDAYS</span></div>
+          <div class="poll-head"><div><span class="event-type-label">POWERPOINT NIGHT</span><h3>When can you make it?</h3></div><span class="poll-icon">◉</span></div>
+          <p class="poll-description">Pick every evening that works. We’ll choose the date with the most overlap.</p>
+          <div id="pollChoices" class="poll-choices" aria-label="Available evenings"></div>
+          <div class="poll-actions"><span id="pollTally">No votes yet</span><button class="button button-red" id="castVote" type="button">Cast my vote</button></div>
+          <p class="poll-note" id="pollNote" role="status">The poll is open for all November Fridays and Saturdays.</p>
+        </article>
+      </section>
+
+      <section class="content-view active" id="view-home" data-view-panel="home">
+        <div class="home-lower-grid">
+          <section class="panel activity-panel" aria-labelledby="activityTitle"><div class="panel-heading"><div><span class="eyebrow">THE COMMON TABLE</span><h3 id="activityTitle">Recent notes</h3></div><button class="icon-button" id="newMessage" type="button" aria-label="Write a message">＋</button></div><div id="activityFeed" class="activity-feed"></div><button class="panel-link" data-open-view="messages" type="button">Open community messages <span>↗</span></button></section>
+          <section class="panel next-panel" aria-labelledby="nextTitle"><div class="panel-heading"><div><span class="eyebrow">KEEP THE RHYTHM</span><h3 id="nextTitle">The next brunch</h3></div><span class="brunch-mark">✿</span></div><div class="brunch-next-date"><strong>07</strong><span>NOV<br><small>FIRST SATURDAY</small></span></div><p>What are we bringing to the table?</p><div class="brunch-mini-list" id="brunchMiniList"></div><button class="panel-link" data-open-view="brunch" type="button">Plan the brunch <span>↗</span></button></section>
+        </div>
+        <section class="ideas-ribbon"><div class="ideas-symbol">✳</div><div><span class="eyebrow">BEYOND THE USUAL</span><h3>Bring a curiosity. Make it collective.</h3><p>A PowerPoint Night turns everyone’s interests into a shared evening: one topic, many unexpected connections.</p></div><button class="button button-outline" data-open-view="ideas" type="button">See ideas</button></section>
+      </section>
+
+      <section class="content-view" id="view-events" data-view-panel="events">
+        <div class="section-intro"><div><span class="eyebrow">DO THINGS TOGETHER</span><h2>Our events</h2><p>Propose a plan, find a date, and keep everyone in the loop when things change.</p></div><button class="button button-red" id="addEvent" type="button">＋ Propose an event</button></div>
+        <div class="event-list" id="eventList"></div>
+        <div class="event-idea-cloud"><span>Next ideas</span><b>Picnic</b><b>Bouldering</b><b>Barbecue</b><b>Hiking</b><b>Weekend away</b><button id="addIdea" type="button">＋ Add yours</button></div>
+      </section>
+
+      <section class="content-view" id="view-polls" data-view-panel="polls">
+        <div class="section-intro"><div><span class="eyebrow">DECIDE TOGETHER</span><h2>Open polls</h2><p>Choose every date you can make. Your selections stay editable until the poll closes.</p></div></div>
+        <article class="poll-detail panel"><div class="poll-detail-heading"><div><span class="eyebrow">IDEAS · NOVEMBER 2026</span><h3>PowerPoint Night</h3><p>We can meet to eat, train, and also share topics that interest us. A PowerPoint Night turns individual curiosities into a collective evening.</p></div><span class="poll-icon large">◉</span></div><div class="poll-detail-layout"><div id="pollChoicesFull" class="poll-choices-full"></div><aside class="poll-side"><div class="poll-side-stat"><strong id="pollVoteCount">0</strong><span>people have voted</span></div><button class="button button-red full-width" id="castVoteFull" type="button">Save my availability</button><p id="pollSideNote">Pick as many Friday and Saturday evenings as work for you.</p><div class="quote-note"><span>THE PROPOSAL</span><p>“We reject the idea that hobbies belong only to private life. Let’s collectivize our curiosities.”</p><small>— A note from the group</small></div></aside></div></article>
+      </section>
+
+      <section class="content-view" id="view-brunch" data-view-panel="brunch">
+        <div class="section-intro"><div><span class="eyebrow">FIRST SATURDAY OF EVERY MONTH</span><h2>People’s Brunch</h2><p>Bring what you can, claim a dish, or suggest what would make the table complete.</p></div><span class="brunch-date-large"><b>07</b><small>NOV 2026</small></span></div>
+        <div class="brunch-layout"><section class="panel brunch-board"><div class="panel-heading"><div><span class="eyebrow">NOVEMBER GATHERING</span><h3>Who’s bringing what?</h3></div><span class="brunch-mark">✿</span></div><div id="brunchItems" class="brunch-items"></div><form id="brunchForm" class="inline-form"><label for="brunchItemInput">I can bring</label><input id="brunchItemInput" maxlength="80" placeholder="e.g. fruit salad" required><button class="button button-red" type="submit">Add to list</button></form><p class="form-hint">Your name is optional. Add a dish, drink, or practical help.</p></section>
+          <aside class="panel bring-suggest"><span class="eyebrow">A FEW USEFUL IDEAS</span><h3>What could the table use?</h3><div class="suggestion-list" id="suggestionList"></div><form id="suggestionForm" class="suggestion-form"><label for="suggestionInput">Suggest something for the group</label><div><input id="suggestionInput" maxlength="80" placeholder="Add a suggestion"><button type="submit" aria-label="Add suggestion">＋</button></div></form><p class="form-hint">Suggestions are prompts, not assignments.</p></aside></div>
+        <div class="brunch-recurrence"><span class="recurrence-icon">↻</span><span><b>Same rhythm, each month.</b><small>People’s Brunch is on the first Saturday. Update the list as each month’s plan takes shape.</small></span></div>
+      </section>
+
+      <section class="content-view" id="view-messages" data-view-panel="messages">
+        <div class="section-intro"><div><span class="eyebrow">KEEP EVERYONE IN THE LOOP</span><h2>Community messages</h2><p>Updates, event changes, and the small notes that help a group move together.</p></div></div>
+        <form id="messageForm" class="message-composer panel"><label for="messageInput">Write a note to the group</label><textarea id="messageInput" rows="3" maxlength="500" placeholder="Share an update, ask a question, or float an idea…" required></textarea><div class="composer-footer"><span>Keep it clear and kind. 500 characters max.</span><button class="button button-red" type="submit">Post to the board</button></div></form>
+        <div id="messageList" class="message-list"></div>
+        <div class="change-notice"><span class="change-icon">↗</span><div><b>Plans change. Say so here.</b><p>Open an event and write a cancellation or postponement note. The update appears on the event and in the community feed.</p><button class="text-button" data-open-view="events" type="button">Go to events <span>↗</span></button></div></div>
+      </section>
+
+      <section class="content-view" id="view-ideas" data-view-panel="ideas">
+        <div class="section-intro"><div><span class="eyebrow">A GROUP OF MANY INTERESTS</span><h2>Ideas & proposals</h2><p>Start with an interest. The group can turn it into a gathering, a workshop, an outing, or a conversation.</p></div><button class="button button-red" id="openProposalIdeas" type="button">＋ Add an idea</button></div>
+        <div class="idea-grid" id="ideaGrid"></div>
+        <div class="ideas-manifesto"><span class="eyebrow">THE RED BANNER IS RAISED</span><blockquote>“We can meet to eat or train. We can also present what interests us and make that interest collective.”</blockquote><small>PowerPoint Night · a proposal for November</small></div>
+      </section>
+
+      <footer class="site-footer"><span>THE RED BANNER IS RAISED</span><span>Plans are better when we make them together.</span><a href="./campaign.html">Karen solidarity fund ↗</a></footer>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation"><button class="active" data-view="home" type="button"><span>⌂</span>Home</button><button data-view="events" type="button"><span>✳</span>Events</button><button data-view="polls" type="button"><span>◉</span>Polls</button><button data-view="brunch" type="button"><span>✿</span>Brunch</button><button data-view="messages" type="button"><span>▤</span>Notes</button></nav>
+
+  <dialog id="eventDialog" class="modal"><form id="eventForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">PUT IT ON THE CALENDAR</span><h2>Propose an event</h2></div><button class="modal-close" type="button" data-close="eventDialog" aria-label="Close">×</button></div><label>What should we do?<input name="title" maxlength="80" placeholder="e.g. Bouldering afternoon" required></label><div class="form-two"><label>Date<input name="date" type="date" required></label><label>Time <span class="optional">(optional)</span><input name="time" type="time"></label></div><label>Where? <span class="optional">(optional)</span><input name="place" maxlength="120" placeholder="Place or meeting point"></label><label>Tell the group a little more<textarea name="description" maxlength="240" rows="3" placeholder="What’s the plan? Bring anything? Is there a cost?"></textarea></label><div class="modal-actions"><button class="button button-outline" type="button" data-close="eventDialog">Cancel</button><button class="button button-red" type="submit">Add proposal</button></div></form></dialog>
+
+  <dialog id="updateDialog" class="modal"><form id="updateForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">KEEP THE PLAN CURRENT</span><h2 id="updateDialogTitle">Update this event</h2></div><button class="modal-close" type="button" data-close="updateDialog" aria-label="Close">×</button></div><input type="hidden" name="eventId"><label>What changed?<select name="status"><option value="postponed">Postponed</option><option value="cancelled">Cancelled</option><option value="changed">Details changed</option></select></label><label>Message for everyone<textarea name="note" rows="4" maxlength="300" placeholder="Explain the change and add a new date if you have one…" required></textarea></label><div class="modal-actions"><button class="button button-outline" type="button" data-close="updateDialog">Cancel</button><button class="button button-red" type="submit">Post update</button></div></form></dialog>
+
+  <dialog id="profileDialog" class="modal small-modal"><form id="profileForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">YOUR CONTRIBUTION</span><h2>How should we call you?</h2></div><button class="modal-close" type="button" data-close="profileDialog" aria-label="Close">×</button></div><label>Name or group nickname<input name="name" maxlength="40" placeholder="e.g. Foko"></label><p class="form-hint">Your name appears beside your local preview messages.</p><div class="modal-actions"><button class="button button-outline" type="button" data-close="profileDialog">Cancel</button><button class="button button-red" type="submit">Save name</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./hub.js"></script>
 </body>
 </html>
