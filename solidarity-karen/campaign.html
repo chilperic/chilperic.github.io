@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e33237">
+<meta name="description" content="Solidarity for Karen. Join the training on 17 October, 11:30–13:30, at Functional Garage 0211 in Düsseldorf. Fundraising closes 22 October.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./assets/red-banner-mark.png" type="image/png">
+<link rel="stylesheet" href="./campaign.css">
+<title>Solidarity for Karen · The Red Banner</title>
+</head>
+<body>
+<a class="skip-link" href="#campaignEvents">Skip to the training</a>
+<header class="campaign-nav">
+  <a class="campaign-brand" href="./" aria-label="The Red Banner Is Raised · Home">
+    <img src="./assets/red-banner-mark.png" alt="" width="60" height="60">
+    <span><strong>The Red Banner<br>Is Raised</strong><small id="brandCampaign">Solidarity for Karen</small></span>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="#campaignEvents" class="training-nav" data-i18n="trainingNav">Training</a>
+    <a href="#liveDashboard" data-i18n="liveDashboard">Live campaign data</a>
+    <a href="#campaignSupporters" data-i18n="people">Supporter registry</a>
+    <a class="organizer-nav-link" href="./organizer/" data-i18n="organizer">Organizer</a>
+    <label class="campaign-language"><span class="sr-only">Language</span><select id="languageSelect" aria-label="Language"></select></label>
+  </nav>
+</header>
+<main>
+  <section class="campaign-overview">
+    <div class="campaign-heading">
+      <div class="campaign-copy"><span class="campaign-kicker" id="campaignKicker">FOR KAREN</span><h1 id="campaignTitle">Solidarity for Karen</h1><p id="campaignStory">Loading campaign…</p></div>
+      <div class="campaign-deadline" id="campaignDeadline"><span data-i18n="fundraisingUntil">Fundraising until</span><strong id="deadlineDate">22 October</strong><span id="deadlineCountdown"></span><small data-i18n="birthdayNote">Before Karen’s birthday on 23 October.</small></div>
+    </div>
+    <div class="campaign-front">
+      <section id="campaignEvents" class="campaign-events hidden" aria-labelledby="eventsHeading">
+        <div class="events-intro"><div><span class="events-kicker" data-i18n="trainingNav">Training</span><h2 id="eventsHeading">Solidarity events</h2><p id="eventsIntro">Meet, move, learn and build material support together.</p></div><span class="events-count" id="eventsCount">1 event</span></div>
+        <div id="eventsGrid" class="events-grid"></div>
+      </section>
+      <aside class="campaign-fund" aria-label="Campaign fund">
+        <div class="fund-top"><span class="fund-label" data-i18n="raised">Raised</span><span class="campaign-status"><span id="campaignStatus">LIVE</span></span></div>
+        <strong id="raisedTotal">—</strong><div class="fund-goal"><span data-i18n="goal">Goal</span><b id="goalText">—</b></div>
+        <div id="targetChangeNotice" class="target-change-notice hidden" aria-live="polite"></div>
+        <div class="fund-progress" role="progressbar" aria-label="Campaign progress" aria-valuemin="0" aria-valuemax="100"><div id="progressLine"></div></div>
+        <div class="fund-facts"><div><b id="progressPct">0%</b><span data-i18n="progress">Progress</span></div><div><b id="supporterCount">0</b><span data-i18n="supporters">Supporters</span></div><div><b id="remainingAmount">€0</b><span data-i18n="remaining">Remaining</span></div></div>
+        <a id="heroPayBtn" class="paypal-primary" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><span class="paypal-word">PayPal</span><strong id="paymentLabel">Contribute now</strong></a>
+        <div class="fund-actions"><button id="qrBtn" class="qr-button" type="button" data-i18n="qr">Show QR</button><button id="shareCampaign" class="qr-button" type="button" data-i18n="shareCampaign">Share campaign</button></div>
+        <div class="fund-sync"><time id="lastUpdated"></time><span id="connectionStatus" role="status" data-i18n="autoUpdated">Auto-updated</span></div>
+      </aside>
+    </div>
+  </section>
+  <section class="signature-curve" aria-labelledby="curveHeading">
+    <div class="curve-copy"><span class="section-number">01</span><span data-i18n="evolution">Evolution</span><h2 id="curveHeading" data-i18n="cumulativeCurve">Cumulative contribution curve</h2><p data-i18n="campaignCurveText">Confirmed contributions over time. The dashed line is the goal.</p><button class="chart-export" type="button" data-export-chart="campaignCurve" data-i18n="exportPlot">Save plot</button></div>
+    <div class="curve-stage"><canvas id="campaignCurve" width="1200" height="430" aria-label="Cumulative confirmed contributions"></canvas><div class="curve-now"><span data-i18n="now">Now</span><strong id="curveNow">€0</strong></div></div>
+  </section>
+  <section id="liveDashboard" class="campaign-dashboard" aria-labelledby="dashboardHeading">
+    <div class="dashboard-intro"><div><span class="dashboard-kicker"><span class="section-number">02</span><span data-i18n="liveDashboard">Live campaign data</span></span><h2 id="dashboardHeading" data-i18n="liveDashboardTitle">The collective effort is visible.</h2><p data-i18n="liveDashboardText">These figures and plots update automatically.</p></div><div class="dashboard-controls"><label><span data-i18n="chartPeriod">Plot period</span><select id="dashboardRange"><option value="all" data-i18n="allTime">All time</option><option value="7" data-i18n="last7Days">Last 7 days</option><option value="30" data-i18n="last30Days">Last 30 days</option></select></label><button id="exportPublicData" class="secondary-button" type="button" data-i18n="exportData">Export public data</button></div></div>
+    <div class="campaign-stat-grid"><article><span data-i18n="meanContribution">Mean contribution</span><strong id="homeMean">€0</strong></article><article><span data-i18n="medianContribution">Median contribution</span><strong id="homeMedian">€0</strong></article><article><span data-i18n="recentMomentum">7-day momentum</span><strong id="homeMomentumValue">€0</strong></article><article><span data-i18n="contributionEvents">Contribution records</span><strong id="homeEvents">0</strong></article></div>
+    <div class="campaign-dashboard-grid">
+      <article class="campaign-data-card campaign-data-wide"><div class="campaign-data-head"><div><span data-i18n="momentum">Momentum</span><h3 data-i18n="momentumTitle">Daily movement + rolling pace</h3></div><b id="homeVelocity">—</b><button class="chart-export" type="button" data-export-chart="homeMomentumChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeMomentumChart" aria-label="Daily contributions and rolling mean"></canvas></div></article>
+      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="supporterGrowth">Supporter growth</span><h3 data-i18n="supporterGrowthTitle">Cumulative unique supporters</h3></div><button class="chart-export" type="button" data-export-chart="homeGrowthChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeGrowthChart" aria-label="Cumulative unique supporters"></canvas></div></article>
+      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="distribution">Distribution</span><h3 data-i18n="distributionTitle">Contribution-size profile</h3></div><button class="chart-export" type="button" data-export-chart="homeDistributionChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeDistributionChart" aria-label="Contribution size distribution"></canvas></div></article>
+      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="sourceMix">Sources</span><h3 data-i18n="sourceMixTitle">How contributions arrived</h3></div><button class="chart-export" type="button" data-export-chart="homeSourceChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeSourceChart" aria-label="Contribution sources"></canvas></div></article>
+      <article class="campaign-data-card"><div class="campaign-data-head"><div><span data-i18n="goal">Goal</span><h3 data-i18n="goalPosition">Raised and remaining</h3></div><button class="chart-export" type="button" data-export-chart="homeGoalChart" data-i18n="exportPlot">Save plot</button></div><div class="campaign-chart-box"><canvas id="homeGoalChart" aria-label="Raised funds and remaining target"></canvas></div></article>
+      <article class="campaign-data-card campaign-data-wide"><div class="campaign-data-head"><div><span data-i18n="livePulse">Live pulse</span><h3 data-i18n="peopleStream">Supporter-ID stream</h3></div></div><div id="recentActivity" class="campaign-activity"></div></article>
+    </div>
+    <div class="fund-position"><div><span data-i18n="gross">Gross</span><strong id="homeGross">€0</strong></div><div><span data-i18n="refunds">Refunds</span><strong id="homeRefunds">€0</strong></div><div><span data-i18n="used">Used</span><strong id="homeSpent">€0</strong></div><div><span data-i18n="available">Available</span><strong id="homeAvailable">€0</strong></div></div>
+    <a href="./observatory/" class="full-observatory-link" data-i18n="fullObservatory">Full Observatory</a>
+  </section>
+  <section id="campaignMilestones" class="campaign-milestones"><div><span class="section-number">03</span><span data-i18n="milestones">Milestones</span><h2 data-i18n="collectiveProgress">Collective progress</h2></div><div id="milestoneLine"></div></section>
+  <section id="campaignSupporters" class="campaign-people"><div class="people-message"><span class="section-number">04</span><span data-i18n="people">Supporter registry</span><h2 data-i18n="peopleNotRanked">Identified, never ranked.</h2><p data-i18n="peopleStreamText">Stable IDs keep participation visible without exposing private names.</p><input id="supporterSearch" type="search" autocomplete="off" aria-label="Find a supporter ID" placeholder="Find a supporter ID"></div><div><div id="supporterSummary" class="supporter-summary"></div><div id="supporterPagination" class="supporter-pagination"></div></div></section>
+  <section class="campaign-manifesto"><blockquote data-i18n="quote">Solidarity means collectivizing the pain, the joy and the effort.</blockquote></section>
+</main>
+<footer><a href="./" class="footer-brand"><img src="./assets/red-banner-mark.png" width="40" height="40" alt=""><strong>The Red Banner Is Raised</strong></a><span id="footerCampaign">Solidarity for Karen</span><a href="./organizer/" data-i18n="organizer">Organizer</a></footer>
+<a id="mobilePayBtn" class="mobile-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><span id="mobilePaymentLabel">Contribute with PayPal</span></a>
+<dialog id="qrDialog"><div class="qr-head"><strong data-i18n="scanToContribute">Scan to contribute</strong><button id="qrClose" type="button" aria-label="Close">×</button></div><div id="qrMount"></div><a id="qrPayLink" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer">PayPal</a></dialog>
+<script src="./config.js"></script><script src="./locales.js"></script><script src="./campaign-dashboard-locales.js"></script><script src="./experience-locales.js"></script><script src="./assets/chart.umd.min.js"></script><script src="./campaign-dashboard.js"></script><script src="./events-public.js"></script><script src="./campaign-insights.js"></script><script src="./campaign.js"></script>
+</body>
+</html>
