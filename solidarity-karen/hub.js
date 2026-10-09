@@ -51,6 +51,37 @@
     if(!response.ok){const detail=await response.text();throw new Error(detail.slice(0,240)||`Shared board returned ${response.status}`)}
     const payload=await response.text();return payload?JSON.parse(payload):null;
   }
+  const campaignMoney=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'EUR',maximumFractionDigits:Number(n)%100===0?0:2}).format(Number(n||0)/100);
+  async function loadKarenFund(){
+    const status=$('fundConnection');
+    try{
+      const [data,supporters]=await Promise.all([db('rpc/karen_public_state',{method:'POST',body:{}}),db('rpc/solidarity_public_supporters',{method:'POST',body:{}})]);
+      if(!data?.campaign)throw new Error('Campaign data unavailable');
+      const rows=(data.contributions||[]).filter(x=>['confirmed','received','refunded'].includes(x.status));
+      const net=rows.reduce((sum,x)=>sum+(x.status==='refunded'?-1:1)*Number(x.amountCents||0),0);
+      const goal=Number(data.campaign.targetCents||0),pct=goal?Math.max(0,Math.min(100,net/goal*100)):0;
+      const supportRows=Array.isArray(supporters)?supporters:[];
+      const count=supportRows.length||new Set(rows.filter(x=>x.status!=='refunded').map(x=>x.supporterId||x.id)).size;
+      $('fundTotal').textContent=campaignMoney(net);$('fundGoal').textContent=campaignMoney(goal);$('fundPct').textContent=Math.round(pct)+'%';
+      $('fundRemaining').textContent=campaignMoney(Math.max(0,goal-net));$('fundSupporters').textContent=String(count);
+      $('fundProgress').style.width=pct+'%';$('fundProgress').parentElement.setAttribute('aria-valuenow',String(Math.round(pct)));
+      $('fundContribute').href=data.campaign.paymentUrl||dbConfig.paypalPoolUrl;
+      $('fundContribute').classList.toggle('closed', ['draft','closed','archived'].includes(data.campaign.status));
+      $('fundContribute').setAttribute('aria-disabled',String(['draft','closed','archived'].includes(data.campaign.status)));
+      status.textContent='Updating live';status.classList.add('is-live');
+      const updateDate=data.updated?new Date(data.updated):new Date();
+      $('fundUpdated').textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit'}).format(updateDate);
+      const recent=supportRows.slice().sort((a,b)=>String(b.lastDate||'').localeCompare(String(a.lastDate||''))).slice(0,3);
+      $('fundRecent').innerHTML=recent.length?recent.map(x=>{
+        const who=x.publicNameConsent&&x.name?x.name:`Supporter ${x.supporterId}`;
+        const when=x.lastDate?new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short'}).format(new Date(String(x.lastDate).slice(0,10)+'T12:00:00Z')):'Recently';
+        return `<div class="fund-recent-row"><span class="fund-person-mark" aria-hidden="true">✳</span><span class="fund-person-copy"><b>${safe(who)}</b><small>${safe(when)} · ${Number(x.eventCount||0)} contribution${Number(x.eventCount||0)===1?'':'s'}</small></span><strong>${campaignMoney(x.netCents)}</strong></div>`
+      }).join(''):'<span class="fund-recent-empty">The first contribution will appear here.</span>';
+    }catch(error){
+      console.warn('Karen fund data unavailable',error);status.textContent='Live data unavailable';status.classList.remove('is-live');
+      $('fundUpdated').textContent='Connection retrying';
+    }
+  }
   async function addPost(kind,body,metadata={}){
     if(!syncReady)return false;
     try{await db('rb_community_posts',{method:'POST',prefer:'return=minimal',body:{kind,display_name:state.name||'Community member',body,metadata}});await loadShared();return true}
@@ -169,5 +200,5 @@
   $('profileButton').addEventListener('click',()=>{const f=$('profileForm');f.elements.name.value=state.name||'';openDialog('profileDialog')});
   $('profileForm').addEventListener('submit',e=>{e.preventDefault();state.name=e.currentTarget.elements.name.value.trim();save();$('profileDialog').close();toast(state.name?`You’re listed as ${state.name}`:'Your name was cleared')});
   $('shareHub').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href);toast('Hub link copied')}catch{toast(location.href)}});
-  render();setView('home');loadShared();setInterval(loadShared,30000);
+  render();setView('home');loadShared();loadKarenFund();setInterval(loadShared,30000);setInterval(loadKarenFund,30000);
 })();
