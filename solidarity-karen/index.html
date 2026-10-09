@@ -18,7 +18,7 @@
       <span class="brand-name">The Red Banner<br>Is Raised</span>
     </a>
     <div class="topbar-center"><span>Planning board</span><span class="topbar-divider">·</span><span id="todayLabel"></span></div>
-    <div class="topbar-tools"><button class="avatar" id="profileButton" type="button" title="Set your name" aria-label="Set your name">T</button></div>
+    <div class="topbar-tools"><span class="mobile-board-state"><i id="mobileSyncPulse"></i><span id="mobileSyncText">Connecting</span></span><button class="avatar" id="profileButton" type="button" title="Set your name" aria-label="Set your name">T</button></div>
   </header>
 
   <div class="app-shell">
@@ -143,7 +143,7 @@
 
   <dialog id="updateDialog" class="modal"><form id="updateForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">KEEP THE PLAN CURRENT</span><h2 id="updateDialogTitle">Update this event</h2></div><button class="modal-close" type="button" data-close="updateDialog" aria-label="Close">×</button></div><input type="hidden" name="eventId"><label>What changed?<select name="status"><option value="postponed">Postponed</option><option value="cancelled">Cancelled</option><option value="changed">Details changed</option></select></label><label>Message for everyone<textarea name="note" rows="4" maxlength="300" placeholder="Explain the change and add a new date if you have one…" required></textarea></label><div class="modal-actions"><button class="button button-outline" type="button" data-close="updateDialog">Cancel</button><button class="button button-red" type="submit">Post update</button></div></form></dialog>
 
-  <dialog id="profileDialog" class="modal small-modal"><form id="profileForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">YOUR CONTRIBUTION</span><h2>How should we call you?</h2></div><button class="modal-close" type="button" data-close="profileDialog" aria-label="Close">×</button></div><label>Name or group nickname<input name="name" maxlength="40" placeholder="e.g. Foko"></label><p class="form-hint">Your name appears beside your local preview messages.</p><div class="modal-actions"><button class="button button-outline" type="button" data-close="profileDialog">Cancel</button><button class="button button-red" type="submit">Save name</button></div></form></dialog>
+  <dialog id="profileDialog" class="modal small-modal"><form id="profileForm" method="dialog"><div class="modal-top"><div><span class="eyebrow">YOUR CONTRIBUTION</span><h2>How should we call you?</h2></div><button class="modal-close" type="button" data-close="profileDialog" aria-label="Close">×</button></div><label>Name or group nickname<input name="name" maxlength="40" placeholder="e.g. Foko"></label><p class="form-hint">Your name appears beside your posts. Leave it blank to post as Community member.</p><div class="modal-actions"><button class="button button-outline" type="button" data-close="profileDialog">Cancel</button><button class="button button-red" type="submit">Save name</button></div></form></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="./config.js"></script><script src="./hub.js"></script>
 </body>
