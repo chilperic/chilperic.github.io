@@ -23,14 +23,14 @@
     suggestions:['Something savoury','Fruit or a fruit salad','Bread and spreads','Tea, coffee, or juice','Help with setup or cleanup'],
     messages:[
       {id:'seed-karting',name:'Group proposal',text:'Some of us suggested that we should go karting on 24 October. The time is still to be decided.',kind:'proposal',createdAt:'2026-10-08T18:00:00+02:00'},
-      {id:'seed-ppt',name:'PowerPoint Night',text:'We can meet to eat or train, and we can also present topics that interest us. Let’s turn individual curiosities into a collective evening. Vote for every Friday and Saturday in November that works for you.',kind:'poll',createdAt:'2026-10-08T18:20:00+02:00'}
+      {id:'seed-ppt',name:'PowerPoint Night',text:'We can meet to eat or train, and we can also present topics that interest us. The reactionaries and evil compradors can keep calling hobbies private; we’ll collectivize our interests. Vote for every Friday and Saturday in November that works for you.',kind:'poll',createdAt:'2026-10-08T18:20:00+02:00'}
     ],
     ideas:[
       {title:'Bouldering afternoon',tag:'MOVE',text:'Pick a gym, choose a date, and see who wants to climb.'},
       {title:'Picnic in the park',tag:'EAT OUTSIDE',text:'A low-cost afternoon with shared food and a blanket.'},
       {title:'Hiking day',tag:'GET OUT',text:'Choose a route by distance, travel time, and weather.'},
       {title:'Barbecue',tag:'COOK TOGETHER',text:'Find a public grill spot and coordinate what to bring.'},
-      {title:'Weekend away',tag:'TRAVEL',text:'Start with a budget and a few possible destinations.'},
+      {title:'Travel together',tag:'TRAVEL',text:'Start with a budget and a few possible destinations.'},
       {title:'PowerPoint Night',tag:'SHARE IDEAS',text:'Make an interest public. Ten minutes, one topic, a room full of questions.'}
     ]
   };
