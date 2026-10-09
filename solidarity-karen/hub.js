@@ -42,7 +42,7 @@
   const safe=(v)=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function load(){try{const s=JSON.parse(localStorage.getItem(KEY));return s&&Array.isArray(s.events)?{...structuredClone(starter),...s}:structuredClone(starter)}catch{return structuredClone(starter)}}
   function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
-  function syncLabel(title,detail,ready){syncReady=ready;$('syncTitle').textContent=title;$('syncDetail').textContent=detail;$('syncPulse').style.background=ready?'#55866f':'#bd8b2a'}
+  function syncLabel(title,detail,ready){syncReady=ready;$('syncTitle').textContent=title;$('syncDetail').textContent=detail;$('syncPulse').style.background=ready?'#73d39e':'#ffbd51';$('mobileSyncText').textContent=ready?'Shared board live':'Offline';$('mobileSyncPulse').style.background=ready?'#73d39e':'#ffbd51'}
   async function db(path,{method='GET',body,prefer}={}){
     if(!dbConfig?.url||!dbConfig?.key)throw new Error('Shared data connection is not configured');
     const headers={apikey:dbConfig.key,Authorization:`Bearer ${dbConfig.key}`,Accept:'application/json'};
@@ -65,9 +65,10 @@
       $('fundTotal').textContent=campaignMoney(net);$('fundGoal').textContent=campaignMoney(goal);$('fundPct').textContent=Math.round(pct)+'%';
       $('fundRemaining').textContent=campaignMoney(Math.max(0,goal-net));$('fundSupporters').textContent=String(count);
       $('fundProgress').style.width=pct+'%';$('fundProgress').parentElement.setAttribute('aria-valuenow',String(Math.round(pct)));
-      $('fundContribute').href=data.campaign.paymentUrl||dbConfig.paypalPoolUrl;
-      $('fundContribute').classList.toggle('closed', ['draft','closed','archived'].includes(data.campaign.status));
-      $('fundContribute').setAttribute('aria-disabled',String(['draft','closed','archived'].includes(data.campaign.status)));
+      const fundClosed=['draft','closed','archived'].includes(data.campaign.status);
+      $('fundContribute').classList.toggle('closed',fundClosed);
+      if(fundClosed){$('fundContribute').removeAttribute('href');$('fundContribute').setAttribute('aria-disabled','true');$('fundContribute').setAttribute('tabindex','-1');$('fundContribute').textContent='Collection closed'}
+      else{$('fundContribute').href=data.campaign.paymentUrl||dbConfig.paypalPoolUrl;$('fundContribute').removeAttribute('aria-disabled');$('fundContribute').removeAttribute('tabindex');$('fundContribute').textContent='Contribute to Karen’s fund'}
       status.textContent='Updating live';status.classList.add('is-live');
       const updateDate=data.updated?new Date(data.updated):new Date();
       $('fundUpdated').textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit'}).format(updateDate);
