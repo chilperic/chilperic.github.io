@@ -428,8 +428,8 @@
     "de": "DER GEMEINSCHAFTSRAUM"
   },
   "Keep the conversation going.": {
-    "fr": "Poursuivons la discussion.",
-    "de": "Bleiben wir im Gespräch."
+    "fr": "Poursuivons la conversation.",
+    "de": "Bleibt im Gespräch."
   },
   "Group messages are visible to anyone with the link.": {
     "fr": "Les messages du groupe sont visibles par toute personne ayant le lien.",
@@ -1762,5 +1762,649 @@
   "Showing the last loaded records, if available. Retrying automatically.": {
     "fr": "Dernières données disponibles affichées. Nouvelle tentative automatique.",
     "de": "Zuletzt geladene Daten, falls verfügbar. Erneuter Versuch erfolgt automatisch."
+  },
+  "Bring something": {
+    "fr": "Apporter quelque chose",
+    "de": "Etwas mitbringen"
+  },
+  "What we need": {
+    "fr": "Ce qu’il nous faut",
+    "de": "Was wir brauchen"
+  },
+  "Lend a hand": {
+    "fr": "Donner un coup de main",
+    "de": "Mithelfen"
+  },
+  "Travel together": {
+    "fr": "Voyager ensemble",
+    "de": "Gemeinsam unterwegs"
+  },
+  "PowerPoint programme": {
+    "fr": "Programme PowerPoint",
+    "de": "PowerPoint-Programm"
+  },
+  "From idea to event": {
+    "fr": "De l’idée à l’événement",
+    "de": "Von der Idee zum Termin"
+  },
+  "Shared recipes": {
+    "fr": "Recettes partagées",
+    "de": "Geteilte Rezepte"
+  },
+  "After the gathering": {
+    "fr": "Après la rencontre",
+    "de": "Nach dem Treffen"
+  },
+  "THE COMMON TABLE": {
+    "fr": "LA TABLE COMMUNE",
+    "de": "DER GEMEINSAME TISCH"
+  },
+  "No comrades left": {
+    "fr": "Aucun camarade laissé",
+    "de": "Niemand bleibt"
+  },
+  "washing up alone.": {
+    "fr": "seul à la vaisselle.",
+    "de": "allein beim Abwasch."
+  },
+  "Bring something. Share a task. Make room for everyone.": {
+    "fr": "Apportons, partageons les tâches, faisons place à tout le monde.",
+    "de": "Etwas mitbringen. Aufgaben teilen. Platz für alle schaffen."
+  },
+  "What’s missing?": {
+    "fr": "Que manque-t-il ?",
+    "de": "Was fehlt noch?"
+  },
+  "Add specific needs and quantities so the group can fill the gaps.": {
+    "fr": "Ajoutez les besoins et les quantités pour que le groupe puisse les couvrir.",
+    "de": "Bedarf und Mengen angeben, damit die Gruppe helfen kann."
+  },
+  "Tell organizers about dietary or access needs privately ↗": {
+    "fr": "Signaler aux organisateurs ses besoins alimentaires ou d’accès en privé ↗",
+    "de": "Ernährungs- oder Zugangsbedürfnisse privat mitteilen ↗"
+  },
+  "Planning sections": {
+    "fr": "Rubriques d’organisation",
+    "de": "Planungsbereiche"
+  },
+  "The first contribution starts it.": {
+    "fr": "La première contribution lance le mouvement.",
+    "de": "Der erste Beitrag macht den Anfang."
+  },
+  "No rankings. Every kind of contribution matters.": {
+    "fr": "Pas de classement. Chaque contribution compte.",
+    "de": "Keine Rangliste. Jede Art von Beitrag zählt."
+  },
+  "Title": {
+    "fr": "Titre",
+    "de": "Titel"
+  },
+  "Quantity": {
+    "fr": "Quantité",
+    "de": "Menge"
+  },
+  "Unit": {
+    "fr": "Unité",
+    "de": "Einheit"
+  },
+  "Available seats / spaces": {
+    "fr": "Places disponibles",
+    "de": "Verfügbare Plätze"
+  },
+  "Volunteers needed": {
+    "fr": "Bénévoles nécessaires",
+    "de": "Benötigte Helfende"
+  },
+  "Category": {
+    "fr": "Catégorie",
+    "de": "Kategorie"
+  },
+  "Savoury food": {
+    "fr": "Plats salés",
+    "de": "Herzhaftes Essen"
+  },
+  "Bread & spreads": {
+    "fr": "Pain et tartinades",
+    "de": "Brot & Aufstriche"
+  },
+  "Fruit & sweets": {
+    "fr": "Fruits et douceurs",
+    "de": "Obst & Süßes"
+  },
+  "Drinks": {
+    "fr": "Boissons",
+    "de": "Getränke"
+  },
+  "Plates & equipment": {
+    "fr": "Vaisselle et matériel",
+    "de": "Geschirr & Ausstattung"
+  },
+  "Dietary label": {
+    "fr": "Régime alimentaire",
+    "de": "Ernährungsangabe"
+  },
+  "Not specified": {
+    "fr": "Non précisé",
+    "de": "Nicht angegeben"
+  },
+  "Vegan": {
+    "fr": "Végane",
+    "de": "Vegan"
+  },
+  "Vegetarian": {
+    "fr": "Végétarien",
+    "de": "Vegetarisch"
+  },
+  "Other": {
+    "fr": "Autre",
+    "de": "Sonstiges"
+  },
+  "Ingredients / allergens": {
+    "fr": "Ingrédients / allergènes",
+    "de": "Zutaten / Allergene"
+  },
+  "Labels are provided by the cook. Ask them before eating if you have an allergy.": {
+    "fr": "Les indications viennent de la personne qui cuisine. En cas d’allergie, demandez-lui avant de manger.",
+    "de": "Die Angaben stammen von der kochenden Person. Bei Allergien vor dem Essen nachfragen."
+  },
+  "I would like to": {
+    "fr": "Je souhaite",
+    "de": "Ich möchte"
+  },
+  "Offer help": {
+    "fr": "Proposer de l’aide",
+    "de": "Hilfe anbieten"
+  },
+  "Ask for help": {
+    "fr": "Demander de l’aide",
+    "de": "Um Hilfe bitten"
+  },
+  "Skills": {
+    "fr": "Compétences",
+    "de": "Fähigkeiten"
+  },
+  "Tools & equipment": {
+    "fr": "Outils et matériel",
+    "de": "Werkzeuge & Ausstattung"
+  },
+  "Transport": {
+    "fr": "Transport",
+    "de": "Transport"
+  },
+  "Practical support": {
+    "fr": "Aide pratique",
+    "de": "Praktische Unterstützung"
+  },
+  "Travel mode": {
+    "fr": "Mode de transport",
+    "de": "Verkehrsmittel"
+  },
+  "Public transport": {
+    "fr": "Transports en commun",
+    "de": "Öffentliche Verkehrsmittel"
+  },
+  "Walking": {
+    "fr": "Marche",
+    "de": "Zu Fuß"
+  },
+  "Cycling": {
+    "fr": "Vélo",
+    "de": "Fahrrad"
+  },
+  "Shared car": {
+    "fr": "Covoiturage",
+    "de": "Fahrgemeinschaft"
+  },
+  "Public meeting point": {
+    "fr": "Point de rencontre public",
+    "de": "Öffentlicher Treffpunkt"
+  },
+  "Departure": {
+    "fr": "Départ",
+    "de": "Abfahrt"
+  },
+  "Speaking time (minutes)": {
+    "fr": "Durée de présentation (minutes)",
+    "de": "Redezeit (Minuten)"
+  },
+  "Activity category": {
+    "fr": "Catégorie d’activité",
+    "de": "Aktivitätskategorie"
+  },
+  "Poll dates · one date per line (YYYY-MM-DD)": {
+    "fr": "Dates du sondage · une date par ligne (AAAA-MM-JJ)",
+    "de": "Abstimmungstermine · ein Datum pro Zeile (JJJJ-MM-TT)"
+  },
+  "Leave dates empty to gather interest first. Dates are locked after the first vote.": {
+    "fr": "Laissez les dates vides pour recueillir d’abord l’intérêt. Les dates sont fixes dès le premier vote.",
+    "de": "Daten leer lassen, um zunächst Interesse zu sammeln. Nach der ersten Terminabstimmung bleiben die Daten fest."
+  },
+  "Recipe / method": {
+    "fr": "Recette / préparation",
+    "de": "Rezept / Zubereitung"
+  },
+  "Details": {
+    "fr": "Détails",
+    "de": "Details"
+  },
+  "Photo (optional)": {
+    "fr": "Photo (facultative)",
+    "de": "Foto (optional)"
+  },
+  "Everyone pictured agrees to this photo being shared publicly here.": {
+    "fr": "Toutes les personnes photographiées acceptent la publication de cette photo ici.",
+    "de": "Alle abgebildeten Personen stimmen der öffentlichen Veröffentlichung dieses Fotos hier zu."
+  },
+  "Remove existing photo": {
+    "fr": "Retirer la photo actuelle",
+    "de": "Vorhandenes Foto entfernen"
+  },
+  "Save entry": {
+    "fr": "Enregistrer",
+    "de": "Beitrag speichern"
+  },
+  "Edit entry": {
+    "fr": "Modifier la contribution",
+    "de": "Beitrag bearbeiten"
+  },
+  "This entry is visible to anyone with the link. Keep addresses and personal needs in private messages.": {
+    "fr": "Cette contribution est visible par toute personne ayant le lien. Gardez adresses et besoins personnels dans les messages privés.",
+    "de": "Dieser Beitrag ist für alle mit dem Link sichtbar. Adressen und persönliche Bedürfnisse gehören in private Nachrichten."
+  },
+  "Saved for the collective.": {
+    "fr": "Enregistré pour le collectif.",
+    "de": "Für das Kollektiv gespeichert."
+  },
+  "PRIVATE · MEMBER TO MEMBER": {
+    "fr": "PRIVÉ · ENTRE MEMBRES",
+    "de": "PRIVAT · ZWISCHEN MITGLIEDERN"
+  },
+  "Send private reply": {
+    "fr": "Envoyer la réponse privée",
+    "de": "Private Antwort senden"
+  },
+  "Only the two participants can open this conversation. Keep this browser’s saved data to retain access.": {
+    "fr": "Seules les deux personnes peuvent ouvrir cette conversation. Conservez les données de ce navigateur pour garder l’accès.",
+    "de": "Nur die zwei Beteiligten können dieses Gespräch öffnen. Browserdaten behalten, um den Zugang zu sichern."
+  },
+  "No private conversations yet.": {
+    "fr": "Aucune conversation privée pour le moment.",
+    "de": "Noch keine privaten Gespräche."
+  },
+  "Private reply sent.": {
+    "fr": "Réponse privée envoyée.",
+    "de": "Private Antwort gesendet."
+  },
+  "Shared board unavailable. Retry shortly.": {
+    "fr": "Tableau partagé indisponible. Réessayez bientôt.",
+    "de": "Gemeinsame Übersicht nicht verfügbar. Bald erneut versuchen."
+  },
+  "Closed": {
+    "fr": "Clôturé",
+    "de": "Geschlossen"
+  },
+  "still needed": {
+    "fr": "encore nécessaires",
+    "de": "noch benötigt"
+  },
+  "spaces": {
+    "fr": "places",
+    "de": "Plätze"
+  },
+  "Be the first to help.": {
+    "fr": "Soyez la première personne à aider.",
+    "de": "Hilf als erste Person mit."
+  },
+  "My commitment": {
+    "fr": "Ma contribution",
+    "de": "Mein Beitrag"
+  },
+  "Update commitment": {
+    "fr": "Modifier ma contribution",
+    "de": "Beitrag ändern"
+  },
+  "I can help": {
+    "fr": "Je peux aider",
+    "de": "Ich kann helfen"
+  },
+  "Withdraw": {
+    "fr": "Retirer",
+    "de": "Zurückziehen"
+  },
+  "Asking for help": {
+    "fr": "Demande d’aide",
+    "de": "Sucht Hilfe"
+  },
+  "Offering help": {
+    "fr": "Proposition d’aide",
+    "de": "Bietet Hilfe"
+  },
+  "minutes": {
+    "fr": "minutes",
+    "de": "Minuten"
+  },
+  "Position": {
+    "fr": "Position",
+    "de": "Position"
+  },
+  "Order to be confirmed": {
+    "fr": "Ordre à confirmer",
+    "de": "Reihenfolge noch offen"
+  },
+  "Gathering interest": {
+    "fr": "Recueil d’intérêt",
+    "de": "Interesse sammeln"
+  },
+  "Choose the dates that work for you": {
+    "fr": "Choisissez les dates qui vous conviennent",
+    "de": "Wähle passende Termine"
+  },
+  "responses": {
+    "fr": "réponses",
+    "de": "Antworten"
+  },
+  "Use a public pseudonym": {
+    "fr": "Utiliser un pseudonyme public",
+    "de": "Öffentlich ein Pseudonym verwenden"
+  },
+  "Your name is shown by default. With a pseudonym, the proposer and authorized organizers can see your name after the poll closes.": {
+    "fr": "Votre nom est affiché par défaut. Avec un pseudonyme, la personne proposant l’activité et les organisateurs autorisés peuvent voir votre nom à la clôture du sondage.",
+    "de": "Standardmäßig wird dein Name angezeigt. Bei einem Pseudonym können die vorschlagende Person und berechtigte Organisatoren deinen Namen nach Abstimmungsende sehen."
+  },
+  "I’m interested": {
+    "fr": "Ça m’intéresse",
+    "de": "Ich bin interessiert"
+  },
+  "Open confirmed event": {
+    "fr": "Ouvrir l’événement confirmé",
+    "de": "Bestätigten Termin öffnen"
+  },
+  "Responses": {
+    "fr": "Réponses",
+    "de": "Antworten"
+  },
+  "Edit": {
+    "fr": "Modifier",
+    "de": "Bearbeiten"
+  },
+  "Close entry": {
+    "fr": "Clôturer",
+    "de": "Beitrag schließen"
+  },
+  "Reopen": {
+    "fr": "Rouvrir",
+    "de": "Wieder öffnen"
+  },
+  "Remove": {
+    "fr": "Retirer",
+    "de": "Entfernen"
+  },
+  "Reply privately": {
+    "fr": "Répondre en privé",
+    "de": "Privat antworten"
+  },
+  "Organizer update": {
+    "fr": "Mise à jour des organisateurs",
+    "de": "Neuigkeit der Organisatoren"
+  },
+  "You have seen this update": {
+    "fr": "Vous avez vu cette mise à jour",
+    "de": "Du hast diese Neuigkeit gesehen"
+  },
+  "I’ve seen this update": {
+    "fr": "J’ai vu cette mise à jour",
+    "de": "Ich habe diese Neuigkeit gesehen"
+  },
+  "Covered": {
+    "fr": "Couvert",
+    "de": "Abgedeckt"
+  },
+  "minutes of collective curiosity": {
+    "fr": "minutes de curiosité collective",
+    "de": "Minuten gemeinsamer Neugier"
+  },
+  "Organizer sets the running order.": {
+    "fr": "Les organisateurs fixent l’ordre des présentations.",
+    "de": "Die Organisatoren legen die Reihenfolge fest."
+  },
+  "Share a reflection, a recipe idea or a photo with consent. Photos are public to anyone with the link.": {
+    "fr": "Partagez une réflexion, une idée de recette ou une photo consentie. Les photos sont publiques pour toute personne ayant le lien.",
+    "de": "Teile Gedanken, Rezeptideen oder Fotos mit Zustimmung. Fotos sind für alle mit dem Link sichtbar."
+  },
+  "Earlier bringing list & quick suggestions": {
+    "fr": "Ancienne liste et suggestions rapides",
+    "de": "Bisherige Mitbringliste & schnelle Vorschläge"
+  },
+  "MUTUAL AID · SHARED POSSIBILITIES": {
+    "fr": "ENTRAIDE · POSSIBILITÉS COMMUNES",
+    "de": "GEGENSEITIGE HILFE · GEMEINSAME MÖGLICHKEITEN"
+  },
+  "The commons.": {
+    "fr": "Le bien commun.",
+    "de": "Das Gemeinsame."
+  },
+  "The commons": {
+    "fr": "Le bien commun",
+    "de": "Das Gemeinsame"
+  },
+  "What we have, what we need, and what we can make happen together.": {
+    "fr": "Ce que nous avons, ce qu’il nous faut et ce que nous pouvons réaliser ensemble.",
+    "de": "Was wir haben, was wir brauchen und was wir gemeinsam möglich machen."
+  },
+  "Private replies": {
+    "fr": "Réponses privées",
+    "de": "Private Antworten"
+  },
+  "COLLECTIVIZE OUR CURIOSITIES": {
+    "fr": "COLLECTIVISONS NOS CURIOSITÉS",
+    "de": "NEUGIER GEMEINSAM TEILEN"
+  },
+  "PowerPoint Night programme": {
+    "fr": "Programme de la soirée PowerPoint",
+    "de": "Programm des PowerPoint-Abends"
+  },
+  "Make the plan together.": {
+    "fr": "Construisons le projet ensemble.",
+    "de": "Gemeinsam planen."
+  },
+  "Travel, tasks & memories": {
+    "fr": "Trajets, tâches et souvenirs",
+    "de": "Wege, Aufgaben & Erinnerungen"
+  },
+  "Private community replies": {
+    "fr": "Réponses privées entre membres",
+    "de": "Private Antworten der Mitglieder"
+  },
+  "Remind me one day before": {
+    "fr": "Me rappeler la veille",
+    "de": "Einen Tag vorher erinnern"
+  },
+  "Remove event reminder": {
+    "fr": "Retirer le rappel",
+    "de": "Terminerinnerung entfernen"
+  },
+  "Delivery frequency": {
+    "fr": "Fréquence d’envoi",
+    "de": "Benachrichtigungshäufigkeit"
+  },
+  "As updates happen": {
+    "fr": "Au fil des mises à jour",
+    "de": "Bei jeder Neuigkeit"
+  },
+  "Daily digest · 18:00 Berlin": {
+    "fr": "Récapitulatif quotidien · 18 h Berlin",
+    "de": "Tägliche Zusammenfassung · 18 Uhr Berlin"
+  },
+  "Digest groups new updates. Requested event reminders stay separate.": {
+    "fr": "Le récapitulatif regroupe les nouveautés. Les rappels demandés restent distincts.",
+    "de": "Die Zusammenfassung bündelt neue Meldungen. Angeforderte Terminerinnerungen bleiben separat."
+  },
+  "Enable a delivery channel before requesting a reminder.": {
+    "fr": "Activez un canal avant de demander un rappel.",
+    "de": "Vor dem Anfordern einer Erinnerung einen Kanal aktivieren."
+  },
+  "Event reminder removed.": {
+    "fr": "Rappel retiré.",
+    "de": "Terminerinnerung entfernt."
+  },
+  "Event reminder saved.": {
+    "fr": "Rappel enregistré.",
+    "de": "Terminerinnerung gespeichert."
+  },
+  "Entry updated.": {
+    "fr": "Contribution modifiée.",
+    "de": "Beitrag aktualisiert."
+  },
+  "Commitment saved.": {
+    "fr": "Contribution enregistrée.",
+    "de": "Zusage gespeichert."
+  },
+  "Response saved.": {
+    "fr": "Réponse enregistrée.",
+    "de": "Antwort gespeichert."
+  },
+  "Undo": {
+    "fr": "Annuler l’action",
+    "de": "Rückgängig"
+  },
+  "Choose an image smaller than 12 MB.": {
+    "fr": "Choisissez une image de moins de 12 Mo.",
+    "de": "Wähle ein Bild unter 12 MB."
+  },
+  "Confirm photo consent before uploading.": {
+    "fr": "Confirmez le consentement avant l’envoi.",
+    "de": "Zustimmung vor dem Hochladen bestätigen."
+  },
+  "Please choose a smaller photo.": {
+    "fr": "Choisissez une photo plus petite.",
+    "de": "Bitte ein kleineres Foto wählen."
+  },
+  "Not enough spaces remain. Refresh the list": {
+    "fr": "Il ne reste pas assez de places. Actualisez la liste",
+    "de": "Nicht genügend Plätze übrig. Liste aktualisieren"
+  },
+  "This entry or event is closed": {
+    "fr": "Cette contribution ou cet événement est fermé",
+    "de": "Dieser Beitrag oder Termin ist geschlossen"
+  },
+  "Entry changed or editing is not permitted. Refresh before editing": {
+    "fr": "La contribution a changé ou la modification est interdite. Actualisez avant de modifier",
+    "de": "Beitrag geändert oder Bearbeitung nicht erlaubt. Vor dem Bearbeiten aktualisieren"
+  },
+  "ORGANIZE THE COMMONS": {
+    "fr": "ORGANISER LE COMMUN",
+    "de": "DAS GEMEINSAME ORGANISIEREN"
+  },
+  "Plans, tables & collective curiosity.": {
+    "fr": "Projets, tablées et curiosité collective.",
+    "de": "Pläne, gemeinsame Tische und Neugier."
+  },
+  "Change one event, reuse a brunch template, or confirm an idea after its poll.": {
+    "fr": "Modifiez un événement, réutilisez un modèle de brunch ou confirmez une idée après son sondage.",
+    "de": "Ändert einen Termin, verwendet eine Brunchvorlage oder bestätigt eine Idee nach der Abstimmung."
+  },
+  "Event ID · keep the original ID when postponing": {
+    "fr": "Identifiant de l’événement · conserver l’original en cas de report",
+    "de": "Termin-ID · beim Verschieben die ursprüngliche ID behalten"
+  },
+  "Event update · date, venue, cancellation": {
+    "fr": "Mise à jour · date, lieu, annulation",
+    "de": "Termin ändern · Datum, Ort, Absage"
+  },
+  "Explain the change": {
+    "fr": "Expliquer le changement",
+    "de": "Änderung erläutern"
+  },
+  "Save this brunch’s needs and tasks as a template": {
+    "fr": "Enregistrer les besoins et tâches comme modèle",
+    "de": "Bedarf und Aufgaben dieses Brunchs als Vorlage speichern"
+  },
+  "Template name": {
+    "fr": "Nom du modèle",
+    "de": "Name der Vorlage"
+  },
+  "Apply a template to another brunch": {
+    "fr": "Appliquer un modèle à un autre brunch",
+    "de": "Vorlage für einen anderen Brunch verwenden"
+  },
+  "Template": {
+    "fr": "Modèle",
+    "de": "Vorlage"
+  },
+  "Confirm an idea as an event": {
+    "fr": "Confirmer une idée comme événement",
+    "de": "Eine Idee als Termin bestätigen"
+  },
+  "Chosen date": {
+    "fr": "Date retenue",
+    "de": "Gewähltes Datum"
+  },
+  "Set presentation running order": {
+    "fr": "Définir l’ordre des présentations",
+    "de": "Reihenfolge der Vorträge festlegen"
+  },
+  "Presentation": {
+    "fr": "Présentation",
+    "de": "Vortrag"
+  },
+  "Closed poll identities · authorized organizers only": {
+    "fr": "Identités des sondages clos · organisateur·ices autorisé·es uniquement",
+    "de": "Identitäten abgeschlossener Abstimmungen · nur befugte Organisierende"
+  },
+  "Community organizer tools unavailable.": {
+    "fr": "Les outils d’organisation sont indisponibles.",
+    "de": "Die Organisationswerkzeuge sind nicht verfügbar."
+  },
+  "Choose an event": {
+    "fr": "Choisir un événement",
+    "de": "Termin auswählen"
+  },
+  "A postponed brunch keeps its original list and commitments.": {
+    "fr": "Un brunch reporté conserve sa liste et ses engagements.",
+    "de": "Ein verschobener Brunch behält seine Liste und Zusagen."
+  },
+  "Time · Berlin": {
+    "fr": "Heure · Berlin",
+    "de": "Uhrzeit · Berlin"
+  },
+  "Address": {
+    "fr": "Adresse",
+    "de": "Adresse"
+  },
+  "Status": {
+    "fr": "Statut",
+    "de": "Status"
+  },
+  "Changed": {
+    "fr": "Modifié",
+    "de": "Geändert"
+  },
+  "Idea": {
+    "fr": "Idée",
+    "de": "Idee"
+  },
+  "Saved. Members will see the update.": {
+    "fr": "Enregistré. Le groupe verra la mise à jour.",
+    "de": "Gespeichert. Die Gruppe sieht die Änderung."
+  },
+  "Not saved. Check values and access.": {
+    "fr": "Non enregistré. Vérifiez les valeurs et votre accès.",
+    "de": "Nicht gespeichert. Angaben und Berechtigung prüfen."
+  },
+  "Open The commons in the public hub and save a community profile first.": {
+    "fr": "Ouvrez Le commun dans le portail public et enregistrez d’abord votre profil.",
+    "de": "Öffnet zuerst den Gemeinschaftsbereich und speichert ein Gemeinschaftsprofil."
+  },
+  "Template applied. Claims and attendance were not copied.": {
+    "fr": "Modèle appliqué. Les engagements et présences n’ont pas été copiés.",
+    "de": "Vorlage angewendet. Zusagen und Teilnahme wurden nicht kopiert."
+  },
+  "Shared with the group": {
+    "fr": "Partagé avec le groupe",
+    "de": "Mit der Gruppe geteilt"
+  },
+  "Save": {
+    "fr": "Enregistrer",
+    "de": "Speichern"
   }
 }

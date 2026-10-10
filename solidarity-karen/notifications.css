@@ -5,3 +5,5 @@
 
 .background-delivery [hidden]{display:none!important}.background-delivery{min-width:0}.background-delivery button{white-space:normal;min-height:44px;max-width:100%}.quiet-hours{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.quiet-hours label{display:block!important;font-size:.8rem}.quiet-hours select,.background-delivery input[type=tel],.background-delivery input[inputmode]{width:100%;min-height:44px;border:1px solid #aaa;border-radius:8px;background:var(--surface,#fff);color:inherit;padding:8px}.background-delivery hr{border:0;border-top:1px solid #8885;margin:22px 0}.background-delivery [role=status]{overflow-wrap:anywhere}
 .notifications-head{position:sticky;top:0;z-index:3}.background-delivery form>label{display:block;margin:14px 0;font-size:12px}.background-delivery form input[type=checkbox]{vertical-align:middle;margin-right:7px}
+
+.delivery-frequency{display:grid;gap:8px;font-size:12px;margin:15px 0}.delivery-frequency select{width:100%;min-height:44px;background:var(--input-bg);color:var(--ink);border:1px solid var(--line);padding:10px;border-radius:8px}
