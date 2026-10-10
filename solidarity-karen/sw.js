@@ -1,6 +1,6 @@
-const CACHE="solidarity-shell-v21";
+const CACHE="solidarity-shell-v22";
 const ASSETS=[
-"./","./index.html","./campaign.css","./campaign.js","./campaign-dashboard-locales.js","./campaign-dashboard.js","./events-public.js","./config.js","./locales.js",
+"./","./index.html","./hub.css","./hub.js","./platform.css","./campaign.html","./inbox-admin.js","./campaign.css","./campaign.js","./campaign-dashboard-locales.js","./campaign-dashboard.js","./events-public.js","./config.js","./locales.js",
 "./icon.svg","./manifest.webmanifest","./brand.css","./experience-locales.js","./campaign-insights.js","./assets/red-banner-mark.png","./assets/chart.umd.min.js","./assets/qrcode.min.js",
 "./observatory/","./styles.css","./observatory-locales.js","./chart-polish.js","./dashboard-charts.js","./public-core.js","./public-sections.js","./advanced-stats.js","./observatory-extra-charts.js","./chart-tools.js","./consent.js",
 "./organizer/","./events-admin.js","./admin.js",

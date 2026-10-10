@@ -21,17 +21,18 @@ html,body{min-height:100%;background:#111015}
 body:has(#adminDialog[open]){overflow:auto!important}
 </style>
 <link rel="stylesheet" href="../brand.css">
+<link rel="stylesheet" href="../platform.css">
 </head>
 <body>
 <div class="organizer-shell">
   <header class="organizer-top">
     <a href="../" class="organizer-identity"><img src="../assets/red-banner-mark.png" width="52" height="52" alt=""><strong>The Red Banner Is Raised · Control Room</strong></a>
-    <nav><a href="../">Campaign</a><a href="../observatory/">Observatory</a></nav>
+    <nav><a href="../">Community</a><a href="../campaign.html">Karen’s fund</a><a href="../observatory/">Observatory</a></nav>
   </header>
   <button id="adminBtn" type="button">Open</button>
   <dialog id="adminDialog" open>
     <div class="admin-dialog-head">
-      <div><span class="section-kicker">PRIVATE</span><h2>Organizer control room</h2><p>Campaign, supporters, money, languages, integrations, audit and reporting.</p></div>
+      <div><span class="section-kicker">PRIVATE</span><h2>Organizer control room</h2><p>Private inbox, events, campaign contributions, and collective coordination.</p></div>
       <button id="adminClose" type="button">×</button>
     </div>
     <div id="adminMount"></div>
@@ -42,6 +43,7 @@ body:has(#adminDialog[open]){overflow:auto!important}
 <script>const embeddedAdmin=document.getElementById("adminDialog");embeddedAdmin.showModal=()=>embeddedAdmin.setAttribute("open","");embeddedAdmin.close=()=>embeddedAdmin.removeAttribute("open");</script>
 <script src="../admin.js"></script>
 <script src="../events-admin.js"></script>
+<script src="../inbox-admin.js"></script>
 <script>
 window.addEventListener("DOMContentLoaded",()=>document.getElementById("adminBtn").click());
 </script>
