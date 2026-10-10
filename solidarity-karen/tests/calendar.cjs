@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict'),c=require('../calendar-tools.js');
+const e={id:'karen-training',title:'Together, for Karen',date:'2026-10-17',time:'11:30',endTime:'13:30',place:'Functional Garage',address:'Düsseldorf',description:'A shared session',status:'scheduled'};
+assert.equal(c.details(e).start.toISOString(),'2026-10-17T09:30:00.000Z');
+assert.equal(c.details({...e,date:'2026-11-07'}).start.toISOString(),'2026-11-07T10:30:00.000Z');
+assert.equal(new URL(c.links(e).google).searchParams.get('dates'),'20261017T093000Z/20261017T113000Z');
+const undatedTime={...e,id:'karting',date:'2026-10-24',time:'',endTime:''};
+assert.equal(new URL(c.links(undatedTime).google).searchParams.get('dates'),'20261024/20261025');
+assert(c.ics([undatedTime]).includes('DTEND;VALUE=DATE:20261025'));
+assert(!c.ics([undatedTime]).includes('VALARM'));
+assert(c.ics([e],30).includes('TRIGGER:-PT30M'));
+assert(!c.ics([e],0).includes('VALARM'));
+assert.equal(c.details({...e,time:'23:00',endTime:'01:00'}).end.toISOString(),'2026-10-17T23:00:00.000Z');
+assert.throws(()=>c.details({...e,status:'cancelled'}));
+assert.throws(()=>c.details({...e,date:''}));
+const unicode=c.ics([{...e,title:'Écologie '.repeat(25)+'\nBEGIN:INJECTION'}]);for(const line of unicode.split('\r\n'))assert(Buffer.byteLength(line)<=75);
+assert(!unicode.includes('\r\nBEGIN:INJECTION'));assert(c.ics([e,undatedTime]).match(/BEGIN:VEVENT/g).length===2);
+console.log('PASS: Berlin summer/winter, Google dates, all-day placeholders, overnight end, alarms, cancellation, UTF-8 folding, escaping, multiple events');

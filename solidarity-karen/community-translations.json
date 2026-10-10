@@ -33,7 +33,7 @@
   },
   "Events": {
     "fr": "Événements",
-    "de": "Veranstaltungen"
+    "de": "Termine"
   },
   "Polls": {
     "fr": "Votes",
@@ -1650,5 +1650,117 @@
   "Inbox history stays in this browser. Delivery preferences are saved for this device.": {
     "fr": "L’historique reste dans ce navigateur. Les préférences d’envoi sont enregistrées pour cet appareil.",
     "de": "Der Verlauf bleibt in diesem Browser. Zustelleinstellungen werden für dieses Gerät gespeichert."
+  },
+  "Organize.": {
+    "fr": "S’organiser.",
+    "de": "Organisieren."
+  },
+  "Care.": {
+    "fr": "Prendre soin.",
+    "de": "Fürsorge."
+  },
+  "Resist.": {
+    "fr": "Résister.",
+    "de": "Widerstehen."
+  },
+  "MAKE ROOM FOR THE COLLECTIVE": {
+    "fr": "UNE PLACE POUR LE COLLECTIF",
+    "de": "PLATZ FÜR DAS KOLLEKTIV"
+  },
+  "Add to your calendar": {
+    "fr": "Ajouter à votre calendrier",
+    "de": "Zum Kalender hinzufügen"
+  },
+  "Close calendar options": {
+    "fr": "Fermer les options de calendrier",
+    "de": "Kalenderoptionen schließen"
+  },
+  "Reminder for calendar file": {
+    "fr": "Rappel dans le fichier calendrier",
+    "de": "Erinnerung in der Kalenderdatei"
+  },
+  "2 hours before": {
+    "fr": "2 heures avant",
+    "de": "2 Stunden vorher"
+  },
+  "30 minutes before": {
+    "fr": "30 minutes avant",
+    "de": "30 Minuten vorher"
+  },
+  "1 day before": {
+    "fr": "1 jour avant",
+    "de": "1 Tag vorher"
+  },
+  "No reminder": {
+    "fr": "Aucun rappel",
+    "de": "Keine Erinnerung"
+  },
+  "Google and Outlook use their own reminder settings. Imported copies do not update automatically. Follow the event here for changes.": {
+    "fr": "Google et Outlook utilisent leurs propres rappels. Les copies importées ne sont pas actualisées automatiquement. Suivez l’événement ici pour ses changements.",
+    "de": "Google und Outlook verwenden eigene Erinnerungen. Importierte Kopien werden nicht automatisch aktualisiert. Folge dem Termin hier für Änderungen."
+  },
+  "Time to be confirmed · all-day placeholder": {
+    "fr": "Horaire à confirmer · réservation de la journée",
+    "de": "Uhrzeit noch offen · ganztägiger Platzhalter"
+  },
+  "Other calendar · .ics file": {
+    "fr": "Autre calendrier · fichier .ics",
+    "de": "Anderer Kalender · .ics-Datei"
+  },
+  "Calendar file ready. Open it with your calendar app and confirm the import.": {
+    "fr": "Fichier prêt. Ouvrez-le dans votre calendrier et confirmez l’importation.",
+    "de": "Kalenderdatei bereit. In der Kalender-App öffnen und Import bestätigen."
+  },
+  "YOUR CORNER OF THE COMMONS": {
+    "fr": "VOTRE COIN DU COLLECTIF",
+    "de": "DEIN PLATZ IM KOLLEKTIV"
+  },
+  "Keep your plans together.": {
+    "fr": "Vos projets, au même endroit.",
+    "de": "Deine Pläne an einem Ort."
+  },
+  "Export saved agenda ↓": {
+    "fr": "Exporter mes projets ↓",
+    "de": "Gespeicherte Termine exportieren ↓"
+  },
+  "Save a plan from its details. Your shortlist stays on this device.": {
+    "fr": "Enregistrez un projet depuis sa fiche. Votre sélection reste sur cet appareil.",
+    "de": "Speichere Pläne über ihre Details. Deine Auswahl bleibt auf diesem Gerät."
+  },
+  "A training session, a shared meal, a day outside. Make space for what matters.": {
+    "fr": "Un entraînement, un repas partagé, une sortie. Faisons place à ce qui compte.",
+    "de": "Gemeinsam trainieren, essen, draußen sein. Schaffe Raum für das, was zählt."
+  },
+  "Remove saved plan": {
+    "fr": "Retirer ce projet",
+    "de": "Gespeicherten Plan entfernen"
+  },
+  "Browser storage unavailable. Plans are saved for this visit only.": {
+    "fr": "Stockage indisponible. Les projets sont conservés pour cette visite seulement.",
+    "de": "Browserspeicher nicht verfügbar. Pläne bleiben nur für diesen Besuch gespeichert."
+  },
+  "Saved agenda exported. Cancelled, postponed and undated plans are excluded.": {
+    "fr": "Agenda exporté. Les projets annulés, reportés ou sans date sont exclus.",
+    "de": "Termine exportiert. Abgesagte, verschobene und undatierte Pläne sind ausgeschlossen."
+  },
+  "Saved to my agenda": {
+    "fr": "Dans mon agenda",
+    "de": "In meinen Terminen gespeichert"
+  },
+  "Save to my agenda": {
+    "fr": "Garder dans mon agenda",
+    "de": "In meinen Terminen speichern"
+  },
+  "Get directions ↗": {
+    "fr": "Itinéraire ↗",
+    "de": "Wegbeschreibung ↗"
+  },
+  "Connection interrupted": {
+    "fr": "Connexion interrompue",
+    "de": "Verbindung unterbrochen"
+  },
+  "Showing the last loaded records, if available. Retrying automatically.": {
+    "fr": "Dernières données disponibles affichées. Nouvelle tentative automatique.",
+    "de": "Zuletzt geladene Daten, falls verfügbar. Erneuter Versuch erfolgt automatisch."
   }
 }
