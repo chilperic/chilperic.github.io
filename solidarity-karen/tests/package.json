@@ -1,0 +1,6 @@
+{
+  "name": "red-banner-database-tests",
+  "private": true,
+  "scripts": {"test": "node database.cjs"},
+  "devDependencies": {"@electric-sql/pglite": "0.5.3"}
+}

@@ -40,6 +40,7 @@ async function preloadAuthorizedData(renderNow=false){
  if(tabs.includes("languages"))jobs.push(loadLocales());
  if(tabs.includes("audit"))jobs.push(loadAudit());
  if(role==="owner")jobs.push(loadAccounts());
+ if(tabs.includes("inbox")&&window.RBAdminInbox)jobs.push(window.RBAdminInbox.refreshBadge(window.RBAdminHost));
  await Promise.allSettled(jobs);
  lastAdminSync=new Date();
  if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true']")))await renderAdmin()
@@ -50,9 +51,9 @@ function startAutoRefresh(){
 }
 
 const ROLE_TABS={
- owner:["overview","health","supporters","contributions","reconciliation","events","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
+ owner:["overview","inbox","health","supporters","contributions","reconciliation","events","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
  treasurer:["overview","health","supporters","contributions","reconciliation","expenses","integrations","reports","security"],
- organizer:["overview","supporters","events","campaign","languages","milestones","updates","reports","security"],
+ organizer:["overview","inbox","supporters","events","campaign","languages","milestones","updates","reports","security"],
  auditor:["overview","health","supporters","reports","audit","security"]
 };
 
@@ -115,10 +116,10 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- const labels={overview:"Overview",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
+ const labels={overview:"Overview",inbox:"Inbox",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
  const ids=ROLE_TABS[authContext?.role||"owner"]||ROLE_TABS.owner;
  if(!ids.includes(active))active="overview";
- ids.forEach(id=>{const b=make("button",labels[id], "admin-tab"+(active===id?" active":""));b.type="button";b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions"||id==="reconciliation")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});
+ ids.forEach(id=>{const b=make("button",id==="inbox"?"Inbox"+(window.RBAdminInbox?.unreadCount?" ("+window.RBAdminInbox.unreadCount+")":""):labels[id], "admin-tab"+(active===id?" active":""));b.type="button";b.dataset.adminTab=id;b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions"||id==="reconciliation")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});
  return t
 }
 function healthView(){
@@ -566,6 +567,7 @@ async function renderAdmin(){
  else if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
  else if(active==="reconciliation"){if(!reconciliationState)await loadReconciliation();if(!supporters)await loadSupporters();view=reconciliationView();}
+ else if(active==="inbox")view=await window.RBAdminInbox?.render(window.RBAdminHost)||make("div","Inbox module unavailable.","admin-panel");
  else if(active==="events")view=window.RBEventsAdmin?.render(window.RBAdminHost)||make("div","Events module unavailable.","admin-panel");
  else if(active==="campaign")view=await campaignView();
  else if(active==="languages"){if(!localeState)await loadLocales();view=await languagesView();}
