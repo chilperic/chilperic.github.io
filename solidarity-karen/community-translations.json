@@ -1194,5 +1194,9 @@
   "Date to be decided": {
     "fr": "Date à définir",
     "de": "Datum noch offen"
+  },
+  "Active role": {
+    "fr": "Rôle actif",
+    "de": "Aktive Rolle"
   }
 }

@@ -1,3 +1,13 @@
+## Current activation status — 10 October 2026, 05:52 Europe/Berlin
+
+The owner explicitly approved migrations v2–v4. Production migration `activate_approved_community_v2_v3_v4` succeeded. Earlier pending-activation notes below are historical and superseded by this section.
+
+Private conversations, named/private-ID polling, attendance, month-scoped brunch lists, scoped reader/editor/developer accounts and official notices now have their database support activated. No member accounts were created and no test votes, messages or announcements were posted to production. Existing account assignments remain unchanged.
+
+HTTP verification: public poll returned 200, direct private-message table access returned 401, and invalid credentials for both inbox and role-workspace RPCs returned 403. Live verification confirmed eight open poll date options and functioning anonymous read RPCs. RLS is enabled on all six new private/public tables checked. Anonymous table reads and inserts are denied for contact threads/messages, RSVP rows, poll identities and poll state. Official notices allow public reads, not direct inserts. The account role constraint includes the seven intended roles.
+
+The security advisor returned no ERROR-level findings. Its warnings about [anonymous SECURITY DEFINER execution](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable) and [authenticated execution](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable) reflect the application's deliberate credential/capability-checked RPC design. The [RLS without policies](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy) notices on private tables are deliberate deny-by-default access. This is not a blanket security certification of older campaign functions.
+
 # Red Banner platform audit and redesign
 
 Date: 9 October 2026. Scope: community hub, campaign, organizer workspace, analytics, report, mobile interaction, and shared-data flows.
