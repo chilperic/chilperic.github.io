@@ -1,0 +1,1198 @@
+{
+  "Assembly": {
+    "fr": "Assemblée",
+    "de": "Versammlung"
+  },
+  "Collective agenda": {
+    "fr": "Agenda collectif",
+    "de": "Gemeinsamer Kalender"
+  },
+  "Collective decisions": {
+    "fr": "Décisions collectives",
+    "de": "Gemeinsame Entscheidungen"
+  },
+  "People’s Brunch": {
+    "fr": "Brunch populaire",
+    "de": "Gemeinsamer Brunch"
+  },
+  "The common room": {
+    "fr": "La salle commune",
+    "de": "Gemeinschaftsraum"
+  },
+  "Ideas & adventures": {
+    "fr": "Idées et aventures",
+    "de": "Ideen & Abenteuer"
+  },
+  "OUR COLLECTIVE": {
+    "fr": "NOTRE COLLECTIF",
+    "de": "UNSER KOLLEKTIV"
+  },
+  "Overview": {
+    "fr": "Assemblée",
+    "de": "Übersicht"
+  },
+  "Events": {
+    "fr": "Événements",
+    "de": "Veranstaltungen"
+  },
+  "Polls": {
+    "fr": "Votes",
+    "de": "Abstimmungen"
+  },
+  "Community board": {
+    "fr": "Tableau collectif",
+    "de": "Gemeinschaftspinnwand"
+  },
+  "Home": {
+    "fr": "Accueil",
+    "de": "Start"
+  },
+  "Vote": {
+    "fr": "Voter",
+    "de": "Abstimmen"
+  },
+  "Brunch": {
+    "fr": "Brunch",
+    "de": "Brunch"
+  },
+  "More": {
+    "fr": "Plus",
+    "de": "Mehr"
+  },
+  "Our collective": {
+    "fr": "Notre collectif",
+    "de": "Unser Kollektiv"
+  },
+  "Our plans. Our collective.": {
+    "fr": "Nos projets. Notre collectif.",
+    "de": "Unsere Pläne. Unser Kollektiv."
+  },
+  "Solidarity in action, evenings together, and decisions we share.": {
+    "fr": "La solidarité en actes, des soirées ensemble et des décisions partagées.",
+    "de": "Gelebte Solidarität, gemeinsame Abende und gemeinsame Entscheidungen."
+  },
+  "Propose an event": {
+    "fr": "Proposer un événement",
+    "de": "Veranstaltung vorschlagen"
+  },
+  "Contact organizer": {
+    "fr": "Contacter l’organisation",
+    "de": "Organisation kontaktieren"
+  },
+  "Message the organizer": {
+    "fr": "Écrire à l’organisation",
+    "de": "Nachricht an die Organisation"
+  },
+  "Private conversation": {
+    "fr": "Conversation privée",
+    "de": "Privates Gespräch"
+  },
+  "Organizer workspace": {
+    "fr": "Espace d’organisation",
+    "de": "Organisationsbereich"
+  },
+  "OUR PRIORITY · SOLIDARITY": {
+    "fr": "NOTRE PRIORITÉ · SOLIDARITÉ",
+    "de": "UNSERE PRIORITÄT · SOLIDARITÄT"
+  },
+  "Together for Karen.": {
+    "fr": "Ensemble pour Karen.",
+    "de": "Gemeinsam für Karen."
+  },
+  "A collective effort to help carry the material burden.": {
+    "fr": "Un effort collectif pour partager la charge matérielle.",
+    "de": "Gemeinsam die materielle Last tragen."
+  },
+  "collected": {
+    "fr": "collectés",
+    "de": "gesammelt"
+  },
+  "of our goal": {
+    "fr": "de notre objectif",
+    "de": "unseres Ziels"
+  },
+  "Goal": {
+    "fr": "Objectif",
+    "de": "Ziel"
+  },
+  "supporters": {
+    "fr": "personnes solidaires",
+    "de": "Unterstützende"
+  },
+  "remaining": {
+    "fr": "restants",
+    "de": "verbleibend"
+  },
+  "Closes": {
+    "fr": "Clôture",
+    "de": "Endet"
+  },
+  "Contribute with PayPal": {
+    "fr": "Contribuer via PayPal",
+    "de": "Mit PayPal beitragen"
+  },
+  "Full campaign & records": {
+    "fr": "Campagne et registre complet",
+    "de": "Kampagne und vollständige Übersicht"
+  },
+  "SOLIDARITY TRAINING": {
+    "fr": "ENTRAÎNEMENT SOLIDAIRE",
+    "de": "SOLIDARITÄTSTRAINING"
+  },
+  "Move together.": {
+    "fr": "Bouger ensemble.",
+    "de": "Gemeinsam bewegen."
+  },
+  "Stand with Karen.": {
+    "fr": "Aux côtés de Karen.",
+    "de": "An Karens Seite."
+  },
+  "Pay what you can. Every contribution supports Karen.": {
+    "fr": "Selon vos moyens. Chaque contribution soutient Karen.",
+    "de": "Gib, was du kannst. Jeder Beitrag unterstützt Karen."
+  },
+  "Details & attendance": {
+    "fr": "Détails et participation",
+    "de": "Details und Teilnahme"
+  },
+  "Add to calendar": {
+    "fr": "Ajouter au calendrier",
+    "de": "Zum Kalender hinzufügen"
+  },
+  "LIVE COLLECTION": {
+    "fr": "COLLECTE EN DIRECT",
+    "de": "AKTUELLE SAMMLUNG"
+  },
+  "Every contribution adds up.": {
+    "fr": "Chaque contribution compte.",
+    "de": "Jeder Beitrag zählt."
+  },
+  "RECENT SUPPORT": {
+    "fr": "SOUTIEN RÉCENT",
+    "de": "NEUE UNTERSTÜTZUNG"
+  },
+  "The collective in action.": {
+    "fr": "Le collectif en action.",
+    "de": "Das Kollektiv in Aktion."
+  },
+  "Confirmed net total": {
+    "fr": "Total net confirmé",
+    "de": "Bestätigter Nettobetrag"
+  },
+  "All supporter IDs & records": {
+    "fr": "Tous les identifiants et contributions",
+    "de": "Alle Unterstützer-IDs und Einträge"
+  },
+  "UP NEXT": {
+    "fr": "À VENIR",
+    "de": "ALS NÄCHSTES"
+  },
+  "Make room for good company.": {
+    "fr": "Faisons place aux camarades.",
+    "de": "Platz für gute Gesellschaft."
+  },
+  "All events": {
+    "fr": "Tous les événements",
+    "de": "Alle Veranstaltungen"
+  },
+  "From the group.": {
+    "fr": "Nouvelles du collectif.",
+    "de": "Aus der Gruppe."
+  },
+  "Explore ideas": {
+    "fr": "Explorer les idées",
+    "de": "Ideen entdecken"
+  },
+  "THE SHARED CALENDAR": {
+    "fr": "LE CALENDRIER COLLECTIF",
+    "de": "DER GEMEINSAME KALENDER"
+  },
+  "Let’s make a plan.": {
+    "fr": "Organisons-nous.",
+    "de": "Planen wir gemeinsam."
+  },
+  "Find your people, register your interest, and keep the details together.": {
+    "fr": "Retrouvons-nous, signalons notre intérêt et organisons les détails.",
+    "de": "Finde Gleichgesinnte, melde Interesse an und behalte die Details im Blick."
+  },
+  "All activities": {
+    "fr": "Toutes les activités",
+    "de": "Alle Aktivitäten"
+  },
+  "Solidarity": {
+    "fr": "Solidarité",
+    "de": "Solidarität"
+  },
+  "Social & games": {
+    "fr": "Rencontres et jeux",
+    "de": "Treffen & Spiele"
+  },
+  "Ideas & learning": {
+    "fr": "Idées et apprentissage",
+    "de": "Ideen & Lernen"
+  },
+  "Food & brunch": {
+    "fr": "Repas et brunch",
+    "de": "Essen & Brunch"
+  },
+  "Outdoors & travel": {
+    "fr": "Nature et voyages",
+    "de": "Draußen & Reisen"
+  },
+  "My plans": {
+    "fr": "Mes projets",
+    "de": "Meine Pläne"
+  },
+  "DECIDE TOGETHER": {
+    "fr": "DÉCIDONS ENSEMBLE",
+    "de": "GEMEINSAM ENTSCHEIDEN"
+  },
+  "Find our common evening.": {
+    "fr": "Trouvons notre soirée commune.",
+    "de": "Finden wir unseren gemeinsamen Abend."
+  },
+  "Vote for every date you can make. Change your vote whenever your plans change.": {
+    "fr": "Votez pour toutes vos disponibilités. Modifiez votre vote si vos projets changent.",
+    "de": "Wähle alle passenden Termine. Ändere deine Stimme, wenn sich deine Pläne ändern."
+  },
+  "Personal interests.": {
+    "fr": "Intérêts personnels.",
+    "de": "Persönliche Interessen."
+  },
+  "Collective curiosity.": {
+    "fr": "Curiosité collective.",
+    "de": "Gemeinsame Neugier."
+  },
+  "The reactionaries can keep their “private hobbies”. We’ll collectivize our curiosities, one presentation at a time.": {
+    "fr": "Les réactionnaires peuvent garder leurs « loisirs privés ». Nous collectiviserons nos curiosités, une présentation à la fois.",
+    "de": "Die Reaktionäre dürfen ihre „privaten Hobbys“ behalten. Wir kollektivieren unsere Neugier – Vortrag für Vortrag."
+  },
+  "people have voted": {
+    "fr": "personnes ont voté",
+    "de": "Personen haben abgestimmt"
+  },
+  "All Friday and Saturday evenings in November 2026. Time and venue will be confirmed.": {
+    "fr": "Tous les vendredis et samedis soirs de novembre 2026. Horaire et lieu à confirmer.",
+    "de": "Alle Freitag- und Samstagabende im November 2026. Uhrzeit und Ort folgen."
+  },
+  "Your availability": {
+    "fr": "Vos disponibilités",
+    "de": "Deine Verfügbarkeit"
+  },
+  "Select all that work": {
+    "fr": "Tous les jours possibles",
+    "de": "Alle passenden Termine"
+  },
+  "1 · How should your vote appear?": {
+    "fr": "1 · Comment afficher votre vote ?",
+    "de": "1 · Wie soll deine Stimme erscheinen?"
+  },
+  "Your name": {
+    "fr": "Votre nom",
+    "de": "Dein Name"
+  },
+  "required for organizer coordination": {
+    "fr": "requis pour la coordination",
+    "de": "für die Organisation erforderlich"
+  },
+  "Show my name": {
+    "fr": "Afficher mon nom",
+    "de": "Meinen Namen anzeigen"
+  },
+  "Your name and available dates are visible to the group.": {
+    "fr": "Votre nom et vos disponibilités sont visibles par le groupe.",
+    "de": "Dein Name und deine Termine sind für die Gruppe sichtbar."
+  },
+  "Hide my name from the group": {
+    "fr": "Masquer mon nom au groupe",
+    "de": "Meinen Namen vor der Gruppe verbergen"
+  },
+  "A random ID replaces your name. Organizers can see your name after the poll closes.": {
+    "fr": "Un identifiant aléatoire remplace votre nom. L’organisation peut voir votre nom après la clôture.",
+    "de": "Eine zufällige ID ersetzt deinen Namen. Die Organisation kann ihn nach Abstimmungsende sehen."
+  },
+  "This is public-name privacy, not full anonymity. Keep this browser’s data to edit your vote. Names are self-declared, not verified.": {
+    "fr": "Votre nom est masqué au public, mais vous n’êtes pas totalement anonyme. Gardez les données de ce navigateur pour modifier votre vote. Les noms sont déclaratifs et non vérifiés.",
+    "de": "Dein Name ist öffentlich verborgen, aber du bist nicht vollständig anonym. Bewahre die Browserdaten auf, um deine Stimme zu ändern. Namen sind selbst angegeben und nicht verifiziert."
+  },
+  "2 · Select your evenings": {
+    "fr": "2 · Choisissez vos soirées",
+    "de": "2 · Wähle deine Abende"
+  },
+  "Save my availability": {
+    "fr": "Enregistrer mes disponibilités",
+    "de": "Meine Verfügbarkeit speichern"
+  },
+  "Who can join?": {
+    "fr": "Qui peut participer ?",
+    "de": "Wer kann dabei sein?"
+  },
+  "Names or public IDs": {
+    "fr": "Noms ou identifiants publics",
+    "de": "Namen oder öffentliche IDs"
+  },
+  "Poll open · you can update or withdraw your vote.": {
+    "fr": "Vote ouvert · vous pouvez modifier ou retirer votre vote.",
+    "de": "Abstimmung offen · du kannst deine Stimme ändern oder zurückziehen."
+  },
+  "Poll closed · availability is final.": {
+    "fr": "Vote clos · disponibilités définitives.",
+    "de": "Abstimmung geschlossen · Verfügbarkeit ist endgültig."
+  },
+  "Identity voting is awaiting database activation. No name or vote will be sent until it is ready.": {
+    "fr": "Le vote nominatif attend l’activation de la base de données. Aucun nom ni vote ne sera envoyé avant.",
+    "de": "Die Namensabstimmung wartet auf die Datenbankaktivierung. Bis dahin werden keine Namen oder Stimmen gesendet."
+  },
+  "Participant list unavailable.": {
+    "fr": "Liste des participants indisponible.",
+    "de": "Teilnahmeliste nicht verfügbar."
+  },
+  "Enter a name or recognizable nickname before voting.": {
+    "fr": "Saisissez un nom ou un pseudonyme reconnaissable avant de voter.",
+    "de": "Gib vor der Abstimmung einen Namen oder erkennbaren Spitznamen ein."
+  },
+  "Your vote was not saved. Please try again.": {
+    "fr": "Votre vote n’a pas été enregistré. Réessayez.",
+    "de": "Deine Stimme wurde nicht gespeichert. Bitte erneut versuchen."
+  },
+  "You have unsaved changes.": {
+    "fr": "Vous avez des modifications non enregistrées.",
+    "de": "Du hast ungespeicherte Änderungen."
+  },
+  "Your saved availability is selected.": {
+    "fr": "Vos disponibilités enregistrées sont sélectionnées.",
+    "de": "Deine gespeicherte Verfügbarkeit ist ausgewählt."
+  },
+  "Select your dates, then save your availability.": {
+    "fr": "Choisissez vos dates, puis enregistrez.",
+    "de": "Wähle deine Termine und speichere deine Verfügbarkeit."
+  },
+  "Saving…": {
+    "fr": "Enregistrement…",
+    "de": "Wird gespeichert…"
+  },
+  "Loading…": {
+    "fr": "Chargement…",
+    "de": "Wird geladen…"
+  },
+  "FIRST SATURDAY · EVERY MONTH": {
+    "fr": "PREMIER SAMEDI · CHAQUE MOIS",
+    "de": "ERSTER SAMSTAG · JEDEN MONAT"
+  },
+  "The table belongs to everyone.": {
+    "fr": "La table appartient à tout le monde.",
+    "de": "Der Tisch gehört allen."
+  },
+  "Coordinate food, drinks, and a helping hand for People’s Brunch.": {
+    "fr": "Organisons les plats, les boissons et les coups de main pour le brunch populaire.",
+    "de": "Koordiniert Essen, Getränke und helfende Hände für den gemeinsamen Brunch."
+  },
+  "Brunch session": {
+    "fr": "Séance de brunch",
+    "de": "Brunchtermin"
+  },
+  "Time and meeting place to be confirmed with the group.": {
+    "fr": "Horaire et lieu à confirmer avec le groupe.",
+    "de": "Zeit und Treffpunkt werden mit der Gruppe bestätigt."
+  },
+  "Post a change": {
+    "fr": "Signaler un changement",
+    "de": "Änderung mitteilen"
+  },
+  "Who’s bringing what?": {
+    "fr": "Qui apporte quoi ?",
+    "de": "Wer bringt was mit?"
+  },
+  "I can bring": {
+    "fr": "Je peux apporter",
+    "de": "Ich kann mitbringen"
+  },
+  "Add": {
+    "fr": "Ajouter",
+    "de": "Hinzufügen"
+  },
+  "FILL THE GAPS": {
+    "fr": "COMPLÉTONS LA TABLE",
+    "de": "WAS FEHLT NOCH?"
+  },
+  "A few things we could use.": {
+    "fr": "Quelques idées utiles.",
+    "de": "Ein paar Dinge fehlen noch."
+  },
+  "Suggest something for the table": {
+    "fr": "Proposer quelque chose pour la table",
+    "de": "Etwas für den Tisch vorschlagen"
+  },
+  "THE COMMON ROOM": {
+    "fr": "LA SALLE COMMUNE",
+    "de": "DER GEMEINSCHAFTSRAUM"
+  },
+  "Keep the conversation going.": {
+    "fr": "Poursuivons la discussion.",
+    "de": "Bleiben wir im Gespräch."
+  },
+  "Group messages are visible to anyone with the link.": {
+    "fr": "Les messages du groupe sont visibles par toute personne ayant le lien.",
+    "de": "Gruppennachrichten sind für alle mit dem Link sichtbar."
+  },
+  "Message organizer privately": {
+    "fr": "Écrire en privé à l’organisation",
+    "de": "Organisation privat anschreiben"
+  },
+  "What would you like to share?": {
+    "fr": "Que souhaitez-vous partager ?",
+    "de": "Was möchtest du teilen?"
+  },
+  "Public group board · 500 characters": {
+    "fr": "Tableau public · 500 caractères",
+    "de": "Öffentliche Pinnwand · 500 Zeichen"
+  },
+  "Post message": {
+    "fr": "Publier le message",
+    "de": "Nachricht veröffentlichen"
+  },
+  "Just for the organizer?": {
+    "fr": "Seulement pour l’organisation ?",
+    "de": "Nur für die Organisation?"
+  },
+  "Open private messages": {
+    "fr": "Ouvrir les messages privés",
+    "de": "Private Nachrichten öffnen"
+  },
+  "Plans can change.": {
+    "fr": "Les projets peuvent changer.",
+    "de": "Pläne können sich ändern."
+  },
+  "Find an event": {
+    "fr": "Trouver un événement",
+    "de": "Veranstaltung finden"
+  },
+  "Small ideas. Shared adventures.": {
+    "fr": "Petites idées. Aventures collectives.",
+    "de": "Kleine Ideen. Gemeinsame Abenteuer."
+  },
+  "Turn an interest into the next group plan.": {
+    "fr": "Transformons une envie en prochain projet collectif.",
+    "de": "Mach aus einem Interesse den nächsten Gruppenplan."
+  },
+  "Propose your own": {
+    "fr": "Proposer votre idée",
+    "de": "Eigene Idee vorschlagen"
+  },
+  "Share this space": {
+    "fr": "Partager cet espace",
+    "de": "Diesen Ort teilen"
+  },
+  "Your display name": {
+    "fr": "Votre nom affiché",
+    "de": "Dein Anzeigename"
+  },
+  "Name or nickname": {
+    "fr": "Nom ou pseudonyme",
+    "de": "Name oder Spitzname"
+  },
+  "Save name": {
+    "fr": "Enregistrer le nom",
+    "de": "Namen speichern"
+  },
+  "Talk to the organizer.": {
+    "fr": "Parlons avec l’organisation.",
+    "de": "Sprich mit der Organisation."
+  },
+  "Visible to you and authorized organizers. Replies appear here. Keep this browser’s saved data to retain access.": {
+    "fr": "Visible par vous et les responsables autorisés. Les réponses apparaissent ici. Conservez les données du navigateur pour garder l’accès.",
+    "de": "Sichtbar für dich und berechtigte Organisierende. Antworten erscheinen hier. Bewahre deine Browserdaten auf, um den Zugang zu behalten."
+  },
+  "Subject": {
+    "fr": "Objet",
+    "de": "Betreff"
+  },
+  "Message": {
+    "fr": "Message",
+    "de": "Nachricht"
+  },
+  "About": {
+    "fr": "Sujet",
+    "de": "Thema"
+  },
+  "General question": {
+    "fr": "Question générale",
+    "de": "Allgemeine Frage"
+  },
+  "An event": {
+    "fr": "Un événement",
+    "de": "Eine Veranstaltung"
+  },
+  "Karen’s collection": {
+    "fr": "La collecte pour Karen",
+    "de": "Karens Sammlung"
+  },
+  "Access or a problem": {
+    "fr": "Accès ou problème",
+    "de": "Zugang oder Problem"
+  },
+  "Send privately to organizer": {
+    "fr": "Envoyer en privé à l’organisation",
+    "de": "Privat an die Organisation senden"
+  },
+  "Send reply": {
+    "fr": "Envoyer la réponse",
+    "de": "Antwort senden"
+  },
+  "Event name": {
+    "fr": "Nom de l’événement",
+    "de": "Name der Veranstaltung"
+  },
+  "Activity type": {
+    "fr": "Type d’activité",
+    "de": "Art der Aktivität"
+  },
+  "Date": {
+    "fr": "Date",
+    "de": "Datum"
+  },
+  "Time": {
+    "fr": "Horaire",
+    "de": "Uhrzeit"
+  },
+  "Place": {
+    "fr": "Lieu",
+    "de": "Ort"
+  },
+  "optional": {
+    "fr": "facultatif",
+    "de": "optional"
+  },
+  "The plan": {
+    "fr": "Le projet",
+    "de": "Der Plan"
+  },
+  "Share proposal": {
+    "fr": "Partager la proposition",
+    "de": "Vorschlag teilen"
+  },
+  "Update the plan": {
+    "fr": "Mettre le projet à jour",
+    "de": "Plan aktualisieren"
+  },
+  "What changed?": {
+    "fr": "Qu’est-ce qui a changé ?",
+    "de": "Was hat sich geändert?"
+  },
+  "Details changed": {
+    "fr": "Détails modifiés",
+    "de": "Details geändert"
+  },
+  "Postponed": {
+    "fr": "Reporté",
+    "de": "Verschoben"
+  },
+  "Cancelled": {
+    "fr": "Annulé",
+    "de": "Abgesagt"
+  },
+  "Confirmed / rescheduled": {
+    "fr": "Confirmé / reprogrammé",
+    "de": "Bestätigt / neu angesetzt"
+  },
+  "New date": {
+    "fr": "Nouvelle date",
+    "de": "Neues Datum"
+  },
+  "New time": {
+    "fr": "Nouvel horaire",
+    "de": "Neue Uhrzeit"
+  },
+  "Message for the group": {
+    "fr": "Message pour le groupe",
+    "de": "Nachricht an die Gruppe"
+  },
+  "Publish update": {
+    "fr": "Publier la mise à jour",
+    "de": "Änderung veröffentlichen"
+  },
+  "Colour theme": {
+    "fr": "Thème de couleurs",
+    "de": "Farbschema"
+  },
+  "Spacing": {
+    "fr": "Espacement",
+    "de": "Abstände"
+  },
+  "Event layout": {
+    "fr": "Affichage des événements",
+    "de": "Veranstaltungslayout"
+  },
+  "Motion": {
+    "fr": "Animations",
+    "de": "Bewegung"
+  },
+  "Text size": {
+    "fr": "Taille du texte",
+    "de": "Textgröße"
+  },
+  "Daylight": {
+    "fr": "Clair",
+    "de": "Hell"
+  },
+  "Midnight": {
+    "fr": "Nuit",
+    "de": "Dunkel"
+  },
+  "High contrast": {
+    "fr": "Contraste élevé",
+    "de": "Hoher Kontrast"
+  },
+  "Follow device": {
+    "fr": "Selon l’appareil",
+    "de": "Geräteeinstellung"
+  },
+  "Comfortable": {
+    "fr": "Confortable",
+    "de": "Komfortabel"
+  },
+  "Compact": {
+    "fr": "Compact",
+    "de": "Kompakt"
+  },
+  "Cards": {
+    "fr": "Cartes",
+    "de": "Karten"
+  },
+  "Agenda list": {
+    "fr": "Liste agenda",
+    "de": "Terminliste"
+  },
+  "Reduced motion": {
+    "fr": "Animations réduites",
+    "de": "Weniger Bewegung"
+  },
+  "Standard": {
+    "fr": "Standard",
+    "de": "Standard"
+  },
+  "Larger": {
+    "fr": "Plus grand",
+    "de": "Größer"
+  },
+  "Restore defaults": {
+    "fr": "Rétablir les réglages",
+    "de": "Standard wiederherstellen"
+  },
+  "Your view of the collective": {
+    "fr": "Votre vue du collectif",
+    "de": "Dein Blick auf das Kollektiv"
+  },
+  "MAKE IT YOURS": {
+    "fr": "À VOTRE IMAGE",
+    "de": "DEINE EINSTELLUNGEN"
+  },
+  "Saved on this device. Event colours keep the same meaning in every theme.": {
+    "fr": "Enregistré sur cet appareil. Les couleurs des événements gardent le même sens dans chaque thème.",
+    "de": "Auf diesem Gerät gespeichert. Die Veranstaltungsfarben behalten in jedem Design ihre Bedeutung."
+  },
+  "Organizer access": {
+    "fr": "Accès à l’organisation",
+    "de": "Organisationszugang"
+  },
+  "Username (optional)": {
+    "fr": "Identifiant (facultatif)",
+    "de": "Benutzername (optional)"
+  },
+  "Password": {
+    "fr": "Mot de passe",
+    "de": "Passwort"
+  },
+  "Unlock control room": {
+    "fr": "Ouvrir l’espace d’organisation",
+    "de": "Organisationsbereich öffnen"
+  },
+  "Use the Owner password directly, or enter a named organizer account. Named sessions expire automatically after 12 hours.": {
+    "fr": "Utilisez le mot de passe propriétaire ou un compte nominatif. Les sessions nominatives expirent après 12 heures.",
+    "de": "Verwende das Eigentümerpasswort oder ein persönliches Organisationskonto. Persönliche Sitzungen enden nach 12 Stunden."
+  },
+  "Inbox": {
+    "fr": "Messagerie",
+    "de": "Posteingang"
+  },
+  "Security": {
+    "fr": "Sécurité",
+    "de": "Sicherheit"
+  },
+  "Reports": {
+    "fr": "Rapports",
+    "de": "Berichte"
+  },
+  "Health": {
+    "fr": "État du système",
+    "de": "Systemzustand"
+  },
+  "Contributions": {
+    "fr": "Contributions",
+    "de": "Beiträge"
+  },
+  "Supporters": {
+    "fr": "Contributeurs",
+    "de": "Unterstützende"
+  },
+  "Languages": {
+    "fr": "Langues",
+    "de": "Sprachen"
+  },
+  "Lock": {
+    "fr": "Verrouiller",
+    "de": "Sperren"
+  },
+  "Sign out": {
+    "fr": "Déconnexion",
+    "de": "Abmelden"
+  },
+  "Current organizer session": {
+    "fr": "Session d’organisation actuelle",
+    "de": "Aktuelle Organisationssitzung"
+  },
+  "Permissions": {
+    "fr": "Autorisations",
+    "de": "Berechtigungen"
+  },
+  "Your responsibilities": {
+    "fr": "Vos responsabilités",
+    "de": "Deine Aufgaben"
+  },
+  "Member space": {
+    "fr": "Espace des membres",
+    "de": "Mitgliederbereich"
+  },
+  "No mandates, no hidden powers.": {
+    "fr": "Des mandats clairs, aucun pouvoir caché.",
+    "de": "Klare Mandate, keine versteckten Befugnisse."
+  },
+  "From each according to ability. To the table according to appetite.": {
+    "fr": "De chacun selon ses moyens. À table selon son appétit.",
+    "de": "Jede Person nach ihren Möglichkeiten. Am Tisch nach ihrem Appetit."
+  },
+  "The assembly is in session.": {
+    "fr": "L’assemblée est ouverte.",
+    "de": "Die Versammlung ist eröffnet."
+  },
+  "Solidarity is a practice. The agenda is ours.": {
+    "fr": "La solidarité se pratique. L’agenda nous appartient.",
+    "de": "Solidarität wird gelebt. Die Tagesordnung gehört uns."
+  },
+  "THE RED BANNER IS RAISED": {
+    "fr": "LE DRAPEAU ROUGE EST LEVÉ",
+    "de": "DIE ROTE FAHNE IST GEHISST"
+  },
+  "Personal preparation": {
+    "fr": "Préparation personnelle",
+    "de": "Persönliche Vorbereitung"
+  },
+  "Saved only on this device.": {
+    "fr": "Enregistré uniquement sur cet appareil.",
+    "de": "Nur auf diesem Gerät gespeichert."
+  },
+  "Check transport": {
+    "fr": "Vérifier le transport",
+    "de": "Anreise prüfen"
+  },
+  "Bring water": {
+    "fr": "Apporter de l’eau",
+    "de": "Wasser mitbringen"
+  },
+  "Check the latest event update": {
+    "fr": "Lire les dernières nouvelles",
+    "de": "Letzte Veranstaltungsänderung prüfen"
+  },
+  "Ask about accessibility": {
+    "fr": "Demander les conditions d’accessibilité",
+    "de": "Barrierefreiheit erfragen"
+  },
+  "The revolution will be well organized.": {
+    "fr": "La révolution sera bien organisée.",
+    "de": "Die Revolution wird gut organisiert sein."
+  },
+  "Skip to content": {
+    "fr": "Aller au contenu",
+    "de": "Zum Inhalt"
+  },
+  "1 open": {
+    "fr": "1 ouvert",
+    "de": "1 offen"
+  },
+  "Connecting to the group…": {
+    "fr": "Connexion au collectif…",
+    "de": "Verbindung zur Gruppe…"
+  },
+  "Connecting…": {
+    "fr": "Connexion…",
+    "de": "Verbindung…"
+  },
+  "24 Oct · Karting": {
+    "fr": "24 oct. · Karting",
+    "de": "24. Okt. · Kartfahren"
+  },
+  "November · Vote for a night": {
+    "fr": "Novembre · Choisir une soirée",
+    "de": "November · Abend auswählen"
+  },
+  "Confirmed records · automatic refresh every 30 seconds": {
+    "fr": "Contributions confirmées · actualisation toutes les 30 secondes",
+    "de": "Bestätigte Einträge · Aktualisierung alle 30 Sekunden"
+  },
+  "Loading records": {
+    "fr": "Chargement du registre",
+    "de": "Einträge werden geladen"
+  },
+  "Waiting for the campaign data…": {
+    "fr": "En attente des données de la campagne…",
+    "de": "Warten auf Kampagnendaten…"
+  },
+  "Loading support…": {
+    "fr": "Chargement des contributions…",
+    "de": "Beiträge werden geladen…"
+  },
+  "COMMUNITY BOARD": {
+    "fr": "TABLEAU COLLECTIF",
+    "de": "GEMEINSCHAFTSPINNWAND"
+  },
+  "A GOOD IDEA NEEDS COMPANY": {
+    "fr": "UNE BONNE IDÉE CHERCHE DES CAMARADES",
+    "de": "EINE GUTE IDEE BRAUCHT GESELLSCHAFT"
+  },
+  "Bring your next": {
+    "fr": "Apportez votre prochain",
+    "de": "Bring dein nächstes"
+  },
+  "“what if”.": {
+    "fr": "« et si… ».",
+    "de": "„Was wäre, wenn?“ mit."
+  },
+  "A walk. A weekend away. An unexpectedly passionate ten-minute presentation.": {
+    "fr": "Une promenade. Un week-end ailleurs. Dix minutes de présentation passionnée.",
+    "de": "Ein Spaziergang. Ein Wochenende unterwegs. Ein überraschend leidenschaftlicher Zehn-Minuten-Vortrag."
+  },
+  "Search events": {
+    "fr": "Rechercher un événement",
+    "de": "Veranstaltungen suchen"
+  },
+  "Search events or places…": {
+    "fr": "Rechercher un événement ou un lieu…",
+    "de": "Veranstaltungen oder Orte suchen…"
+  },
+  "Checking poll status…": {
+    "fr": "Vérification du vote…",
+    "de": "Abstimmungsstatus wird geprüft…"
+  },
+  "Assembly announcements": {
+    "fr": "Annonces de l’assemblée",
+    "de": "Mitteilungen der Versammlung"
+  },
+  "Published by authorized organizers and community editors.": {
+    "fr": "Publiées par les responsables et éditeurs autorisés.",
+    "de": "Von berechtigten Organisierenden und Redakteuren veröffentlicht."
+  },
+  "Send a private message about an event, the collection, access, or anything else. Replies stay in your private conversation.": {
+    "fr": "Envoyez un message privé concernant un événement, la collecte, l’accès ou une autre question. Les réponses restent dans votre conversation privée.",
+    "de": "Sende eine private Nachricht zu Veranstaltungen, Sammlung, Zugang oder anderen Fragen. Antworten bleiben im privaten Gespräch."
+  },
+  "Open an event to post a cancellation, postponement, or updated detail for everyone.": {
+    "fr": "Ouvrez un événement pour informer le groupe d’une annulation, d’un report ou d’un changement.",
+    "de": "Öffne eine Veranstaltung, um eine Absage, Verschiebung oder Änderung mitzuteilen."
+  },
+  "MORE WAYS TO BE TOGETHER": {
+    "fr": "D’AUTRES FAÇONS DE SE RETROUVER",
+    "de": "MEHR MÖGLICHKEITEN FÜR GEMEINSCHAFT"
+  },
+  "Karen’s campaign & live records": {
+    "fr": "Campagne de Karen et registre en direct",
+    "de": "Karens Kampagne und aktuelle Einträge"
+  },
+  "PUT IT ON THE CALENDAR": {
+    "fr": "INSCRIVONS-LE AU CALENDRIER",
+    "de": "AB IN DEN KALENDER"
+  },
+  "THE EVENT PLAN": {
+    "fr": "LE PLAN DE L’ÉVÉNEMENT",
+    "de": "DER VERANSTALTUNGSPLAN"
+  },
+  "KEEP EVERYONE INFORMED": {
+    "fr": "INFORMONS TOUT LE MONDE",
+    "de": "ALLE AUF DEM LAUFENDEN HALTEN"
+  },
+  "Appears beside your public posts and brunch items. Leave blank to use “Community member”.": {
+    "fr": "Apparaît avec vos publications et vos apports au brunch. Laissez vide pour « Membre du collectif ».",
+    "de": "Erscheint neben öffentlichen Beiträgen und Brunch-Mitbringseln. Ohne Angabe steht dort „Community member“."
+  },
+  "PRIVATE · ORGANIZER INBOX": {
+    "fr": "PRIVÉ · MESSAGERIE DE L’ORGANISATION",
+    "de": "PRIVAT · ORGANISATIONSPOSTEINGANG"
+  },
+  "Reply to the organizer": {
+    "fr": "Répondre à l’organisation",
+    "de": "Der Organisation antworten"
+  },
+  "Name or recognizable nickname": {
+    "fr": "Nom ou pseudonyme reconnaissable",
+    "de": "Name oder erkennbarer Spitzname"
+  },
+  "A random public ID will be assigned when saved. Your name is disclosed only to organizers after closing.": {
+    "fr": "Un identifiant public aléatoire sera attribué à l’enregistrement. Votre nom ne sera révélé qu’à l’organisation après la clôture.",
+    "de": "Beim Speichern erhältst du eine zufällige öffentliche ID. Dein Name wird erst nach Abschluss der Organisation offengelegt."
+  },
+  "This feature is awaiting organizer setup. Your message has not been sent.": {
+    "fr": "Cette fonction attend son activation. Votre message n’a pas été envoyé.",
+    "de": "Diese Funktion wartet auf die Einrichtung. Deine Nachricht wurde nicht gesendet."
+  },
+  "Could not save or load this information. Please try again.": {
+    "fr": "Impossible d’enregistrer ou de charger ces informations. Réessayez.",
+    "de": "Informationen konnten nicht gespeichert oder geladen werden. Bitte erneut versuchen."
+  },
+  "Vote not saved. The poll may have closed or the connection failed. Your draft is kept.": {
+    "fr": "Vote non enregistré. Le vote est peut-être clos ou la connexion a échoué. Votre brouillon est conservé.",
+    "de": "Stimme nicht gespeichert. Die Abstimmung ist möglicherweise geschlossen oder die Verbindung fehlgeschlagen. Dein Entwurf bleibt erhalten."
+  },
+  "Identity voting is awaiting database activation. Your vote was not sent.": {
+    "fr": "Le vote nominatif attend son activation. Votre vote n’a pas été envoyé.",
+    "de": "Die Namensabstimmung wartet auf Aktivierung. Deine Stimme wurde nicht gesendet."
+  },
+  "Your availability was withdrawn.": {
+    "fr": "Vos disponibilités ont été retirées.",
+    "de": "Deine Verfügbarkeit wurde zurückgezogen."
+  },
+  "Enable browser storage to keep access to your vote.": {
+    "fr": "Activez le stockage du navigateur pour conserver l’accès à votre vote.",
+    "de": "Aktiviere den Browserspeicher, um den Zugang zu deiner Stimme zu behalten."
+  },
+  "Evening · time to be confirmed": {
+    "fr": "Soirée · horaire à confirmer",
+    "de": "Abends · Uhrzeit folgt"
+  },
+  "Time TBD": {
+    "fr": "Horaire à définir",
+    "de": "Uhrzeit offen"
+  },
+  "Time to be confirmed": {
+    "fr": "Horaire à confirmer",
+    "de": "Uhrzeit wird bestätigt"
+  },
+  "View plan →": {
+    "fr": "Voir le projet →",
+    "de": "Plan ansehen →"
+  },
+  "Going": {
+    "fr": "Je participe",
+    "de": "Ich bin dabei"
+  },
+  "Interested": {
+    "fr": "Ça m’intéresse",
+    "de": "Interessiert"
+  },
+  "Can’t make it": {
+    "fr": "Je ne peux pas",
+    "de": "Ich kann nicht"
+  },
+  "Your attendance": {
+    "fr": "Votre participation",
+    "de": "Deine Teilnahme"
+  },
+  "Your response is saved.": {
+    "fr": "Votre réponse est enregistrée.",
+    "de": "Deine Antwort wurde gespeichert."
+  },
+  "Choose a response to join the plan.": {
+    "fr": "Choisissez une réponse pour participer.",
+    "de": "Wähle eine Antwort zur Teilnahme."
+  },
+  "I’ll bring it": {
+    "fr": "Je l’apporte",
+    "de": "Ich bringe es mit"
+  },
+  "The table is open. Be the first to bring something.": {
+    "fr": "La table est ouverte. Apportez la première contribution.",
+    "de": "Der Tisch ist offen. Bring als erste Person etwas mit."
+  },
+  "The first vote gets us started.": {
+    "fr": "Le premier vote lance la discussion.",
+    "de": "Die erste Stimme macht den Anfang."
+  },
+  "Proposed": {
+    "fr": "Proposé",
+    "de": "Vorgeschlagen"
+  },
+  "Confirmed": {
+    "fr": "Confirmé",
+    "de": "Bestätigt"
+  },
+  "Updated": {
+    "fr": "Modifié",
+    "de": "Aktualisiert"
+  },
+  "Owner": {
+    "fr": "Propriétaire",
+    "de": "Eigentümer"
+  },
+  "Organizer · read and edit": {
+    "fr": "Organisation · lecture et édition",
+    "de": "Organisation · Lesen und Bearbeiten"
+  },
+  "Treasurer": {
+    "fr": "Trésorerie",
+    "de": "Finanzverwaltung"
+  },
+  "Financial auditor · read only": {
+    "fr": "Audit financier · lecture seule",
+    "de": "Finanzprüfung · Nur Lesen"
+  },
+  "Community reader · read only": {
+    "fr": "Lecteur du collectif · lecture seule",
+    "de": "Gemeinschaft · Nur Lesen"
+  },
+  "Community editor · read and edit": {
+    "fr": "Éditeur du collectif · lecture et édition",
+    "de": "Gemeinschaft · Lesen und Bearbeiten"
+  },
+  "Developer": {
+    "fr": "Développement",
+    "de": "Entwicklung"
+  },
+  "Existing role": {
+    "fr": "Rôle existant",
+    "de": "Bestehende Rolle"
+  },
+  "Requires role activation": {
+    "fr": "Nécessite l’activation des rôles",
+    "de": "Rollenaktivierung erforderlich"
+  },
+  "Manage accounts, roles and all campaign operations.": {
+    "fr": "Gérer les comptes, les rôles et les opérations de campagne.",
+    "de": "Konten, Rollen und sämtliche Kampagnenfunktionen verwalten."
+  },
+  "Manage events and campaign content. Existing legacy access also includes private contribution records.": {
+    "fr": "Gérer les événements et le contenu. L’accès existant inclut aussi les contributions privées.",
+    "de": "Veranstaltungen und Inhalte verwalten. Der bestehende Zugang umfasst auch private Beitragseinträge."
+  },
+  "Record contributions, reconcile payments and manage expenses.": {
+    "fr": "Enregistrer les contributions, rapprocher les paiements et gérer les dépenses.",
+    "de": "Beiträge erfassen, Zahlungen abgleichen und Ausgaben verwalten."
+  },
+  "Inspect financial records and audit history. This is sensitive read access.": {
+    "fr": "Consulter les comptes et l’historique d’audit. Cet accès en lecture est sensible.",
+    "de": "Finanzunterlagen und Prüfprotokolle einsehen. Dies ist sensibler Lesezugriff."
+  },
+  "Read public notices. No financial identities, private inbox or editing.": {
+    "fr": "Lire les annonces publiques. Aucun accès aux identités financières, aux messages privés ou à l’édition.",
+    "de": "Öffentliche Mitteilungen lesen. Kein Zugriff auf Finanzidentitäten, private Nachrichten oder Bearbeitung."
+  },
+  "Create and edit official community notices. No financial identities or private inbox.": {
+    "fr": "Créer et modifier les annonces officielles. Aucun accès aux identités financières ni à la messagerie privée.",
+    "de": "Offizielle Mitteilungen erstellen und bearbeiten. Kein Zugriff auf Finanzidentitäten oder private Nachrichten."
+  },
+  "Inspect non-sensitive feature availability. No financial identities, private inbox or role management.": {
+    "fr": "Consulter la disponibilité technique des fonctions. Aucun accès aux identités financières, aux messages privés ou aux rôles.",
+    "de": "Nicht sensible Funktionsverfügbarkeit prüfen. Kein Zugriff auf Finanzidentitäten, private Nachrichten oder Rollenverwaltung."
+  },
+  "New role workspaces await database activation. Existing roles remain unchanged. No new privileges have been granted.": {
+    "fr": "Les nouveaux rôles attendent l’activation de la base. Les rôles existants restent inchangés. Aucun nouveau privilège n’a été accordé.",
+    "de": "Neue Rollen warten auf die Datenbankaktivierung. Bestehende Rollen bleiben unverändert. Es wurden keine neuen Rechte vergeben."
+  },
+  "● Solidarity": {
+    "fr": "● Solidarité",
+    "de": "● Solidarität"
+  },
+  "● Social & games": {
+    "fr": "● Rencontres et jeux",
+    "de": "● Treffen & Spiele"
+  },
+  "● Ideas & learning": {
+    "fr": "● Idées et apprentissage",
+    "de": "● Ideen & Lernen"
+  },
+  "● Food & brunch": {
+    "fr": "● Repas et brunch",
+    "de": "● Essen & Brunch"
+  },
+  "● Outdoors & travel": {
+    "fr": "● Nature et voyages",
+    "de": "● Draußen & Reisen"
+  },
+  "Karting. Let’s go.": {
+    "fr": "Karting. En piste !",
+    "de": "Kartfahren. Los geht’s!"
+  },
+  "Venue to be decided": {
+    "fr": "Lieu à définir",
+    "de": "Ort noch offen"
+  },
+  "Place to be confirmed": {
+    "fr": "Lieu à confirmer",
+    "de": "Ort wird bestätigt"
+  },
+  "Some of us suggested a day on the track. Add your interest while we settle the time and venue.": {
+    "fr": "Des camarades proposent une journée sur la piste. Signalez votre intérêt pendant que nous fixons le lieu et l’horaire.",
+    "de": "Einige schlagen einen Tag auf der Kartbahn vor. Melde Interesse an, während wir Ort und Uhrzeit klären."
+  },
+  "First Saturday of the month. Bring something for the table or lend a hand.": {
+    "fr": "Premier samedi du mois. Apportez quelque chose ou donnez un coup de main.",
+    "de": "Erster Samstag im Monat. Bring etwas mit oder hilf mit."
+  },
+  "Train together for Karen": {
+    "fr": "S’entraîner ensemble pour Karen",
+    "de": "Gemeinsam für Karen trainieren"
+  },
+  "A solidarity training session to support Karen. Pay what you can.": {
+    "fr": "Un entraînement solidaire pour Karen. Contribuez selon vos moyens.",
+    "de": "Ein Solidaritätstraining für Karen. Gib, was du kannst."
+  },
+  "PowerPoint Night": {
+    "fr": "Soirée PowerPoint",
+    "de": "PowerPoint-Abend"
+  },
+  "Friday & Saturday evenings · November": {
+    "fr": "Vendredis et samedis soirs · Novembre",
+    "de": "Freitag- und Samstagabende · November"
+  },
+  "One topic. Ten minutes. All our curiosities.": {
+    "fr": "Un sujet. Dix minutes. Toutes nos curiosités.",
+    "de": "Ein Thema. Zehn Minuten. Unsere ganze Neugier."
+  },
+  "Help choose a night to share the things we can’t stop thinking about.": {
+    "fr": "Choisissons une soirée pour partager ce qui nous passionne.",
+    "de": "Wähle einen Abend, an dem wir teilen, was uns begeistert."
+  },
+  "Choose your dates →": {
+    "fr": "Choisir vos dates →",
+    "de": "Termine wählen →"
+  },
+  "people voted": {
+    "fr": "personnes ont voté",
+    "de": "Personen haben abgestimmt"
+  },
+  "going": {
+    "fr": "participent",
+    "de": "dabei"
+  },
+  "interested": {
+    "fr": "intéressés",
+    "de": "interessiert"
+  },
+  "Vote open": {
+    "fr": "Vote ouvert",
+    "de": "Abstimmung offen"
+  },
+  "On the calendar": {
+    "fr": "Au calendrier",
+    "de": "Im Kalender"
+  },
+  "The first contribution will appear here.": {
+    "fr": "La première contribution apparaîtra ici.",
+    "de": "Hier erscheint der erste Beitrag."
+  },
+  "Live records": {
+    "fr": "Registre en direct",
+    "de": "Aktuelle Einträge"
+  },
+  "Date to be decided": {
+    "fr": "Date à définir",
+    "de": "Datum noch offen"
+  }
+}

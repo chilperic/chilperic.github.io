@@ -1,6 +1,6 @@
 (()=> {
 const C=window.KAREN_SUPABASE,$=id=>document.getElementById(id);
-let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null,reconciliationState=null,authContext=null,accountsState=null,lastAdminSync=null,autoRefreshTimer=null;
+let extraRolesReady=false;let secret=null,admin=null,active="overview",campaigns=null,audit=null,supporters=null,localeState=null,healthState=null,templatesState=null,reconciliationState=null,authContext=null,accountsState=null,lastAdminSync=null,autoRefreshTimer=null;
 
 async function rpc(name,body={}){
  const r=await fetch(C.url+"/rest/v1/rpc/"+name,{method:"POST",headers:{"Content-Type":"application/json",apikey:C.key},body:JSON.stringify(body)});
@@ -26,12 +26,12 @@ async function reconciliationAction(action){return rpc("solidarity_reconciliatio
 async function loadReconciliation(){reconciliationState=await reconciliationAction({action:"list"});return reconciliationState}
 async function loadAuthContext(){authContext=await rpc("solidarity_credential_context",{p_credential:secret});return authContext}
 async function accountsAction(action){return rpc("solidarity_organizer_accounts_action",{p_owner_credential:secret,p_action:action})}
-async function loadAccounts(){accountsState=await accountsAction({action:"list"});return accountsState}
+async function loadAccounts(){accountsState=await accountsAction({action:"list"});try{const capabilities=await rpc("rb_role_workspace",{p_credential:secret,p_action:{action:"read"}});extraRolesReady=capabilities.rolesVersion===4}catch{extraRolesReady=false}return accountsState}
 function can(...roles){return roles.includes(authContext?.role||"owner")}
 async function preloadAuthorizedData(renderNow=false){
  if(!secret)return;
- const role=authContext?.role||"owner",tabs=ROLE_TABS[role]||ROLE_TABS.owner;
- try{admin=await adminAction({action:"list"})}catch(e){if(!authContext?.breakGlass){sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null;admin=null;login()}return}
+ const role=authContext?.role||"owner",tabs=ROLE_TABS[role]||["permissions","security"];
+ try{if(["reader","editor","developer"].includes(role)){await rpc("rb_role_workspace",{p_credential:secret,p_action:{action:"read"}});admin={campaign:{title:"Community workspace"}};active=active==="security"?active:"permissions";if(renderNow)await renderAdmin();return}admin=await adminAction({action:"list"})}catch(e){if(!authContext?.breakGlass){sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null;admin=null;login()}return}
  const jobs=[];
  if(tabs.includes("supporters")||tabs.includes("contributions")||tabs.includes("reconciliation"))jobs.push(loadSupporters());
  if(tabs.includes("health"))jobs.push(loadHealth());
@@ -51,10 +51,11 @@ function startAutoRefresh(){
 }
 
 const ROLE_TABS={
- owner:["overview","inbox","health","supporters","contributions","reconciliation","events","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
- treasurer:["overview","health","supporters","contributions","reconciliation","expenses","integrations","reports","security"],
- organizer:["overview","inbox","supporters","events","campaign","languages","milestones","updates","reports","security"],
- auditor:["overview","health","supporters","reports","audit","security"]
+ owner:["permissions","overview","inbox","health","supporters","contributions","reconciliation","events","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
+ treasurer:["permissions","overview","health","supporters","contributions","reconciliation","expenses","integrations","reports","security"],
+ organizer:["permissions","overview","inbox","supporters","events","campaign","languages","milestones","updates","reports","security"],
+ reader:["permissions","security"],editor:["permissions","security"],developer:["permissions","security"],
+ auditor:["permissions","overview","health","supporters","reports","audit","security"]
 };
 
 const css=document.createElement("style");css.textContent=`
@@ -116,8 +117,8 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- const labels={overview:"Overview",inbox:"Inbox",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
- const ids=ROLE_TABS[authContext?.role||"owner"]||ROLE_TABS.owner;
+ const labels={permissions:"Permissions",overview:"Overview",inbox:"Inbox",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
+ const ids=ROLE_TABS[authContext?.role||"owner"]||["permissions","security"];
  if(!ids.includes(active))active="overview";
  ids.forEach(id=>{const b=make("button",id==="inbox"?"Inbox"+(window.RBAdminInbox?.unreadCount?" ("+window.RBAdminInbox.unreadCount+")":""):labels[id], "admin-tab"+(active===id?" active":""));b.type="button";b.dataset.adminTab=id;b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions"||id==="reconciliation")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});
  return t
@@ -548,11 +549,11 @@ function securityView(){
 
  const accounts=make("div",undefined,"admin-panel");accounts.append(make("h4","Named organizer accounts"),make("div","Create role-specific accounts instead of sharing the Owner password. Sessions expire after 12 hours.","admin-hint"));
  const cm=msg(),cg=make("div",undefined,"admin-grid"),user=input("text"),display=input("text"),role=document.createElement("select"),pw=input("password");
- ["treasurer","organizer","auditor","owner"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;role.append(o)});cg.append(field("Username",user),field("Display name",display),field("Role",role),field("Temporary password",pw));
+ ["treasurer","organizer","auditor","owner",...(extraRolesReady?["reader","editor","developer"]:[])].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;role.append(o)});cg.append(field("Username",user),field("Display name",display),field("Role",role),field("Temporary password",pw));
  accounts.append(cg,button("Create account",async()=>{if(!user.value.trim()||!display.value.trim()||pw.value.length<10){cm.textContent="Username, display name and a 10+ character password are required.";return}cm.textContent="Creating…";try{await accountsAction({action:"create",username:user.value.trim(),display_name:display.value.trim(),role:role.value,secret_digest:await digest(pw.value)});accountsState=null;await loadAccounts();cm.textContent="Account created.";renderAdmin()}catch{cm.textContent="Could not create account."}},"green"),cm);
 
  const list=make("div");
- (accountsState?.accounts||[]).forEach(x=>{const row=make("div",undefined,"admin-row"),head=make("div",undefined,"admin-row-head"),left=make("div");left.append(make("b",x.displayName),make("span",x.role.toUpperCase(),"source-chip"));head.append(left,make("span",x.username+" · "+x.sessionCount+" active session"+(x.sessionCount===1?"":"s")));const rg=make("div",undefined,"admin-grid"),dn=input("text",x.displayName),rr=document.createElement("select"),aa=input("checkbox");aa.checked=!!x.active;["owner","treasurer","organizer","auditor"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.role===v;rr.append(o)});const reset=input("password");rg.append(field("Display name",dn),field("Role",rr),field("Active",aa),field("New password (optional)",reset));const m=msg(),acts=make("div",undefined,"admin-actions");acts.append(button("Save account",async()=>{m.textContent="Saving…";try{await accountsAction({action:"update",id:x.id,display_name:dn.value.trim(),role:rr.value,active:aa.checked});accountsState=null;await loadAccounts();m.textContent="Saved.";renderAdmin()}catch{m.textContent="Could not save account."}}),button("Revoke sessions",async()=>{await accountsAction({action:"revoke_sessions",id:x.id});accountsState=null;await loadAccounts();renderAdmin()},"alt"));acts.append(button("Reset password",async()=>{if(reset.value.length<10){m.textContent="Enter a 10+ character new password.";return}try{await accountsAction({action:"reset_password",id:x.id,secret_digest:await digest(reset.value)});accountsState=null;await loadAccounts();m.textContent="Password reset and sessions revoked.";renderAdmin()}catch{m.textContent="Could not reset password."}},"red"));row.append(head,rg,acts,m);list.append(row)});
+ (accountsState?.accounts||[]).forEach(x=>{const row=make("div",undefined,"admin-row"),head=make("div",undefined,"admin-row-head"),left=make("div");left.append(make("b",x.displayName),make("span",x.role.toUpperCase(),"source-chip"));head.append(left,make("span",x.username+" · "+x.sessionCount+" active session"+(x.sessionCount===1?"":"s")));const rg=make("div",undefined,"admin-grid"),dn=input("text",x.displayName),rr=document.createElement("select"),aa=input("checkbox");aa.checked=!!x.active;["owner","treasurer","organizer","auditor",...(extraRolesReady?["reader","editor","developer"]:[])].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=x.role===v;rr.append(o)});const reset=input("password");rg.append(field("Display name",dn),field("Role",rr),field("Active",aa),field("New password (optional)",reset));const m=msg(),acts=make("div",undefined,"admin-actions");acts.append(button("Save account",async()=>{m.textContent="Saving…";try{await accountsAction({action:"update",id:x.id,display_name:dn.value.trim(),role:rr.value,active:aa.checked});accountsState=null;await loadAccounts();m.textContent="Saved.";renderAdmin()}catch{m.textContent="Could not save account."}}),button("Revoke sessions",async()=>{await accountsAction({action:"revoke_sessions",id:x.id});accountsState=null;await loadAccounts();renderAdmin()},"alt"));acts.append(button("Reset password",async()=>{if(reset.value.length<10){m.textContent="Enter a 10+ character new password.";return}try{await accountsAction({action:"reset_password",id:x.id,secret_digest:await digest(reset.value)});accountsState=null;await loadAccounts();m.textContent="Password reset and sessions revoked.";renderAdmin()}catch{m.textContent="Could not reset password."}},"red"));row.append(head,rg,acts,m);list.append(row)});
  accounts.append(list);wrap.append(accounts);
  return wrap
 }
@@ -563,7 +564,8 @@ async function renderAdmin(){
  if(!secret||!admin)return login();
  mount.replaceChildren();const head=make("div",undefined,"admin-head");const title=make("div");title.append(make("strong",admin?.campaign?.title||"Organizer control room"),make("small",(authContext?.displayName||"Owner")+" · "+(authContext?.role||"owner")+" · private live administration"));head.append(title,button("Lock",async()=>{try{if(!authContext?.breakGlass&&secret)await rpc("solidarity_organizer_logout",{p_token:secret})}catch{}sessionStorage.removeItem("solidarity_named_session");secret=null;authContext=null;admin=null;active="overview";campaigns=null;audit=null;supporters=null;localeState=null;healthState=null;templatesState=null;reconciliationState=null;accountsState=null;login()},"alt"));mount.append(head,tabs());
  let view;
- if(active==="health"){if(!healthState)await loadHealth();view=healthView();}
+ if(active==="permissions"){view=await window.RBRoleWorkspace?.render(authContext,window.RBAdminHost)||make("div","Role workspace is loading.","admin-panel");}
+ else if(active==="health"){if(!healthState)await loadHealth();view=healthView();}
  else if(active==="supporters"){if(!supporters)await loadSupporters();view=supportersView();}
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
  else if(active==="reconciliation"){if(!reconciliationState)await loadReconciliation();if(!supporters)await loadSupporters();view=reconciliationView();}

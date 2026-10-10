@@ -1,5 +1,5 @@
-const CACHE="solidarity-shell-v23";
-const ASSETS=["./appearance.css","./appearance.js","./poll-admin.js",
+const CACHE="solidarity-shell-v24";
+const ASSETS=["./assembly.css","./assembly.js","./community-language.js","./community-translations.json","./role-workspace.js","./appearance.css","./appearance.js","./poll-admin.js",
 "./","./index.html","./hub.css","./hub.js","./platform.css","./campaign.html","./inbox-admin.js","./campaign.css","./campaign.js","./campaign-dashboard-locales.js","./campaign-dashboard.js","./events-public.js","./config.js","./locales.js",
 "./icon.svg","./manifest.webmanifest","./brand.css","./experience-locales.js","./campaign-insights.js","./assets/red-banner-mark.png","./assets/chart.umd.min.js","./assets/qrcode.min.js",
 "./observatory/","./styles.css","./observatory-locales.js","./chart-polish.js","./dashboard-charts.js","./public-core.js","./public-sections.js","./advanced-stats.js","./observatory-extra-charts.js","./chart-tools.js","./consent.js",
