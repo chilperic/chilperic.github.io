@@ -6,7 +6,7 @@ let timer=null;
 async function render(host){
  clearInterval(timer);
  const root=node('section',undefined,'admin-panel inbox-workspace'),head=node('div',undefined,'inbox-heading'),intro=node('div');intro.append(node('p','PRIVATE CONVERSATIONS','inbox-eyebrow'),node('h4','Organizer inbox'),node('p','Questions from the collective. Your replies appear in the sender’s private conversation.','admin-hint'));
- const refresh=node('button','Refresh','admin-btn alt');refresh.type='button';head.append(intro,refresh);root.append(head);
+ const refresh=node('button','Refresh','admin-btn alt');refresh.type='button';head.append(intro,refresh);root.append(head);window.RBPollAdmin?.mount(root,host);
  const status=node('p','Loading conversations…','admin-msg');status.setAttribute('role','status');root.append(status);
  const layout=node('div',undefined,'inbox-layout'),left=node('div',undefined,'inbox-sidebar'),filter=document.createElement('select'),search=document.createElement('input'),list=node('div',undefined,'inbox-list'),detail=node('section',undefined,'inbox-detail');
  search.type='search';search.placeholder='Search name or subject';search.setAttribute('aria-label','Search conversations');filter.setAttribute('aria-label','Filter conversations');[['all','All conversations'],['unread','Unread'],['open','Open'],['answered','Answered'],['resolved','Resolved']].forEach(([v,t])=>{const o=node('option',t);o.value=v;filter.append(o)});

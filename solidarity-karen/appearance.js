@@ -1,0 +1,17 @@
+/* Device-local presentation preferences. No profile data is sent. */
+(()=>{'use strict';
+const defaults={theme:'light',density:'comfortable',layout:'cards',motion:'system',text:'standard'};
+let prefs;try{prefs={...defaults,...JSON.parse(localStorage.getItem('rb-appearance')||'{}')}}catch{prefs={...defaults}}
+const choices={theme:['light','dark','contrast','system'],density:['comfortable','compact'],layout:['cards','agenda'],motion:['system','reduced'],text:['standard','large']};
+const media=matchMedia('(prefers-color-scheme: dark)');
+function apply(){for(const k of Object.keys(choices)){if(!choices[k].includes(prefs[k]))prefs[k]=defaults[k];document.documentElement.dataset[k]=k==='theme'&&prefs[k]==='system'?(media.matches?'dark':'light'):prefs[k]}try{localStorage.setItem('rb-appearance',JSON.stringify(prefs))}catch{}document.querySelector('meta[name="theme-color"]')?.setAttribute('content',document.documentElement.dataset.theme==='dark'?'#101724':'#f3f5fa')}
+apply();media.addEventListener('change',apply);
+function init(){const d=document.createElement('dialog');d.id='appearanceDialog';d.className='appearance-dialog';d.setAttribute('aria-labelledby','appearanceTitle');d.innerHTML='<div class="appearance-heading"><div><p>MAKE IT YOURS</p><h2 id="appearanceTitle">Your view of the collective</h2></div><button type="button" aria-label="Close appearance settings" data-dismiss>×</button></div><p>Saved on this device. Event colours keep the same meaning in every theme.</p><div id="appearanceFields"></div><div class="appearance-legend"><span>■ Solidarity</span><span>◆ Social</span><span>● Learning</span><span>▲ Food</span><span>✳ Outdoors</span></div><button type="button" data-reset>Restore defaults</button>';
+const labels={theme:'Colour theme',density:'Spacing',layout:'Event layout',motion:'Motion',text:'Text size'};
+const names={light:'Daylight',dark:'Midnight',contrast:'High contrast',system:'Follow device',comfortable:'Comfortable',compact:'Compact',cards:'Cards',agenda:'Agenda list',reduced:'Reduced motion',standard:'Standard',large:'Larger'};
+for(const k of Object.keys(choices)){const label=document.createElement('label');label.textContent=labels[k];const select=document.createElement('select');select.name=k;for(const v of choices[k]){const o=document.createElement('option');o.value=v;o.textContent=names[v];select.append(o)}select.value=prefs[k];select.onchange=()=>{prefs[k]=select.value;apply()};label.append(select);d.querySelector('#appearanceFields').append(label)}
+d.querySelector('[data-dismiss]').onclick=()=>d.close();d.querySelector('[data-reset]').onclick=()=>{prefs={...defaults};apply();d.querySelectorAll('select').forEach(s=>s.value=prefs[s.name])};document.body.append(d);
+const button=document.createElement('button');button.type='button';button.className='appearance-trigger';button.textContent='◐';button.setAttribute('aria-label','Appearance: themes, spacing and event layout');button.title='Appearance';button.onclick=()=>d.showModal();const mount=document.querySelector('.top-actions');if(mount)mount.prepend(button);else{button.classList.add('appearance-floating');document.body.append(button)}
+d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}});
+}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();

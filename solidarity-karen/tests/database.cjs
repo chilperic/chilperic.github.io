@@ -4,6 +4,7 @@ CREATE FUNCTION extensions.digest(text,text) RETURNS bytea LANGUAGE SQL IMMUTABL
 CREATE FUNCTION public.solidarity_credential_context(text) RETURNS jsonb LANGUAGE plpgsql AS $$ BEGIN IF $1 NOT IN ('owner-test','organizer-test','treasurer-test') THEN RAISE EXCEPTION 'unauthorized'; END IF; RETURN jsonb_build_object('role',split_part($1,'-',1)); END $$;`);
 await db.exec(fs.readFileSync(require('path').join(__dirname,'../database/community-platform-v1.sql'),'utf8'));
 await db.exec(fs.readFileSync(require('path').join(__dirname,'../database/community-platform-v2.sql'),'utf8'));
+await db.exec(fs.readFileSync(require('path').join(__dirname,'../database/community-platform-v3.sql'),'utf8'));
 let count=0;const ok=(v,label)=>{assert(v,label);count++;console.log('PASS '+label)};const deny=async(sql,params,label)=>{try{await db.query(sql,params)}catch{ok(true,label);return}throw Error('Expected denial: '+label)};const id='11111111-1111-4111-8111-111111111111',client='22222222-2222-4222-8222-222222222222',other='33333333-3333-4333-8333-333333333333',token='ab'.repeat(32);
 await db.exec('SET ROLE anon');
 const member=async(action,t=token)=>(await db.query('select rb_contact_member($1,$2,$3) as data',[id,t,action])).rows[0].data;
@@ -26,4 +27,23 @@ const brunch=async(date,who,action)=>(await db.query('select rb_brunch_session($
 data=await brunch('2026-11-07',client,{action:'add',item:'Coffee',name:'Test'});ok(data.length===1&&data[0].mine,'Brunch add returns ownership');const item=data[0].id;
 ok((await brunch('2026-12-05',client,{action:'list'})).length===0,'Brunch sessions stay separate');await brunch('2026-11-07',other,{action:'remove',id:item});ok((await brunch('2026-11-07',client,{action:'list'})).length===1,'Another member cannot remove brunch item');await brunch('2026-11-07',client,{action:'remove',id:item});ok((await brunch('2026-11-07',client,{action:'list'})).length===0,'Owner can remove own brunch item');
 await deny('select device_id from rb_brunch_items',[],'Brunch device IDs are not publicly readable');await deny('select rb_brunch_session($1,$2,$3)',['2026-11-08',client,{action:'list'}],'Non-first-Saturday session denied');
+
+const vote=async(who,n,priv,dates,t=token)=>(await db.query('select rb_poll_vote($1,$2,$3,$4,$5) as data',[who,t,n,priv,dates])).rows[0].data;
+const pub=async()=>(await db.query('select rb_poll_public() as data')).rows[0].data;
+const pollAdmin=async(action='read',credential='organizer-test')=>(await db.query('select rb_poll_admin($1,$2) as data',[credential,action])).rows[0].data;
+await vote(client,'Visible Name',false,['2026-11-06']);let identity=await vote(other,'Private Name',true,['2026-11-07']);
+ok(/^RB-[A-F0-9]{12}$/.test(identity.public_id),'Random public ID generated on server');
+data=await pub();ok(data.people.some(p=>p.label==='Visible Name'),'Named default appears publicly');ok(!JSON.stringify(data).includes('Private Name'),'Public results exclude hidden name');
+data=await pollAdmin();ok(!JSON.stringify(data).includes('Private Name'),'Organizer cannot see private name before closing');
+await deny('select * from rb_poll_identities',[],'Direct identity table read denied');
+await deny('select rb_poll_admin($1,$2)',['treasurer-test','read'],'Non-organizer denied identity mapping');
+await deny('select rb_poll_vote($1,$2,$3,$4,$5)',[other,'cd'.repeat(32),'Stolen',false,['2026-11-06']],'Wrong vote token denied');
+await deny('select rb_cast_powerpoint_vote($1,$2)',[other,['2026-11-06']],'Legacy API cannot overwrite enrolled identity');
+await deny('select rb_poll_vote($1,$2,$3,$4,$5)',[client,token,'Visible Name',false,['2026-11-08']],'Invalid poll date rejected');
+await vote(client,'Visible Name',false,[]);ok((await pub()).people.length===1,'Withdrawing vote removes public participant');
+await vote(client,'Visible Name',false,['2026-11-13']);ok((await pub()).people.length===2,'Resubmission updates same participant');
+data=await pollAdmin('close');ok(data.closed&&data.people.some(p=>p.name==='Private Name'),'Closing reveals identity only to organizer');
+ok(!JSON.stringify(await pub()).includes('Private Name'),'Private name remains hidden publicly after close');
+await deny('select rb_poll_vote($1,$2,$3,$4,$5)',[client,token,'Visible Name',false,['2026-11-06']],'Closed poll rejects identity votes');
+await deny('select rb_cast_powerpoint_vote($1,$2)',[id,['2026-11-06']],'Closed poll rejects legacy votes');
 console.log('TOTAL '+count+' checks passed. Local PGlite; credential checker and digest are test shims.');await db.close()})();
