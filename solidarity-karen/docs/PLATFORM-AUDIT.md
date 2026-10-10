@@ -1,3 +1,9 @@
+## October 10 — complete interface rebuild
+
+Replaced the hub layout and CSS foundation: full-width navigation, unified Karen collection/chart/training dashboard, illustrated event posters, dedicated poll and brunch layouts, community timeline, revised dialogs and floating phone navigation. Added a shared token palette and new flag emblem. Simplified appearance and assembly styles; carried the palette through finance and organizer surfaces.
+
+Validated named/private poll submission against a local database, preference persistence, 54 viewport/theme/view combinations, EN/FR/DE phone layouts, personal checklist persistence and secondary-page mobile overflow. Visual review corrected narrow German headings and dark-theme legacy surfaces. No production test contributions, messages or votes were created. Existing backend permissions and workflows are unchanged by this release. Legacy finance text is not fully translated.
+
 ## Current activation status — 10 October 2026, 05:52 Europe/Berlin
 
 The owner explicitly approved migrations v2–v4. Production migration `activate_approved_community_v2_v3_v4` succeeded. Earlier pending-activation notes below are historical and superseded by this section.
