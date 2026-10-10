@@ -1514,5 +1514,141 @@
   "Calendar downloaded. Add a reminder once the time is confirmed.": {
     "fr": "Calendrier téléchargé. Ajoutez un rappel quand l’heure sera confirmée.",
     "de": "Kalenderdatei heruntergeladen. Ergänze eine Erinnerung, sobald die Uhrzeit feststeht."
+  },
+  "OPT IN · STAY CONNECTED": {
+    "fr": "À VOTRE CHOIX · RESTONS LIÉS",
+    "de": "FREIWILLIG · IN VERBINDUNG BLEIBEN"
+  },
+  "Beyond the browser tab.": {
+    "fr": "Même quand l’appli est fermée.",
+    "de": "Auch wenn die App geschlossen ist."
+  },
+  "Receive announcements, changes to followed events and private-reply alerts. Message contents stay private.": {
+    "fr": "Recevez les annonces, les changements des événements suivis et les alertes de réponses privées. Le contenu des messages reste privé.",
+    "de": "Erhalte Ankündigungen, Änderungen abonnierter Veranstaltungen und Hinweise auf private Antworten. Nachrichteninhalte bleiben privat."
+  },
+  "Checking delivery services…": {
+    "fr": "Vérification des services…",
+    "de": "Benachrichtigungsdienste werden geprüft…"
+  },
+  "Enable background push": {
+    "fr": "Activer les notifications push",
+    "de": "Push-Benachrichtigungen aktivieren"
+  },
+  "Disable background push": {
+    "fr": "Désactiver les notifications push",
+    "de": "Push-Benachrichtigungen deaktivieren"
+  },
+  "Send me a test notification": {
+    "fr": "M’envoyer une notification de test",
+    "de": "Testbenachrichtigung an mich senden"
+  },
+  "On iPhone, add this app to your Home Screen, open it there, then enable notifications.": {
+    "fr": "Sur iPhone, ajoutez cette appli à l’écran d’accueil, ouvrez-la depuis cet écran, puis activez les notifications.",
+    "de": "Auf dem iPhone: App zum Home-Bildschirm hinzufügen, dort öffnen und Benachrichtigungen aktivieren."
+  },
+  "Quiet hours start": {
+    "fr": "Début du silence",
+    "de": "Ruhezeit beginnt"
+  },
+  "Quiet hours end": {
+    "fr": "Fin du silence",
+    "de": "Ruhezeit endet"
+  },
+  "Berlin time. Choose the same hour to turn quiet hours off.": {
+    "fr": "Heure de Berlin. Choisissez la même heure pour désactiver le silence.",
+    "de": "Berliner Zeit. Gleiche Uhrzeiten deaktivieren die Ruhezeit."
+  },
+  "Save delivery preferences": {
+    "fr": "Enregistrer les préférences",
+    "de": "Benachrichtigungseinstellungen speichern"
+  },
+  "Sender setup required. Automatic phone notifications are not active.": {
+    "fr": "Configuration de l’expéditeur nécessaire. Les notifications téléphoniques automatiques sont inactives.",
+    "de": "Absender muss eingerichtet werden. Automatische Telefonbenachrichtigungen sind inaktiv."
+  },
+  "Phone number": {
+    "fr": "Numéro de téléphone",
+    "de": "Telefonnummer"
+  },
+  "I agree to receive SMS notifications.": {
+    "fr": "J’accepte de recevoir des notifications par SMS.",
+    "de": "Ich stimme SMS-Benachrichtigungen zu."
+  },
+  "I agree to receive WhatsApp notifications.": {
+    "fr": "J’accepte de recevoir des notifications WhatsApp.",
+    "de": "Ich stimme WhatsApp-Benachrichtigungen zu."
+  },
+  "Verification sends one SMS. You can unsubscribe here or reply STOP.": {
+    "fr": "La vérification envoie un SMS. Désabonnez-vous ici ou répondez STOP.",
+    "de": "Zur Verifizierung wird eine SMS gesendet. Hier abmelden oder mit STOP antworten."
+  },
+  "Send verification code": {
+    "fr": "Envoyer le code de vérification",
+    "de": "Bestätigungscode senden"
+  },
+  "Verification code": {
+    "fr": "Code de vérification",
+    "de": "Bestätigungscode"
+  },
+  "Disable phone notifications": {
+    "fr": "Désactiver les notifications téléphoniques",
+    "de": "Telefonbenachrichtigungen deaktivieren"
+  },
+  "Remove all delivery subscriptions": {
+    "fr": "Supprimer tous les abonnements",
+    "de": "Alle Benachrichtigungsabonnements entfernen"
+  },
+  "Choose the notifications you want.": {
+    "fr": "Choisissez vos notifications.",
+    "de": "Wähle deine Benachrichtigungen."
+  },
+  "Background delivery is awaiting scheduler activation.": {
+    "fr": "L’envoi en arrière-plan attend l’activation du planificateur.",
+    "de": "Hintergrundversand wartet auf die Aktivierung des Zeitplans."
+  },
+  "Background push enabled. Delivery can take a few minutes.": {
+    "fr": "Notifications push activées. L’envoi peut prendre quelques minutes.",
+    "de": "Push aktiviert. Der Versand kann einige Minuten dauern."
+  },
+  "Background push disabled.": {
+    "fr": "Notifications push désactivées.",
+    "de": "Push-Benachrichtigungen deaktiviert."
+  },
+  "Test queued. Allow a few minutes for delivery.": {
+    "fr": "Test en attente. L’envoi peut prendre quelques minutes.",
+    "de": "Test eingereiht. Der Versand kann einige Minuten dauern."
+  },
+  "Delivery preferences saved.": {
+    "fr": "Préférences enregistrées.",
+    "de": "Benachrichtigungseinstellungen gespeichert."
+  },
+  "Phone notifications disabled.": {
+    "fr": "Notifications téléphoniques désactivées.",
+    "de": "Telefonbenachrichtigungen deaktiviert."
+  },
+  "All delivery subscriptions removed.": {
+    "fr": "Tous les abonnements ont été supprimés.",
+    "de": "Alle Benachrichtigungsabonnements entfernt."
+  },
+  "Choose your channels and verify your number.": {
+    "fr": "Choisissez vos canaux et vérifiez votre numéro.",
+    "de": "Kanäle wählen und Telefonnummer bestätigen."
+  },
+  "Verify and enable": {
+    "fr": "Vérifier et activer",
+    "de": "Bestätigen und aktivieren"
+  },
+  "Phone notifications enabled.": {
+    "fr": "Notifications téléphoniques activées.",
+    "de": "Telefonbenachrichtigungen aktiviert."
+  },
+  "Verification SMS sent. Enter the code.": {
+    "fr": "SMS de vérification envoyé. Saisissez le code.",
+    "de": "Bestätigungs-SMS gesendet. Code eingeben."
+  },
+  "Inbox history stays in this browser. Delivery preferences are saved for this device.": {
+    "fr": "L’historique reste dans ce navigateur. Les préférences d’envoi sont enregistrées pour cet appareil.",
+    "de": "Der Verlauf bleibt in diesem Browser. Zustelleinstellungen werden für dieses Gerät gespeichert."
   }
 }

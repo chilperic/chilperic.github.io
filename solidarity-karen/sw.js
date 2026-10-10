@@ -1,5 +1,5 @@
-const CACHE="solidarity-shell-v26";
-const ASSETS=["./notifications.js","./notifications.css","./assets/banner-touch.png","./design-tokens.css","./assets/banner-emblem.svg","./assembly.css","./assembly.js","./community-language.js","./community-translations.json","./role-workspace.js","./appearance.css","./appearance.js","./poll-admin.js",
+const CACHE="solidarity-shell-v27";
+const ASSETS=["./delivery.js","./notifications.js","./notifications.css","./assets/banner-touch.png","./design-tokens.css","./assets/banner-emblem.svg","./assembly.css","./assembly.js","./community-language.js","./community-translations.json","./role-workspace.js","./appearance.css","./appearance.js","./poll-admin.js",
 "./","./index.html","./hub.css","./hub.js","./platform.css","./campaign.html","./inbox-admin.js","./campaign.css","./campaign.js","./campaign-dashboard-locales.js","./campaign-dashboard.js","./events-public.js","./config.js","./locales.js",
 "./icon.svg","./manifest.webmanifest","./brand.css","./experience-locales.js","./campaign-insights.js","./assets/red-banner-mark.png","./assets/chart.umd.min.js","./assets/qrcode.min.js",
 "./observatory/","./styles.css","./observatory-locales.js","./chart-polish.js","./dashboard-charts.js","./public-core.js","./public-sections.js","./advanced-stats.js","./observatory-extra-charts.js","./chart-tools.js","./consent.js",
@@ -15,3 +15,5 @@ self.addEventListener("fetch",e=>{
 });
 
 self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil((async()=>{const target=new URL('./#notifications',self.location.href);const windows=await self.clients.matchAll({type:'window',includeUncontrolled:true});for(const client of windows){if(new URL(client.url).origin===target.origin){await client.navigate(target.href);return client.focus()}}return self.clients.openWindow(target.href)})())});
+
+self.addEventListener("push",e=>{let p={};try{p=e.data.json()}catch{}e.waitUntil(self.registration.showNotification("The Red Banner Is Raised",{body:typeof p.body==="string"?p.body.slice(0,300):"There is a new update in your signal box.",icon:"./assets/banner-touch.png",tag:typeof p.tag==="string"?p.tag.slice(0,150):"red-banner-updates",data:{url:new URL("./#notifications",self.location.href).href}}))});
