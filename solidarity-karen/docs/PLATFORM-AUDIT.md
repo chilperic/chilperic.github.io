@@ -1,3 +1,11 @@
+## October 10 — political identity and device-local notifications
+
+Replaced the emblem with a red-and-black banner, ecological branches and a living sprout. Updated the wordmark, manifesto hero, event-card styling, mobile composition, installed-app identity and icon. Karen collection remains the primary dashboard; compact phone hero keeps the total visible in the first viewport.
+
+Added the Signal Box: device-local notification history, event follow/unfollow, official updates, generic private-reply alerts, read state, explicit browser permission and honest connection failures. Event sharing supports WhatsApp composers and the native share sheet; event URLs open their details. Timed ICS exports include a two-hour alarm. Phone automation is not connected: no phone numbers are collected, no closed-app push delivery is claimed. See NOTIFICATIONS.md for activation requirements.
+
+Browser tests cover narrow multilingual layouts and the notification lifecycle with mock data. No real external messages were sent.
+
 ## October 10 — complete interface rebuild
 
 Replaced the hub layout and CSS foundation: full-width navigation, unified Karen collection/chart/training dashboard, illustrated event posters, dedicated poll and brunch layouts, community timeline, revised dialogs and floating phone navigation. Added a shared token palette and new flag emblem. Simplified appearance and assembly styles; carried the palette through finance and organizer surfaces.

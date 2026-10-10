@@ -1258,5 +1258,261 @@
   "worth sharing.": {
     "fr": "qui nous rassemble.",
     "de": "das uns verbindet."
+  },
+  "Mutual aid. Autonomy. Ecology.": {
+    "fr": "Entraide. Autonomie. Écologie.",
+    "de": "Gegenseitige Hilfe. Autonomie. Ökologie."
+  },
+  "No one": {
+    "fr": "Personne",
+    "de": "Niemand"
+  },
+  "stands": {
+    "fr": "ne reste",
+    "de": "steht"
+  },
+  "alone.": {
+    "fr": "seul·e.",
+    "de": "allein."
+  },
+  "Against charity. For solidarity.": {
+    "fr": "Contre la charité. Pour la solidarité.",
+    "de": "Gegen Wohltätigkeit. Für Solidarität."
+  },
+  "A common life, on our own terms.": {
+    "fr": "Une vie commune, selon nos propres règles.",
+    "de": "Gemeinsam leben, selbstbestimmt."
+  },
+  "Mutual aid": {
+    "fr": "Entraide",
+    "de": "Gegenseitige Hilfe"
+  },
+  "Collective joy": {
+    "fr": "Joie collective",
+    "de": "Gemeinsame Freude"
+  },
+  "A living planet": {
+    "fr": "Une planète vivante",
+    "de": "Ein lebendiger Planet"
+  },
+  "Open notifications": {
+    "fr": "Ouvrir les notifications",
+    "de": "Benachrichtigungen öffnen"
+  },
+  "Notifications & reminders": {
+    "fr": "Notifications et rappels",
+    "de": "Benachrichtigungen und Erinnerungen"
+  },
+  "STAY IN THE COLLECTIVE": {
+    "fr": "RESTONS EN LIEN",
+    "de": "IN VERBINDUNG BLEIBEN"
+  },
+  "The signal box.": {
+    "fr": "La boîte à signaux.",
+    "de": "Die Signalzentrale."
+  },
+  "Updates, replies and the plans you follow.": {
+    "fr": "Actualités, réponses et projets suivis.",
+    "de": "Neuigkeiten, Antworten und deine Pläne."
+  },
+  "Close notifications": {
+    "fr": "Fermer les notifications",
+    "de": "Benachrichtigungen schließen"
+  },
+  "On this device": {
+    "fr": "Sur cet appareil",
+    "de": "Auf diesem Gerät"
+  },
+  "Mark all read": {
+    "fr": "Tout marquer comme lu",
+    "de": "Alle als gelesen markieren"
+  },
+  "Checking for updates…": {
+    "fr": "Recherche des nouveautés…",
+    "de": "Neuigkeiten werden geprüft…"
+  },
+  "Your followed plans": {
+    "fr": "Vos projets suivis",
+    "de": "Deine verfolgten Pläne"
+  },
+  "Follow an event from its details to track changes here.": {
+    "fr": "Suivez un événement depuis sa fiche pour retrouver les changements ici.",
+    "de": "Folge einem Ereignis in seinen Details, um Änderungen hier zu sehen."
+  },
+  "YOUR ATTENTION, YOUR RULES": {
+    "fr": "VOTRE ATTENTION, VOS RÈGLES",
+    "de": "DEINE AUFMERKSAMKEIT, DEINE REGELN"
+  },
+  "Choose your signals.": {
+    "fr": "Choisissez vos signaux.",
+    "de": "Wähle deine Signale."
+  },
+  "Official announcements": {
+    "fr": "Annonces officielles",
+    "de": "Offizielle Ankündigungen"
+  },
+  "Updates published by organizers.": {
+    "fr": "Informations publiées par les organisateurs.",
+    "de": "Neuigkeiten der Organisatoren."
+  },
+  "Private organizer replies": {
+    "fr": "Réponses privées des organisateurs",
+    "de": "Private Antworten der Organisatoren"
+  },
+  "Alerts never include the message text.": {
+    "fr": "Les alertes ne contiennent jamais le texte du message.",
+    "de": "Hinweise enthalten niemals den Nachrichtentext."
+  },
+  "Available while open": {
+    "fr": "Disponible quand l’application est ouverte",
+    "de": "Bei geöffneter App verfügbar"
+  },
+  "Browser alerts": {
+    "fr": "Alertes du navigateur",
+    "de": "Browser-Benachrichtigungen"
+  },
+  "Checks run while this app is open and visible. No alerts are sent after you close it.": {
+    "fr": "Les vérifications fonctionnent quand l’application est ouverte et visible. Aucune alerte après sa fermeture.",
+    "de": "Prüfungen laufen, solange diese App geöffnet und sichtbar ist. Nach dem Schließen werden keine Hinweise gesendet."
+  },
+  "Enable browser alerts": {
+    "fr": "Activer les alertes",
+    "de": "Browser-Hinweise aktivieren"
+  },
+  "Not connected": {
+    "fr": "Non connecté",
+    "de": "Nicht verbunden"
+  },
+  "Automatic phone delivery needs a connected sender service. No phone number is collected here yet.": {
+    "fr": "L’envoi automatique vers un téléphone nécessite un service connecté. Aucun numéro n’est collecté ici pour le moment.",
+    "de": "Automatische Zustellung ans Telefon benötigt einen verbundenen Versanddienst. Hier werden noch keine Telefonnummern erfasst."
+  },
+  "You can already share any event through WhatsApp or your phone’s share menu.": {
+    "fr": "Vous pouvez déjà partager chaque événement via WhatsApp ou le menu de partage de votre téléphone.",
+    "de": "Du kannst Ereignisse bereits über WhatsApp oder das Teilen-Menü deines Telefons teilen."
+  },
+  "Clear local notification history": {
+    "fr": "Effacer l’historique local",
+    "de": "Lokalen Verlauf löschen"
+  },
+  "Preferences and history stay in this browser. They do not sync between devices.": {
+    "fr": "Les préférences et l’historique restent dans ce navigateur, sans synchronisation entre appareils.",
+    "de": "Einstellungen und Verlauf bleiben in diesem Browser. Sie werden nicht zwischen Geräten synchronisiert."
+  },
+  "All quiet for now. New updates will appear here.": {
+    "fr": "Tout est calme. Les nouveautés apparaîtront ici.",
+    "de": "Noch alles ruhig. Neue Hinweise erscheinen hier."
+  },
+  "Open update": {
+    "fr": "Ouvrir",
+    "de": "Öffnen"
+  },
+  "Unfollow": {
+    "fr": "Ne plus suivre",
+    "de": "Nicht mehr folgen"
+  },
+  "Enabled while this app is open.": {
+    "fr": "Activé quand l’application est ouverte.",
+    "de": "Aktiviert, solange die App geöffnet ist."
+  },
+  "Off. You control browser permission.": {
+    "fr": "Désactivé. Vous contrôlez l’autorisation du navigateur.",
+    "de": "Aus. Du steuerst die Browser-Berechtigung."
+  },
+  "Turn off browser alerts": {
+    "fr": "Désactiver les alertes",
+    "de": "Browser-Hinweise ausschalten"
+  },
+  "Browser storage is unavailable. Changes will last only for this visit.": {
+    "fr": "Le stockage est indisponible. Les changements ne dureront que cette visite.",
+    "de": "Browserspeicher ist nicht verfügbar. Änderungen gelten nur für diesen Besuch."
+  },
+  "There is a new update in your signal box.": {
+    "fr": "Un nouveau signal vous attend.",
+    "de": "Es gibt Neuigkeiten in deiner Signalzentrale."
+  },
+  "Community event update": {
+    "fr": "Mise à jour communautaire",
+    "de": "Änderung eines Gruppenereignisses"
+  },
+  "Official announcement": {
+    "fr": "Annonce officielle",
+    "de": "Offizielle Ankündigung"
+  },
+  "Private reply": {
+    "fr": "Réponse privée",
+    "de": "Private Antwort"
+  },
+  "An organizer replied.": {
+    "fr": "Un organisateur a répondu.",
+    "de": "Ein Organisator hat geantwortet."
+  },
+  "Open your private conversation to read the message.": {
+    "fr": "Ouvrez votre conversation privée pour lire le message.",
+    "de": "Öffne dein privates Gespräch, um die Nachricht zu lesen."
+  },
+  "Some updates could not be checked. We will retry.": {
+    "fr": "Certaines informations n’ont pas pu être vérifiées. Nouvelle tentative à venir.",
+    "de": "Einige Neuigkeiten konnten nicht geprüft werden. Wir versuchen es erneut."
+  },
+  "Up to date · checks every 30 seconds while open.": {
+    "fr": "À jour · vérification toutes les 30 secondes quand l’application est ouverte.",
+    "de": "Aktuell · Prüfung alle 30 Sekunden bei geöffneter App."
+  },
+  "Browser alerts are unavailable here. On iPhone, add this app to your Home Screen and open it there.": {
+    "fr": "Alertes indisponibles ici. Sur iPhone, ajoutez l’application à l’écran d’accueil et ouvrez-la depuis celui-ci.",
+    "de": "Browser-Hinweise sind hier nicht verfügbar. Füge die App auf dem iPhone zum Home-Bildschirm hinzu und öffne sie dort."
+  },
+  "Permission was not granted. You can change this in browser settings.": {
+    "fr": "Autorisation non accordée. Vous pouvez la modifier dans les paramètres du navigateur.",
+    "de": "Berechtigung nicht erteilt. Du kannst sie in den Browsereinstellungen ändern."
+  },
+  "Browser alerts could not be enabled. The in-app inbox still works.": {
+    "fr": "Impossible d’activer les alertes. La boîte de réception reste disponible.",
+    "de": "Browser-Hinweise konnten nicht aktiviert werden. Der Posteingang in der App funktioniert weiterhin."
+  },
+  "Keep this plan close.": {
+    "fr": "Gardons ce projet en vue.",
+    "de": "Bleib bei diesem Plan dabei."
+  },
+  "Following this event": {
+    "fr": "Événement suivi",
+    "de": "Du folgst diesem Ereignis"
+  },
+  "Follow event updates": {
+    "fr": "Suivre les changements",
+    "de": "Änderungen verfolgen"
+  },
+  "Changes appear in your signal box when you open this app. Calendar reminders work separately.": {
+    "fr": "Les changements apparaissent ici à l’ouverture de l’application. Les rappels du calendrier fonctionnent séparément.",
+    "de": "Änderungen erscheinen beim Öffnen der App in deiner Signalzentrale. Kalendererinnerungen funktionieren unabhängig davon."
+  },
+  "Signal / other apps": {
+    "fr": "Signal / autres applications",
+    "de": "Signal / andere Apps"
+  },
+  "Copied. Paste into Signal or another app.": {
+    "fr": "Copié. Collez dans Signal ou une autre application.",
+    "de": "Kopiert. In Signal oder einer anderen App einfügen."
+  },
+  "Sharing is unavailable. Copy the event link below.": {
+    "fr": "Partage indisponible. Copiez le lien de l’événement ci-dessous.",
+    "de": "Teilen ist nicht verfügbar. Kopiere den Ereignislink unten."
+  },
+  "Copy link": {
+    "fr": "Copier le lien",
+    "de": "Link kopieren"
+  },
+  "Event link copied.": {
+    "fr": "Lien copié.",
+    "de": "Ereignislink kopiert."
+  },
+  "Calendar downloaded with a 2-hour reminder.": {
+    "fr": "Calendrier téléchargé avec un rappel 2 heures avant.",
+    "de": "Kalenderdatei mit Erinnerung 2 Stunden vorher heruntergeladen."
+  },
+  "Calendar downloaded. Add a reminder once the time is confirmed.": {
+    "fr": "Calendrier téléchargé. Ajoutez un rappel quand l’heure sera confirmée.",
+    "de": "Kalenderdatei heruntergeladen. Ergänze eine Erinnerung, sobald die Uhrzeit feststeht."
   }
 }

@@ -9,3 +9,7 @@ Coverage: private thread creation and retrieval, wrong-token and wrong-role deni
 Poll checks cover named/default and private-ID visibility, hidden names before closing, organizer-only disclosure after closing, token-protected updates, legacy overwrite prevention, withdrawal and closed-poll rejection. Total: 45 checks.
 
 Role-workspace tests use a minimal account-table schema and dummy credential roles. They verify narrow notice editing, technical feature reads, and private-data denial, not live account creation or production login.
+
+## Notification and sharing checks
+
+Run `node tests/notifications.cjs` with Playwright installed. Set `CHROMIUM_PATH` if using a system or custom Chromium binary. The test serves the app locally, blocks service workers and mocks every Supabase request; it sends no real messages. It covers deep links, follow state, update deduplication, private-body exclusion, network failures, translated notification layouts and the ICS alarm. OS presentation and third-party messenger delivery require separate device/provider testing.
