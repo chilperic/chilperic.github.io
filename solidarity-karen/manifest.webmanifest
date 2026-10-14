@@ -4,8 +4,8 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f5f3ef",
-  "theme_color": "#202321",
+  "background_color": "#f2f4f7",
+  "theme_color": "#142035",
   "description": "Mutual aid, collective events and shared decisions.",
   "icons": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "src": "./assets/banner-touch.png",
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     }

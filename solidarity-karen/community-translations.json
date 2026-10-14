@@ -9,7 +9,7 @@
   },
   "Collective decisions": {
     "fr": "Décisions collectives",
-    "de": "Gemeinsame Entscheidungen"
+    "de": "Gemeinsam entscheiden"
   },
   "People’s Brunch": {
     "fr": "Brunch populaire",
@@ -2406,5 +2406,153 @@
   "Save": {
     "fr": "Enregistrer",
     "de": "Speichern"
+  },
+  "The Red Banner": {
+    "fr": "La Bannière rouge",
+    "de": "Das Rote Banner"
+  },
+  "is raised.": {
+    "fr": "est levée.",
+    "de": "ist erhoben."
+  },
+  "Message admin": {
+    "fr": "Contacter l’admin",
+    "de": "Admin kontaktieren"
+  },
+  "Message admin privately": {
+    "fr": "Contacter l’admin en privé",
+    "de": "Admin privat kontaktieren"
+  },
+  "Your name, nickname or private ID": {
+    "fr": "Votre nom, pseudo ou identifiant privé",
+    "de": "Name, Spitzname oder private Kennung"
+  },
+  "Use a random ID": {
+    "fr": "Utiliser un ID aléatoire",
+    "de": "Zufällige ID verwenden"
+  },
+  "Named participation · default": {
+    "fr": "Vote nominatif · par défaut",
+    "de": "Mit Namen abstimmen · Standard"
+  },
+  "Anonymous to other members": {
+    "fr": "Anonyme pour les autres membres",
+    "de": "Für andere Mitglieder anonym"
+  },
+  "A hidden name is available only to authorized admins after closing. If you enter only an ID, admins will know only that ID. Keep this browser’s data to edit your vote.": {
+    "fr": "Un nom masqué est accessible uniquement aux admins autorisé·es après clôture. Si vous saisissez seulement un ID, les admins ne connaîtront que cet ID. Conservez les données du navigateur pour modifier votre vote.",
+    "de": "Ein verborgener Name ist nach Abschluss nur für befugte Admins sichtbar. Gebt ihr nur eine ID an, kennen Admins auch nur diese ID. Zum Bearbeiten die Browserdaten behalten."
+  },
+  "Only your public ID is shown to members. Admins can read your entered name after closing.": {
+    "fr": "Seul votre ID public est visible aux membres. Les admins peuvent lire le nom saisi après clôture.",
+    "de": "Mitglieder sehen nur eure öffentliche ID. Admins sehen den eingegebenen Namen nach Abschluss."
+  },
+  "The group will see:": {
+    "fr": "Le groupe verra :",
+    "de": "Die Gruppe sieht:"
+  },
+  "your name": {
+    "fr": "votre nom",
+    "de": "euren Namen"
+  },
+  "Enter a name or use a random ID before voting.": {
+    "fr": "Saisissez un nom ou utilisez un ID aléatoire avant de voter.",
+    "de": "Vor dem Abstimmen einen Namen eingeben oder eine zufällige ID verwenden."
+  },
+  "Keep the collective connected.": {
+    "fr": "Gardons le collectif connecté.",
+    "de": "Das Kollektiv bleibt verbunden."
+  },
+  "A question, an access need, an idea? Reach the admin privately.": {
+    "fr": "Une question, un besoin d’accessibilité, une idée ? Contactez l’admin en privé.",
+    "de": "Eine Frage, ein Zugangsbedarf, eine Idee? Kontaktiert den Admin privat."
+  },
+  "Collective at a glance": {
+    "fr": "Le collectif en un coup d’œil",
+    "de": "Das Kollektiv im Überblick"
+  },
+  "Next 30 days": {
+    "fr": "Les 30 prochains jours",
+    "de": "Die nächsten 30 Tage"
+  },
+  "See active plans": {
+    "fr": "Voir les projets en cours",
+    "de": "Aktive Pläne ansehen"
+  },
+  "PowerPoint Night responses": {
+    "fr": "Réponses pour la soirée PowerPoint",
+    "de": "Antworten zur PowerPoint-Nacht"
+  },
+  "Our next common table": {
+    "fr": "Notre prochaine tablée",
+    "de": "Unser nächster gemeinsamer Tisch"
+  },
+  "First Saturday of the month": {
+    "fr": "Premier samedi du mois",
+    "de": "Erster Samstag im Monat"
+  },
+  "Filter event status": {
+    "fr": "Filtrer le statut des événements",
+    "de": "Terminstatus filtern"
+  },
+  "All statuses": {
+    "fr": "Tous les statuts",
+    "de": "Alle Status"
+  },
+  "Active plans": {
+    "fr": "Projets en cours",
+    "de": "Aktive Pläne"
+  },
+  "Cancelled / postponed": {
+    "fr": "Annulé / reporté",
+    "de": "Abgesagt / verschoben"
+  },
+  "Share this plan": {
+    "fr": "Partager ce projet",
+    "de": "Diesen Plan teilen"
+  },
+  "Ask admin about this event": {
+    "fr": "Questionner l’admin sur cet événement",
+    "de": "Admin zu diesem Termin fragen"
+  },
+  "Plan shared.": {
+    "fr": "Projet partagé.",
+    "de": "Plan geteilt."
+  },
+  "Plan link copied.": {
+    "fr": "Lien du projet copié.",
+    "de": "Planlink kopiert."
+  },
+  "Copy this plan link:": {
+    "fr": "Copiez ce lien :",
+    "de": "Diesen Planlink kopieren:"
+  },
+  "Plan link": {
+    "fr": "Lien du projet",
+    "de": "Planlink"
+  },
+  "Karen’s fund & records": {
+    "fr": "Collecte de Karen et suivi",
+    "de": "Karens Sammlung und Belege"
+  },
+  "Poll coordination · privacy and closing": {
+    "fr": "Coordination du sondage · confidentialité et clôture",
+    "de": "Abstimmung koordinieren · Datenschutz und Abschluss"
+  },
+  "Most available:": {
+    "fr": "Disponibilités en tête :",
+    "de": "Am besten verfügbar:"
+  },
+  "Saved.": {
+    "fr": "Enregistré.",
+    "de": "Gespeichert."
+  },
+  "Your public ID is": {
+    "fr": "Votre ID public est",
+    "de": "Eure öffentliche ID ist"
+  },
+  "Your name is visible to the group.": {
+    "fr": "Votre nom est visible par le groupe.",
+    "de": "Euer Name ist für die Gruppe sichtbar."
   }
 }
