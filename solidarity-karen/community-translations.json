@@ -2554,5 +2554,161 @@
   "Your name is visible to the group.": {
     "fr": "Votre nom est visible par le groupe.",
     "de": "Euer Name ist für die Gruppe sichtbar."
+  },
+  "The brunch commune.": {
+    "fr": "La commune du brunch.",
+    "de": "Die Brunch-Kommune."
+  },
+  "THE BRUNCH PLAN OF PRODUCTION": {
+    "fr": "LE PLAN DE PRODUCTION DU BRUNCH",
+    "de": "DER PRODUKTIONSPLAN FÜR DEN BRUNCH"
+  },
+  "Suggestions for the common table.": {
+    "fr": "Des idées pour la table commune.",
+    "de": "Vorschläge für den gemeinsamen Tisch."
+  },
+  "No culinary chauvinism. Every food culture belongs at our table.": {
+    "fr": "Pas de chauvinisme culinaire. Toutes les cultures ont leur place à notre table.",
+    "de": "Kein kulinarischer Chauvinismus. Jede Esskultur gehört an unseren Tisch."
+  },
+  "Add a suggestion": {
+    "fr": "Ajouter une suggestion",
+    "de": "Vorschlag hinzufügen"
+  },
+  "Choose an idea, enter what you will bring, and add quantity and allergens. Suggestions are invitations, not assignments.": {
+    "fr": "Choisissez une idée, indiquez votre contribution, la quantité et les allergènes. Ce sont des invitations, pas des affectations.",
+    "de": "Wählt eine Idee, tragt euren Beitrag, die Menge und Allergene ein. Vorschläge sind Einladungen, keine Zuweisungen."
+  },
+  "What else should the collective bring?": {
+    "fr": "Que devrait encore apporter le collectif ?",
+    "de": "Was könnte das Kollektiv noch mitbringen?"
+  },
+  "Beans, hummus or a savoury dish": {
+    "fr": "Haricots, houmous ou plat salé",
+    "de": "Bohnen, Hummus oder etwas Herzhaftes"
+  },
+  "Collectivize the protein, comrades.": {
+    "fr": "Collectivisons les protéines, camarades.",
+    "de": "Vergesellschaften wir die Proteine, Genoss:innen."
+  },
+  "Bread and spreads": {
+    "fr": "Pain et tartinades",
+    "de": "Brot und Aufstriche"
+  },
+  "Bread for comrades, not crumbs from the comprador’s table.": {
+    "fr": "Du pain pour les camarades, pas les miettes de la table du comprador.",
+    "de": "Brot für die Genoss:innen, keine Krümel vom Tisch des Kompradors."
+  },
+  "Fruit or a fruit salad": {
+    "fr": "Fruits ou salade de fruits",
+    "de": "Obst oder Obstsalat"
+  },
+  "No culinary chauvinism: share what grows where you come from.": {
+    "fr": "Pas de chauvinisme culinaire : partagez ce qui pousse chez vous.",
+    "de": "Kein kulinarischer Chauvinismus: Teilt, was in eurer Herkunftsregion wächst."
+  },
+  "Tea, coffee or juice": {
+    "fr": "Thé, café ou jus",
+    "de": "Tee, Kaffee oder Saft"
+  },
+  "Keep the comrades awake; let the reactionaries sleep.": {
+    "fr": "Gardons les camarades éveillé·es ; laissons dormir les réactionnaires.",
+    "de": "Halten wir die Genoss:innen wach; die Reaktionären dürfen schlafen."
+  },
+  "Cake or something sweet": {
+    "fr": "Gâteau ou douceur",
+    "de": "Kuchen oder etwas Süßes"
+  },
+  "The rightists can keep austerity. We can share dessert.": {
+    "fr": "Les droitistes peuvent garder l’austérité. Nous, on partage le dessert.",
+    "de": "Die Rechten dürfen ihre Sparpolitik behalten. Wir teilen den Nachtisch."
+  },
+  "Reusable plates, cups or cutlery": {
+    "fr": "Assiettes, tasses ou couverts réutilisables",
+    "de": "Wiederverwendbare Teller, Becher oder Besteck"
+  },
+  "Common goods, not tribute to the evil landlord.": {
+    "fr": "Des biens communs, pas un tribut au propriétaire maléfique.",
+    "de": "Gemeinsame Güter, kein Tribut an den bösen Vermieter."
+  },
+  "Setup and washing up": {
+    "fr": "Installation et vaisselle",
+    "de": "Aufbauen und Abwaschen"
+  },
+  "No washing-up opportunism: share the work.": {
+    "fr": "Pas d’opportunisme devant la vaisselle : partageons le travail.",
+    "de": "Kein Opportunismus beim Abwasch: Teilen wir die Arbeit."
+  },
+  "Suggested by the collective.": {
+    "fr": "Proposé par le collectif.",
+    "de": "Vom Kollektiv vorgeschlagen."
+  },
+  "offer": {
+    "fr": "proposition",
+    "de": "Angebot"
+  },
+  "offers": {
+    "fr": "propositions",
+    "de": "Angebote"
+  },
+  "Shared task": {
+    "fr": "Tâche collective",
+    "de": "Gemeinsame Aufgabe"
+  },
+  "task planned": {
+    "fr": "tâche prévue",
+    "de": "geplante Aufgabe"
+  },
+  "tasks planned": {
+    "fr": "tâches prévues",
+    "de": "geplante Aufgaben"
+  },
+  "Suggested": {
+    "fr": "Suggestion",
+    "de": "Vorschlag"
+  },
+  "Coordinate this task": {
+    "fr": "Organiser cette tâche",
+    "de": "Diese Aufgabe organisieren"
+  },
+  "Bring more": {
+    "fr": "En apporter davantage",
+    "de": "Mehr mitbringen"
+  },
+  "Self-criticism & memories": {
+    "fr": "Autocritique et souvenirs",
+    "de": "Selbstkritik und Erinnerungen"
+  },
+  "What worked? What should we improve next time?": {
+    "fr": "Qu’est-ce qui a fonctionné ? Que faut-il améliorer la prochaine fois ?",
+    "de": "Was hat funktioniert? Was sollten wir nächstes Mal verbessern?"
+  },
+  "Earlier contributions": {
+    "fr": "Contributions antérieures",
+    "de": "Frühere Beiträge"
+  },
+  "Against the evil landlord’s logic: share space, tools and care.": {
+    "fr": "Contre la logique du propriétaire maléfique : partageons espaces, outils et entraide.",
+    "de": "Gegen die Logik des bösen Vermieters: Raum, Werkzeuge und Fürsorge teilen."
+  },
+  "Self-criticism: what worked, what needs changing, and what we’ll do next. Photos are public to anyone with the link.": {
+    "fr": "Autocritique : ce qui a fonctionné, ce qui doit changer et la suite. Les photos sont publiques pour toute personne ayant le lien.",
+    "de": "Selbstkritik: Was lief gut, was muss sich ändern und was tun wir als Nächstes? Fotos sind für alle mit dem Link öffentlich."
+  },
+  "LET A HUNDRED FLOWERS BLOOM": {
+    "fr": "QUE CENT FLEURS S’ÉPANOUISSENT",
+    "de": "LASST HUNDERT BLUMEN BLÜHEN"
+  },
+  "Collectivize your curiosities.": {
+    "fr": "Collectivisez vos curiosités.",
+    "de": "Vergesellschaftet eure Neugier."
+  },
+  "Reusable equipment": {
+    "fr": "Matériel réutilisable",
+    "de": "Wiederverwendbare Ausstattung"
+  },
+  "Suggestion shared.": {
+    "fr": "Suggestion partagée.",
+    "de": "Vorschlag geteilt."
   }
 }
