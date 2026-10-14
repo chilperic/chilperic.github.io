@@ -1,0 +1,15 @@
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict'),path=require('path');
+const root=path.resolve(__dirname,'..'),source=fs.readFileSync(path.join(root,'hub.js'),'utf8');
+const nodes=Object.fromEntries(['eventSearch','eventFilter','myEvents','eventStatusFilter','eventSort','eventList','eventCount','featuredEvents','eventResults','clearEventFilters'].map(id=>[id,{value:'',checked:false,hidden:false,innerHTML:'',textContent:''}]));
+nodes.eventFilter.value='all';nodes.eventStatusFilter.value='active';nodes.eventSort.value='soonest';
+const events=[{id:'later',title:'Later',place:'Park',description:'Hike',date:'2026-12-01',status:'proposed'},{id:'karting',title:'Karting',place:'Track',description:'Race',date:'2026-10-24',status:'proposed'},{id:'cancelled',title:'Cancelled',place:'Park',date:'2026-10-18',status:'cancelled'},{id:'karen-training',title:'Training',place:'Gym',date:'2026-10-17',status:'scheduled'},{id:'undated',title:'Undated',place:'',date:'',status:'proposed'},{id:'brunch-2026-11-07',title:'Brunch',place:'',date:'2026-11-07',status:'scheduled'}];
+const context={document:{querySelector:()=>null},events,session:'2026-11-07',poll:[],pollReady:true,pollClosed:false,$:id=>nodes[id],attendee:()=>({mine:null}),eventText:(e,s)=>e.id==='karting'&&s==='Karting'?'Kartfahren':s,card:e=>e.id,ui:s=>s,esc:s=>s,poster:()=>'',icon:()=>''};
+vm.createContext(context);vm.runInContext(source.slice(source.indexOf('function matchesStatus'),source.indexOf('function card')),context);vm.runInContext(source.slice(source.indexOf('function renderEvents'),source.indexOf('function openEvent')),context);
+context.renderEvents();assert.equal(nodes.eventList.innerHTML,'karen-trainingkartingbrunch-2026-11-07laterundated');assert.equal(nodes.clearEventFilters.hidden,true);
+nodes.eventSort.value='latest';context.renderEvents();assert.equal(nodes.eventList.innerHTML,'laterbrunch-2026-11-07kartingkaren-trainingundated');
+nodes.eventSearch.value='  kartfahren ';context.renderEvents();assert.equal(nodes.eventList.innerHTML,'karting');assert.equal(nodes.eventResults.textContent,'1 plan shown');assert.equal(nodes.clearEventFilters.hidden,false);
+nodes.eventSearch.value='';nodes.eventStatusFilter.value='cancelled';context.renderEvents();assert.equal(nodes.eventList.innerHTML,'cancelled');
+context.pollClosed=true;context.renderEvents();assert(nodes.featuredEvents.innerHTML.includes('Poll closed'));assert(!nodes.featuredEvents.innerHTML.includes('Vote open'));
+context.pollClosed=false;context.pollReady=false;context.renderEvents();assert(nodes.featuredEvents.innerHTML.includes('Checking poll status…'));
+const catalog=JSON.parse(fs.readFileSync(path.join(root,'community-translations.json'),'utf8'));for(const key of ['Against chauvinism. For international solidarity.','Find your way in.','Reset filters','Sort events','Our politics, in practice','plans shown'])for(const lang of ['fr','de'])assert(catalog[key][lang]);
+console.log('PASS: chronological/reverse sorting, undated last, active/cancelled filters, translated search, result count, closed/unavailable poll labels, EN/FR/DE copy.');

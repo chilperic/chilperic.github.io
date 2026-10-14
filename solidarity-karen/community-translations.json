@@ -2710,5 +2710,121 @@
   "Suggestion shared.": {
     "fr": "Suggestion partagée.",
     "de": "Vorschlag geteilt."
+  },
+  "Against chauvinism. For international solidarity.": {
+    "fr": "Contre le chauvinisme. Pour la solidarité internationale.",
+    "de": "Gegen Chauvinismus. Für internationale Solidarität."
+  },
+  "A COLLECTIVE IS MADE BY PARTICIPATING": {
+    "fr": "UN COLLECTIF SE CONSTRUIT PAR LA PARTICIPATION",
+    "de": "EIN KOLLEKTIV LEBT VOM MITMACHEN"
+  },
+  "Find your way in.": {
+    "fr": "Trouvez votre place.",
+    "de": "Finde deinen Einstieg."
+  },
+  "Set the common table": {
+    "fr": "Préparons la table commune",
+    "de": "Deck den gemeinsamen Tisch"
+  },
+  "Choose a brunch suggestion, share food or lend a hand.": {
+    "fr": "Choisissez une idée de brunch, apportez un plat ou donnez un coup de main.",
+    "de": "Wähle eine Brunch-Idee, teile Essen oder hilf mit."
+  },
+  "Plan the brunch →": {
+    "fr": "Organiser le brunch →",
+    "de": "Brunch planen →"
+  },
+  "Shape our next gathering": {
+    "fr": "Décidons de notre prochaine rencontre",
+    "de": "Gestalte unser nächstes Treffen"
+  },
+  "Choose your evenings for PowerPoint Night.": {
+    "fr": "Choisissez vos soirées pour la soirée PowerPoint.",
+    "de": "Wähle deine Abende für die PowerPoint-Nacht."
+  },
+  "Open the date poll →": {
+    "fr": "Ouvrir le sondage →",
+    "de": "Terminabstimmung öffnen →"
+  },
+  "Share what we have": {
+    "fr": "Partageons nos ressources",
+    "de": "Teile, was wir haben"
+  },
+  "Offer skills, borrow tools, ask for help or start a plan.": {
+    "fr": "Partagez vos compétences, empruntez des outils, demandez de l’aide ou lancez une idée.",
+    "de": "Biete Fähigkeiten an, leihe Werkzeuge, bitte um Hilfe oder starte einen Plan."
+  },
+  "Enter the commons →": {
+    "fr": "Rejoindre les communs →",
+    "de": "Gemeingüter öffnen →"
+  },
+  "Our politics, in practice": {
+    "fr": "Notre politique, en pratique",
+    "de": "Unsere Politik in der Praxis"
+  },
+  "International solidarity": {
+    "fr": "Solidarité internationale",
+    "de": "Internationale Solidarität"
+  },
+  "Against chauvinism, racism and colonial hierarchies. Every language and food culture belongs here.": {
+    "fr": "Contre le chauvinisme, le racisme et les hiérarchies coloniales. Toutes les langues et cultures culinaires ont leur place ici.",
+    "de": "Gegen Chauvinismus, Rassismus und koloniale Hierarchien. Jede Sprache und Esskultur gehört hierher."
+  },
+  "Autonomy & mutual aid": {
+    "fr": "Autonomie et entraide",
+    "de": "Autonomie & gegenseitige Hilfe"
+  },
+  "Against the evil landlord’s logic: share tools, space and care. Solidarity is a practice, not charity.": {
+    "fr": "Contre la logique du propriétaire malveillant : partageons outils, espaces et attention. La solidarité est une pratique, pas la charité.",
+    "de": "Gegen die Logik des bösen Vermieters: Werkzeuge, Räume und Fürsorge teilen. Solidarität ist Praxis, keine Wohltätigkeit."
+  },
+  "Ecology & collective joy": {
+    "fr": "Écologie et joie collective",
+    "de": "Ökologie & kollektive Freude"
+  },
+  "Travel together, reuse what we can, share plant-based food and make room for rest.": {
+    "fr": "Voyageons ensemble, réutilisons ce qui peut l’être, partageons des plats végétaux et faisons place au repos.",
+    "de": "Gemeinsam reisen, wiederverwenden, pflanzliches Essen teilen und Raum für Erholung schaffen."
+  },
+  "Self-criticism without humiliation": {
+    "fr": "Autocritique sans humiliation",
+    "de": "Selbstkritik ohne Demütigung"
+  },
+  "Challenge opportunism and exclusion. Reflect on what worked, listen to each other, and improve together.": {
+    "fr": "Combattons l’opportunisme et l’exclusion. Réfléchissons à ce qui a fonctionné, écoutons-nous et progressons ensemble.",
+    "de": "Opportunismus und Ausgrenzung hinterfragen. Gemeinsam reflektieren, einander zuhören und besser werden."
+  },
+  "Sort events": {
+    "fr": "Trier les événements",
+    "de": "Veranstaltungen sortieren"
+  },
+  "Soonest first": {
+    "fr": "Les plus proches d’abord",
+    "de": "Nächste zuerst"
+  },
+  "Latest first": {
+    "fr": "Les plus éloignés d’abord",
+    "de": "Späteste zuerst"
+  },
+  "Reset filters": {
+    "fr": "Réinitialiser les filtres",
+    "de": "Filter zurücksetzen"
+  },
+  "plan shown": {
+    "fr": "projet affiché",
+    "de": "Plan angezeigt"
+  },
+  "plans shown": {
+    "fr": "projets affichés",
+    "de": "Pläne angezeigt"
+  },
+  "Poll closed": {
+    "fr": "Sondage clos",
+    "de": "Abstimmung geschlossen"
+  },
+  "View poll results →": {
+    "fr": "Voir les résultats →",
+    "de": "Abstimmungsergebnisse ansehen →"
   }
 }
