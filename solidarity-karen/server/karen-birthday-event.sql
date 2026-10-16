@@ -1,0 +1,3 @@
+-- Actual invited birthday event; enables existing attendance and organizer session controls.
+insert into public.rb_community_posts(id,kind,display_name,body,metadata) values (
+'bc4c09d3-3445-4dd8-8bd8-34bcd7051034'::uuid,'event-proposal','Karen','You are warmly invited to celebrate my 34th birthday on 23 October at 18:00, at Kürzer in Flingern.','{"title": "Karen turns 34", "category": "social", "date": "2026-10-23", "time": "18:00", "place": "Kürzer, Flingern", "description": "Karen invites us to celebrate her 34th birthday. Contributions toward flights to Ghana and funeral expenses are voluntary; other gifts are welcome. Please let her know by early next week whether you are coming."}'::jsonb) on conflict(id) do nothing;

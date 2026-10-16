@@ -1,0 +1,9 @@
+# Karen's invitation - 16 October 2026
+
+Added with the organizer's approval from Karen's supplied invitation. The German original is retained; English and French translations keep her first-person voice, bereavement explanation, voluntary contribution wording, other-gift option and request to reply early next week. No street address or exact RSVP deadline has been invented.
+
+The homepage announcement sits directly below the live collection in the same solidarity section. Its full letter expands on demand. Karen's birthday is 23 October 2026 at 18:00, Kürzer in Flingern; her current collection deadline remains separately managed. The banner consumes official event updates, displays any update note and preserves the original invitation as an attributed message. It links to attendance/event details, calendar export, a current payment action, private organizer messaging and a birthday QR. The QR centre also includes the birthday destination.
+
+Event ID: bc4c09d3-3445-4dd8-8bd8-34bcd7051034. An idempotent event-proposal record enables the existing attendance and organizer coordination APIs; a matching built-in fallback enables immediate/offline deep links without duplicate agenda entries. No attendance, contribution or message test records were created. The existing attendance API was checked with an intentionally invalid response, confirming it recognizes the event before any write occurs.
+
+Checks: DOM-based regression covers EN/FR/DE, original German bereavement/voluntary-gift language, event and calendar targets, birthday QR destination, changing/closed payment links and language switching in event details. JavaScript syntax passed. Browser/device visual verification is unavailable through the supported tooling in this session. CSS preserves collection-first ordering and a single-column action layout on phones.
