@@ -2826,5 +2826,49 @@
   "View poll results →": {
     "fr": "Voir les résultats →",
     "de": "Abstimmungsergebnisse ansehen →"
+  },
+  "Collection deadline": {
+    "fr": "Date limite de la collecte",
+    "de": "Sammlungsfrist"
+  },
+  "Current public deadline": {
+    "fr": "Date limite actuelle affichée",
+    "de": "Aktuelle öffentliche Frist"
+  },
+  "Last collection day": {
+    "fr": "Dernier jour de collecte",
+    "de": "Letzter Sammlungstag"
+  },
+  "Save collection deadline": {
+    "fr": "Enregistrer la date limite",
+    "de": "Sammlungsfrist speichern"
+  },
+  "Choose the last collection day. This changes the platform deadline, not the PayPal pool settings.": {
+    "fr": "Choisissez le dernier jour de collecte. Cela modifie la date limite de la plateforme, pas les paramètres de la cagnotte PayPal.",
+    "de": "Wähle den letzten Sammlungstag. Dies ändert die Frist der Plattform, nicht die Einstellungen des PayPal-Pools."
+  },
+  "The owner or an organizer can change the collection deadline.": {
+    "fr": "Le propriétaire ou un organisateur peut modifier la date limite de collecte.",
+    "de": "Der Eigentümer oder ein Organisator kann die Sammlungsfrist ändern."
+  },
+  "Saving deadline…": {
+    "fr": "Enregistrement de la date limite…",
+    "de": "Frist wird gespeichert…"
+  },
+  "Collection deadline saved. Public pages refresh automatically within 30 seconds.": {
+    "fr": "Date limite enregistrée. Les pages publiques s’actualisent automatiquement sous 30 secondes.",
+    "de": "Sammlungsfrist gespeichert. Öffentliche Seiten aktualisieren sich innerhalb von 30 Sekunden."
+  },
+  "Another organizer changed this campaign. Reload before saving again.": {
+    "fr": "Un autre organisateur a modifié cette campagne. Rechargez la page avant d’enregistrer.",
+    "de": "Ein anderer Organisator hat diese Kampagne geändert. Lade die Seite vor dem Speichern neu."
+  },
+  "The deadline cannot be before the campaign start date.": {
+    "fr": "La date limite ne peut pas précéder le début de la campagne.",
+    "de": "Die Frist darf nicht vor dem Kampagnenbeginn liegen."
+  },
+  "Deadline not saved. Check your connection and organizer permission, then try again.": {
+    "fr": "Date limite non enregistrée. Vérifiez votre connexion et vos droits, puis réessayez.",
+    "de": "Frist nicht gespeichert. Prüfe Verbindung und Organisatorrechte und versuche es erneut."
   }
 }

@@ -43,7 +43,7 @@ async function preloadAuthorizedData(renderNow=false){
  if(tabs.includes("inbox")&&window.RBAdminInbox)jobs.push(window.RBAdminInbox.refreshBadge(window.RBAdminHost));
  await Promise.allSettled(jobs);
  lastAdminSync=new Date();
- if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true']")))await renderAdmin()
+ if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true'],.deadline-editor[data-dirty='true']")))await renderAdmin()
 }
 function startAutoRefresh(){
  clearInterval(autoRefreshTimer);
@@ -139,6 +139,36 @@ function healthView(){
  p.append(issues,actions,m);return p
 }
 
+function deadlineEditor(){
+ const p=make("section",undefined,"admin-panel deadline-editor");
+ p.append(make("h4","Collection deadline"));
+ const c=admin.campaign||{},current=make("strong",c.end_date||"No deadline");
+ p.append(field("Current public deadline",current));
+ if(!can("owner","organizer")){p.append(make("p","The owner or an organizer can change the collection deadline.","admin-hint"));return p}
+ const date=input("date",c.end_date||"");date.required=true;date.min=c.start_date||"2000-01-01";date.max="2100-12-31";
+ const note=make("p","Choose the last collection day. This changes the platform deadline, not the PayPal pool settings.","admin-hint");
+ const feedback=msg();feedback.setAttribute("role","status");let expected=c.end_date||null,saving=false;
+ const saveDeadline=button("Save collection deadline",async()=>{
+  if(saving||!date.reportValidity()||date.value===expected)return;
+  saving=true;p.dataset.dirty="true";date.disabled=true;saveDeadline.disabled=true;feedback.textContent="Saving deadline…";
+  try{
+   const result=await rpc("rb_campaign_deadline",{p_credential:secret,p_campaign_id:c.id,p_end_date:date.value,p_expected_end_date:expected});
+   if(!result?.ok||result.endDate!==date.value)throw Error("deadline_unconfirmed");
+   expected=result.endDate;c.end_date=expected;current.textContent=expected;p.dataset.dirty="false";
+   feedback.textContent="Collection deadline saved. Public pages refresh automatically within 30 seconds.";
+   if(["closed","archived","draft"].includes(result.status))feedback.textContent+=" The campaign lifecycle is "+result.status+"; changing the date does not reopen it.";
+   try{localStorage.setItem("solidarity_campaign_changed",String(Date.now()))}catch{}
+   await refreshPublic();
+  }catch(error){
+   if(/deadline_conflict|campaign_changed/.test(error.message))feedback.textContent="Another organizer changed this campaign. Reload before saving again.";
+   else if(/deadline_before_start/.test(error.message))feedback.textContent="The deadline cannot be before the campaign start date.";
+   else feedback.textContent="Deadline not saved. Check your connection and organizer permission, then try again.";
+  }finally{saving=false;date.disabled=false;saveDeadline.disabled=!date.value||date.value===expected}
+ },"red");
+ saveDeadline.disabled=true;date.addEventListener("input",()=>{p.dataset.dirty=String(date.value!==expected);feedback.textContent="";saveDeadline.disabled=!date.value||date.value===expected});
+ p.append(field("Last collection day",date),note,saveDeadline,feedback);return p
+}
+
 function targetEditor(){
  const p=make("section",undefined,"admin-panel target-editor");
  p.append(make("h4","Campaign target"));
@@ -186,7 +216,7 @@ function targetEditor(){
 
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
- const wrap=make("div");wrap.append(targetEditor());
+ const wrap=make("div");wrap.append(targetEditor(),deadlineEditor());
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[money(net),"Net raised"],[money(spent),"Used"],[money(available),"Available"],[money(refunds),"Refunded"],[money(admin.targetCents||0),"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");const val=make("b",String(v));if(l==="Target")val.dataset.currentTarget="true";c.append(val,make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
 
  const live=make("div",undefined,"admin-panel");live.append(make("h4","Live operations"),make("div","These values load automatically when the control room opens and continue refreshing in the background.","admin-hint"));
