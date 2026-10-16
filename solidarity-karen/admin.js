@@ -43,7 +43,7 @@ async function preloadAuthorizedData(renderNow=false){
  if(tabs.includes("inbox")&&window.RBAdminInbox)jobs.push(window.RBAdminInbox.refreshBadge(window.RBAdminHost));
  await Promise.allSettled(jobs);
  lastAdminSync=new Date();
- if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true'],.deadline-editor[data-dirty='true']")))await renderAdmin()
+ if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true'],.deadline-editor[data-dirty='true'],.campaign-experience[data-dirty='true']")))await renderAdmin()
 }
 function startAutoRefresh(){
  clearInterval(autoRefreshTimer);
@@ -51,9 +51,9 @@ function startAutoRefresh(){
 }
 
 const ROLE_TABS={
- owner:["permissions","overview","inbox","health","supporters","contributions","reconciliation","events","campaign","languages","milestones","expenses","updates","integrations","reports","audit","security"],
+ owner:["permissions","overview","inbox","health","supporters","contributions","reconciliation","events","campaign","sharing","languages","milestones","expenses","updates","integrations","reports","audit","security"],
  treasurer:["permissions","overview","health","supporters","contributions","reconciliation","expenses","integrations","reports","security"],
- organizer:["permissions","overview","inbox","supporters","events","campaign","languages","milestones","updates","reports","security"],
+ organizer:["permissions","overview","inbox","supporters","events","campaign","sharing","languages","milestones","updates","reports","security"],
  reader:["permissions","security"],editor:["permissions","security"],developer:["permissions","security"],
  auditor:["permissions","overview","health","supporters","reports","audit","security"]
 };
@@ -117,10 +117,10 @@ async function paypalRefund(captureId,amountCents,m){
 }
 function tabs(){
  const t=make("div",undefined,"admin-tabs");
- const labels={permissions:"Permissions",overview:"Overview",inbox:"Inbox",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
+ const labels={permissions:"Permissions",overview:"Overview",inbox:"Inbox",health:"Health",supporters:"Supporters",contributions:"Contributions",reconciliation:"Reconciliation",events:"Events",campaign:"Campaign",sharing:"QR & sharing",languages:"Languages",milestones:"Milestones",expenses:"Expenses",updates:"Updates",integrations:"Integrations",reports:"Reports",audit:"Audit",security:"Security"};
  const ids=ROLE_TABS[authContext?.role||"owner"]||["permissions","security"];
  if(!ids.includes(active))active="overview";
- ids.forEach(id=>{const b=make("button",id==="inbox"?"Inbox"+(window.RBAdminInbox?.unreadCount?" ("+window.RBAdminInbox.unreadCount+")":""):labels[id], "admin-tab"+(active===id?" active":""));b.type="button";b.dataset.adminTab=id;b.onclick=async()=>{active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions"||id==="reconciliation")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});
+ ids.forEach(id=>{const b=make("button",id==="inbox"?"Inbox"+(window.RBAdminInbox?.unreadCount?" ("+window.RBAdminInbox.unreadCount+")":""):labels[id], "admin-tab"+(active===id?" active":""));b.type="button";b.dataset.adminTab=id;b.onclick=async()=>{if(document.querySelector("[data-dirty='true']")&&!confirm("Discard unsaved changes?"))return;active=id;if(id==="audit"&&!audit)await loadAudit();if(id==="campaign"&&!campaigns)await loadCampaigns();if((id==="supporters"||id==="contributions"||id==="reconciliation")&&!supporters)await loadSupporters();if(id==="languages"&&!localeState)await loadLocales();if(id==="health"&&!healthState)await loadHealth();if(id==="reconciliation"&&!reconciliationState)await loadReconciliation();renderAdmin()};t.append(b)});
  return t
 }
 function healthView(){
@@ -216,7 +216,7 @@ function targetEditor(){
 
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
- const wrap=make("div");wrap.append(targetEditor(),deadlineEditor());
+ const wrap=make("div");wrap.append(targetEditor(),deadlineEditor());if(window.RBOrganizerTools)wrap.prepend(window.RBOrganizerTools.shortcuts(window.RBAdminHost));
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[money(net),"Net raised"],[money(spent),"Used"],[money(available),"Available"],[money(refunds),"Refunded"],[money(admin.targetCents||0),"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");const val=make("b",String(v));if(l==="Target")val.dataset.currentTarget="true";c.append(val,make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
 
  const live=make("div",undefined,"admin-panel");live.append(make("h4","Live operations"),make("div","These values load automatically when the control room opens and continue refreshing in the background.","admin-hint"));
@@ -391,9 +391,10 @@ function reconciliationView(){
 
 async function campaignView(){
  const wrap=make("div"),c=admin.campaign||{};wrap.append(targetEditor(),deadlineEditor());
- const edit=make("div",undefined,"admin-panel");
+ const edit=make("div",undefined,"admin-panel campaign-experience");edit.addEventListener("input",()=>edit.dataset.dirty="true");
  edit.append(make("h4","Public campaign experience"),make("div","Control what the public sees. Technical configuration remains private.","admin-hint"));
  const g=make("div",undefined,"admin-grid");
+ const startDate=input("date",c.start_date||"");startDate.min="2000-01-01";startDate.max=c.end_date||"2100-12-31";
  const title=input("text",c.title||""),benef=input("text",c.beneficiary||""),subtitle=input("text",c.subtitle||"");
  const status=document.createElement("select"),theme=document.createElement("select");
  ["draft","active","goal_reached","closed","archived"].forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;o.selected=c.status===v;status.append(o)});
@@ -401,7 +402,7 @@ async function campaignView(){
  const storyEn=document.createElement("textarea"),storyFr=document.createElement("textarea"),overEn=document.createElement("textarea"),overFr=document.createElement("textarea"),thanksEn=document.createElement("textarea"),thanksFr=document.createElement("textarea");
  storyEn.value=c.story_en||"";storyFr.value=c.story_fr||"";overEn.value=c.overfunding_policy_en||"";overFr.value=c.overfunding_policy_fr||"";thanksEn.value=c.thank_you_en||"";thanksFr.value=c.thank_you_fr||"";
  const paymentUrl=input("url",c.payment_url||C.paypalPoolUrl||""),paymentEn=input("text",c.payment_label_en||"Contribute with PayPal"),paymentFr=input("text",c.payment_label_fr||"Contribuer avec PayPal");
- g.append(field("Title",title),field("Beneficiary",benef),field("Subtitle",subtitle),field("Lifecycle",status),field("Theme",theme),field("Payment URL",paymentUrl),field("Payment label EN",paymentEn),field("Payment label FR",paymentFr),field("Story EN",storyEn),field("Story FR",storyFr),field("Thank-you EN",thanksEn),field("Thank-you FR",thanksFr),field("Overfunding EN",overEn),field("Overfunding FR",overFr));
+ g.append(field("Title",title),field("Beneficiary",benef),field("Subtitle",subtitle),field("Collection start date",startDate),field("Lifecycle",status),field("Theme",theme),field("Payment URL",paymentUrl),field("Payment label EN",paymentEn),field("Payment label FR",paymentFr),field("Story EN",storyEn),field("Story FR",storyFr),field("Thank-you EN",thanksEn),field("Thank-you FR",thanksFr),field("Overfunding EN",overEn),field("Overfunding FR",overFr));
  edit.append(g);
 
  const vis=make("div",undefined,"admin-panel");vis.append(make("h4","Public sections"),make("div","Turn sections off when they do not add value. Empty sections also hide automatically.","admin-hint"));
@@ -416,11 +417,21 @@ async function campaignView(){
  ];
  const controls={};
  toggles.forEach(([key,label,checked])=>{const cb=input("checkbox");cb.checked=checked;controls[key]=cb;const lab=make("label");lab.style.cssText="display:flex;align-items:center;gap:8px;font-size:.72rem;font-weight:800";lab.append(cb,document.createTextNode(label));vg.append(lab)});
- vis.append(vg);
+ vis.append(vg);vis.addEventListener("input",()=>edit.dataset.dirty="true");
 
  const m=msg();
- const saveBtn=button("Save public experience",()=>save({
-   action:"update_campaign",title:title.value,beneficiary:benef.value,subtitle:subtitle.value,status:status.value,theme:theme.value,
+ async function saveExperience(data,feedback){
+  if(!title.value.trim()){feedback.textContent="Campaign title is required.";title.focus();return}
+  try{if(new URL(paymentUrl.value).protocol!=="https:")throw Error()}catch{feedback.textContent="Enter a valid HTTPS payment URL.";paymentUrl.focus();return}
+  if(!startDate.reportValidity())return;
+  if(data.status!==c.status&&["closed","archived","draft"].includes(data.status)&&!confirm("This lifecycle change disables public contributions. Continue?"))return;
+  saveBtn.disabled=true;feedback.textContent="Saving…";
+  try{await rpc("rb_organizer_edit",{p_credential:secret,p_campaign_id:c.id,p_action:{...data,expected_updated_at:c.updated_at}});edit.dataset.dirty="false";try{localStorage.setItem("solidarity_campaign_changed",String(Date.now()))}catch{}await reload()}
+  catch(error){feedback.textContent=/campaign_conflict|campaign_changed/.test(error.message)?"Campaign changed elsewhere. Reload and review before saving.":"Not saved. Check the dates, payment link and organizer permission."}
+  finally{saveBtn.disabled=false}
+ }
+ const saveBtn=button("Save public experience",()=>saveExperience({
+   action:"campaign",start_date:startDate.value,title:title.value,beneficiary:benef.value,subtitle:subtitle.value,status:status.value,theme:theme.value,
    payment_url:paymentUrl.value,payment_label_en:paymentEn.value,payment_label_fr:paymentFr.value,
    story_en:storyEn.value,story_fr:storyFr.value,thank_you_en:thanksEn.value,thank_you_fr:thanksFr.value,
    overfunding_en:overEn.value,overfunding_fr:overFr.value,
@@ -479,7 +490,7 @@ async function languagesView(){
 }
 
 function milestonesView(){
- const p=make("div",undefined,"admin-panel");p.append(make("h4","Milestones"),make("div","Milestones give collective progress meaning without ranking supporters.","admin-hint"));(admin.milestones||[]).forEach(x=>{const r=make("div",undefined,"admin-row-head");r.append(make("b",x.label_en),make("span",money(x.threshold_cents)));const box=make("div",undefined,"admin-row");box.append(r,button("Remove",()=>save({action:"delete_milestone",id:x.id},msg()),"alt"));p.append(box)});
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Milestones"),make("div","Milestones give collective progress meaning without ranking supporters.","admin-hint"));(admin.milestones||[]).forEach(x=>{const r=make("div",undefined,"admin-row-head");r.append(make("b",x.label_en),make("span",money(x.threshold_cents)));const box=make("div",undefined,"admin-row");if(window.RBOrganizerTools)box.append(window.RBOrganizerTools.editRow(window.RBAdminHost,"milestone",x));box.append(r,button("Remove",()=>save({action:"delete_milestone",id:x.id},msg()),"alt"));p.append(box)});
  const g=make("div",undefined,"admin-grid"),en=input("text"),fr=input("text"),threshold=input("number"),order=input("number","0");threshold.min="1";g.append(field("Label EN",en),field("Label FR",fr),field("Threshold (€)",threshold),field("Order",order));const m=msg();p.append(g,button("Add milestone",()=>save({action:"add_milestone",label_en:en.value,label_fr:fr.value,threshold_cents:Math.round(Number(threshold.value)*100),sort_order:Number(order.value)||0},m)),m);return p
 }
 function expensesView(){
@@ -487,7 +498,7 @@ function expensesView(){
  const g=make("div",undefined,"admin-grid"),en=input("text"),fr=input("text"),amount=input("number"),date=input("date"),noteEn=document.createElement("textarea"),noteFr=document.createElement("textarea");date.value=new Date().toISOString().slice(0,10);amount.min=".01";amount.step=".01";g.append(field("Label EN",en),field("Label FR",fr),field("Amount (€)",amount),field("Date",date),field("Public note EN",noteEn),field("Public note FR",noteFr));const m=msg();p.append(g,button("Record expense",()=>save({action:"add_expense",label_en:en.value,label_fr:fr.value,amount_cents:Math.round(Number(amount.value)*100),spent_on:date.value,status:"recorded",note_en:noteEn.value,note_fr:noteFr.value},m)),m);return p
 }
 function updatesView(){
- const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign updates"),make("div","Publish short progress notes without changing the campaign story.","admin-hint"));(admin.updates||[]).filter(x=>!window.RBEventsAdmin?.isEventUpdate(x)).forEach(x=>{const box=make("div",undefined,"admin-row");const row=make("div",undefined,"admin-row-head");row.append(make("b",x.title_en),make("span",new Date(x.published_at).toLocaleDateString()));box.append(row,button("Remove",()=>save({action:"delete_update",id:x.id},msg()),"alt"));p.append(box)});
+ const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign updates"),make("div","Publish short progress notes without changing the campaign story.","admin-hint"));(admin.updates||[]).filter(x=>!window.RBEventsAdmin?.isEventUpdate(x)).forEach(x=>{const box=make("div",undefined,"admin-row");const row=make("div",undefined,"admin-row-head");row.append(make("b",x.title_en),make("span",new Date(x.published_at).toLocaleDateString()));if(window.RBOrganizerTools)box.append(window.RBOrganizerTools.editRow(window.RBAdminHost,"update",x));box.append(row,button("Remove",()=>save({action:"delete_update",id:x.id},msg()),"alt"));p.append(box)});
  const g=make("div",undefined,"admin-grid"),te=input("text"),tf=input("text"),be=document.createElement("textarea"),bf=document.createElement("textarea");g.append(field("Title EN",te),field("Title FR",tf),field("Body EN",be),field("Body FR",bf));const m=msg();p.append(g,button("Publish update",()=>save({action:"add_update",title_en:te.value,title_fr:tf.value,body_en:be.value,body_fr:bf.value,is_public:true},m)),m);return p
 }
 async function integrationsView(){
@@ -600,7 +611,8 @@ async function renderAdmin(){
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
  else if(active==="reconciliation"){if(!reconciliationState)await loadReconciliation();if(!supporters)await loadSupporters();view=reconciliationView();}
  else if(active==="inbox")view=await window.RBAdminInbox?.render(window.RBAdminHost)||make("div","Inbox module unavailable.","admin-panel");
- else if(active==="events")view=window.RBEventsAdmin?.render(window.RBAdminHost)||make("div","Events module unavailable.","admin-panel");
+ else if(active==="events"){view=make("div");if(window.RBCommonsAdmin)view.append(await window.RBCommonsAdmin.render(authContext,window.RBAdminHost));view.append(window.RBEventsAdmin?.render(window.RBAdminHost)||make("div","Events module unavailable.","admin-panel"));}
+ else if(active==="sharing")view=window.RBQR?.centre(admin.campaign)||make("div","QR module unavailable.","admin-panel");
  else if(active==="campaign")view=await campaignView();
  else if(active==="languages"){if(!localeState)await loadLocales();view=await languagesView();}
  else if(active==="milestones")view=milestonesView();
@@ -614,6 +626,7 @@ async function renderAdmin(){
  mount.append(view)
 }
 window.RBAdminHost={
+  openTab:async id=>{const b=document.querySelector("[data-admin-tab=\""+id+"\"]");if(b)b.click()},
   getCredential:()=>secret,
   getAdmin:()=>admin,
   getSupporters:()=>supporters,
@@ -629,6 +642,7 @@ window.RBAdminHost={
   msg,
   reload:async()=>{admin=await adminAction({action:"list"});supporters=null;await loadSupporters();await renderAdmin();await refreshPublic()}
 };
+window.addEventListener("beforeunload",e=>{if(document.querySelector("[data-dirty='true']")){e.preventDefault();e.returnValue=""}});
 function consumeSessionLink(){
  const url=new URL(location.href),fragment=new URLSearchParams(url.hash.slice(1)),token=fragment.get("session")||url.searchParams.get("session");
  if(!token)return;
@@ -646,3 +660,4 @@ window.addEventListener("focus",()=>{if(secret)preloadAuthorizedData(false)});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&secret)preloadAuthorizedData(false)});
 restoreNamedSession();
 })();
+

@@ -2870,5 +2870,101 @@
   "Deadline not saved. Check your connection and organizer permission, then try again.": {
     "fr": "Date limite non enregistrée. Vérifiez votre connexion et vos droits, puis réessayez.",
     "de": "Frist nicht gespeichert. Prüfe Verbindung und Organisatorrechte und versuche es erneut."
+  },
+  "QR codes & sharing": {
+    "fr": "Codes QR et partage",
+    "de": "QR-Codes & Teilen"
+  },
+  "SHARE THE COLLECTIVE": {
+    "fr": "PARTAGEONS LE COLLECTIF",
+    "de": "DAS KOLLEKTIV TEILEN"
+  },
+  "Generate QR codes for public links. Download, share or print. No private conversation or organizer session is included.": {
+    "fr": "Créez des codes QR pour les liens publics. Téléchargez, partagez ou imprimez. Aucune conversation privée ni session organisateur n’est incluse.",
+    "de": "QR-Codes für öffentliche Links erstellen, herunterladen, teilen oder drucken. Private Gespräche und Organisatorsitzungen werden nicht geteilt."
+  },
+  "Choose a QR destination": {
+    "fr": "Choisir la destination du QR",
+    "de": "QR-Ziel wählen"
+  },
+  "QR code": {
+    "fr": "Code QR",
+    "de": "QR-Code"
+  },
+  "Download PNG": {
+    "fr": "Télécharger le PNG",
+    "de": "PNG herunterladen"
+  },
+  "Download SVG": {
+    "fr": "Télécharger le SVG",
+    "de": "SVG herunterladen"
+  },
+  "Print QR card": {
+    "fr": "Imprimer la carte QR",
+    "de": "QR-Karte drucken"
+  },
+  "Show PayPal QR code": {
+    "fr": "Afficher le QR PayPal",
+    "de": "PayPal-QR-Code anzeigen"
+  },
+  "Show event QR code": {
+    "fr": "Afficher le QR de l’événement",
+    "de": "Veranstaltungs-QR-Code anzeigen"
+  },
+  "Community hub": {
+    "fr": "Espace collectif",
+    "de": "Gemeinschaftsplattform"
+  },
+  "Organize the collective.": {
+    "fr": "Organisons le collectif.",
+    "de": "Das Kollektiv organisieren."
+  },
+  "Campaign, gatherings and common resources. Choose what you want to change.": {
+    "fr": "Campagne, rencontres et ressources communes. Choisissez ce que vous souhaitez modifier.",
+    "de": "Kampagne, Treffen und gemeinsame Ressourcen. Wähle aus, was du ändern möchtest."
+  },
+  "Campaign text & visibility": {
+    "fr": "Texte et visibilité de la campagne",
+    "de": "Kampagnentext & Sichtbarkeit"
+  },
+  "Events & brunch coordination": {
+    "fr": "Événements et organisation du brunch",
+    "de": "Veranstaltungen & Brunch-Koordination"
+  },
+  "Campaign journal": {
+    "fr": "Journal de la campagne",
+    "de": "Kampagnenjournal"
+  },
+  "Milestones & goals": {
+    "fr": "Étapes et objectifs",
+    "de": "Meilensteine & Ziele"
+  },
+  "Translations": {
+    "fr": "Traductions",
+    "de": "Übersetzungen"
+  },
+  "Save changes": {
+    "fr": "Enregistrer les modifications",
+    "de": "Änderungen speichern"
+  },
+  "Publicly visible": {
+    "fr": "Visible publiquement",
+    "de": "Öffentlich sichtbar"
+  },
+  "Collection start date": {
+    "fr": "Début de la collecte",
+    "de": "Sammlungsbeginn"
+  },
+  "Read campaign story": {
+    "fr": "Lire le récit de la campagne",
+    "de": "Kampagnengeschichte lesen"
+  },
+  "Could not load the latest collection link. Please try again.": {
+    "fr": "Impossible de charger le lien actuel de la collecte. Réessayez.",
+    "de": "Der aktuelle Sammlungslink konnte nicht geladen werden. Bitte erneut versuchen."
+  },
+  "Allow pop-ups to print the QR card.": {
+    "fr": "Autorisez les fenêtres contextuelles pour imprimer la carte QR.",
+    "de": "Erlaube Pop-ups, um die QR-Karte zu drucken."
   }
 }
