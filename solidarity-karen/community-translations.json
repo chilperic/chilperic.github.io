@@ -2978,5 +2978,41 @@
   "Karen invites us to celebrate her 34th birthday. Contributions toward flights to Ghana and funeral expenses are voluntary; other gifts are welcome. Please let her know by early next week whether you are coming.": {
     "fr": "Karen nous invite à célébrer ses 34 ans. Les contributions aux vols vers le Ghana et aux frais des obsèques sont volontaires ; d’autres cadeaux sont les bienvenus. Merci de lui dire d’ici le début de la semaine prochaine si vous venez.",
     "de": "Karen lädt uns ein, ihren 34. Geburtstag zu feiern. Beiträge zu den Flugtickets nach Ghana und den Beerdigungskosten sind freiwillig; andere Geschenke sind ebenfalls willkommen. Bitte sag ihr bis Anfang nächster Woche, ob du kommst."
+  },
+  "Karen’s announcement": {
+    "fr": "Annonce de Karen",
+    "de": "Karens Ankündigung"
+  },
+  "Visible": {
+    "fr": "Visible",
+    "de": "Sichtbar"
+  },
+  "Hidden (default)": {
+    "fr": "Masquée (par défaut)",
+    "de": "Ausgeblendet (Standard)"
+  },
+  "Show Karen’s announcement": {
+    "fr": "Afficher l’annonce de Karen",
+    "de": "Karens Ankündigung anzeigen"
+  },
+  "Save announcement visibility": {
+    "fr": "Enregistrer la visibilité de l’annonce",
+    "de": "Sichtbarkeit speichern"
+  },
+  "Only the owner or an organizer can change announcement visibility.": {
+    "fr": "Seuls le propriétaire et les organisateurs peuvent modifier la visibilité de l’annonce.",
+    "de": "Nur Eigentümer oder Organisatoren können die Sichtbarkeit ändern."
+  },
+  "Hidden by default. This controls Karen’s message on the homepage and in birthday details; the birthday event stays in the agenda.": {
+    "fr": "Masquée par défaut. Ce réglage contrôle le message de Karen sur l’accueil et dans les détails de l’anniversaire ; la rencontre reste dans l’agenda.",
+    "de": "Standardmäßig ausgeblendet. Diese Einstellung steuert Karens Nachricht auf der Startseite und in den Geburtstagsdetails; die Veranstaltung bleibt im Kalender."
+  },
+  "Saved. Public pages update within 30 seconds.": {
+    "fr": "Enregistré. Les pages publiques s’actualisent sous 30 secondes.",
+    "de": "Gespeichert. Öffentliche Seiten aktualisieren sich innerhalb von 30 Sekunden."
+  },
+  "Another organizer changed this setting. Reload before saving again.": {
+    "fr": "Un autre organisateur a modifié ce réglage. Rechargez avant d’enregistrer.",
+    "de": "Ein anderer Organisator hat diese Einstellung geändert. Vor dem Speichern neu laden."
   }
 }

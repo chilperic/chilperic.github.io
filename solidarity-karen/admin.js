@@ -43,7 +43,7 @@ async function preloadAuthorizedData(renderNow=false){
  if(tabs.includes("inbox")&&window.RBAdminInbox)jobs.push(window.RBAdminInbox.refreshBadge(window.RBAdminHost));
  await Promise.allSettled(jobs);
  lastAdminSync=new Date();
- if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true'],.deadline-editor[data-dirty='true'],.campaign-experience[data-dirty='true']")))await renderAdmin()
+ if(renderNow||(["overview","health","audit"].includes(active)&&!document.querySelector(".target-editor[data-dirty='true'],.deadline-editor[data-dirty='true'],.campaign-experience[data-dirty='true'],.announcement-visibility[data-dirty='true']")))await renderAdmin()
 }
 function startAutoRefresh(){
  clearInterval(autoRefreshTimer);
@@ -169,6 +169,26 @@ function deadlineEditor(){
  p.append(field("Last collection day",date),note,saveDeadline,feedback);return p
 }
 
+function announcementVisibilityEditor(){
+ const t=s=>window.RBLocale?.t(s)||s,p=make("section",undefined,"admin-panel announcement-visibility");
+ p.append(make("h4",t("Karen’s announcement")));
+ let expected=admin.campaign?.show_karen_announcement===true,saving=false;
+ const state=make("p",t(expected?"Visible":"Hidden (default)"),"admin-hint");p.append(state);
+ if(!can("owner","organizer")){p.append(make("p",t("Only the owner or an organizer can change announcement visibility."),"admin-hint"));return p}
+ const toggle=input("checkbox");toggle.checked=expected;
+ const label=field(t("Show Karen’s announcement"),toggle),status=msg();status.setAttribute("role","status");
+ const saveVisibility=button(t("Save announcement visibility"),async()=>{
+  if(saving||toggle.checked===expected)return;saving=true;p.dataset.dirty="true";toggle.disabled=saveVisibility.disabled=true;status.textContent=t("Saving…");
+  try{const result=await rpc("rb_announcement_visibility",{p_credential:secret,p_campaign_id:admin.campaign.id,p_visible:toggle.checked,p_expected_visible:expected});
+   if(result?.ok!==true||result.visible!==toggle.checked)throw Error("visibility_unconfirmed");
+   expected=result.visible;admin.campaign.show_karen_announcement=expected;if(result.updatedAt)admin.campaign.updated_at=result.updatedAt;p.dataset.dirty="false";state.textContent=t(expected?"Visible":"Hidden (default)");status.textContent=t("Saved. Public pages update within 30 seconds.");await refreshPublic();
+  }catch(error){status.textContent=t(/visibility_conflict|campaign_changed/.test(error.message)?"Another organizer changed this setting. Reload before saving again.":"Not saved. Check your permission and connection.")}
+  finally{saving=false;toggle.disabled=false;saveVisibility.disabled=toggle.checked===expected}
+ },"red");saveVisibility.disabled=true;
+ toggle.addEventListener("change",()=>{p.dataset.dirty=String(toggle.checked!==expected);status.textContent="";saveVisibility.disabled=toggle.checked===expected});
+ p.append(label,make("p",t("Hidden by default. This controls Karen’s message on the homepage and in birthday details; the birthday event stays in the agenda."),"admin-hint"),saveVisibility,status);return p
+}
+
 function targetEditor(){
  const p=make("section",undefined,"admin-panel target-editor");
  p.append(make("h4","Campaign target"));
@@ -216,7 +236,7 @@ function targetEditor(){
 
 function overviewView(){
  const rows=admin.contributions||[],expenses=admin.expenses||[];const gross=rows.filter(x=>["confirmed","received"].includes(x.status)).reduce((s,x)=>s+x.amount_cents,0);const refunds=rows.filter(x=>x.status==="refunded").reduce((s,x)=>s+x.amount_cents,0);const net=Math.max(0,gross-refunds);const spent=expenses.filter(x=>x.status==="recorded").reduce((s,x)=>s+x.amount_cents,0);const available=Math.max(0,net-spent);
- const wrap=make("div");wrap.append(targetEditor(),deadlineEditor());if(window.RBOrganizerTools)wrap.prepend(window.RBOrganizerTools.shortcuts(window.RBAdminHost));
+ const wrap=make("div");wrap.append(targetEditor(),deadlineEditor(),announcementVisibilityEditor());if(window.RBOrganizerTools)wrap.prepend(window.RBOrganizerTools.shortcuts(window.RBAdminHost));
  const p=make("div",undefined,"admin-panel");p.append(make("h4","Campaign overview"));const grid=make("div",undefined,"admin-metrics");[[money(net),"Net raised"],[money(spent),"Used"],[money(available),"Available"],[money(refunds),"Refunded"],[money(admin.targetCents||0),"Target"]].forEach(([v,l])=>{const c=make("div",undefined,"admin-metric");const val=make("b",String(v));if(l==="Target")val.dataset.currentTarget="true";c.append(val,make("span",l));grid.append(c)});p.append(grid);wrap.append(p);
 
  const live=make("div",undefined,"admin-panel");live.append(make("h4","Live operations"),make("div","These values load automatically when the control room opens and continue refreshing in the background.","admin-hint"));
@@ -390,7 +410,7 @@ function reconciliationView(){
 }
 
 async function campaignView(){
- const wrap=make("div"),c=admin.campaign||{};wrap.append(targetEditor(),deadlineEditor());
+ const wrap=make("div"),c=admin.campaign||{};wrap.append(targetEditor(),deadlineEditor(),announcementVisibilityEditor());
  const edit=make("div",undefined,"admin-panel campaign-experience");edit.addEventListener("input",()=>edit.dataset.dirty="true");
  edit.append(make("h4","Public campaign experience"),make("div","Control what the public sees. Technical configuration remains private.","admin-hint"));
  const g=make("div",undefined,"admin-grid");
@@ -660,4 +680,5 @@ window.addEventListener("focus",()=>{if(secret)preloadAuthorizedData(false)});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&secret)preloadAuthorizedData(false)});
 restoreNamedSession();
 })();
+
 
