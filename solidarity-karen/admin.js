@@ -390,7 +390,7 @@ function reconciliationView(){
 }
 
 async function campaignView(){
- const wrap=make("div"),c=admin.campaign||{};wrap.append(targetEditor());
+ const wrap=make("div"),c=admin.campaign||{};wrap.append(targetEditor(),deadlineEditor());
  const edit=make("div",undefined,"admin-panel");
  edit.append(make("h4","Public campaign experience"),make("div","Control what the public sees. Technical configuration remains private.","admin-hint"));
  const g=make("div",undefined,"admin-grid");
