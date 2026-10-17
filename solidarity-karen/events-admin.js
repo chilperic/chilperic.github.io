@@ -123,7 +123,7 @@
     try{
       const result=await host.adminAction({action:"save_event",record_id:oldId||null,event:clean});
       event._recordId=result.id;
-      statusEl.textContent="Event saved.";
+      statusEl.textContent="Event saved. The homepage and campaign use the updated details.";
       try{await host.reload()}catch{statusEl.textContent="Event saved. Refresh to load the latest programme."}
     }catch{
       statusEl.textContent="Could not save event. Check your connection and organiser access, then retry.";
@@ -146,12 +146,12 @@
     const wrap=make("div");
     let editing=null;
 
-    const editor=make("div",undefined,"admin-panel");
+    const editor=make("div",undefined,"admin-panel");editor.addEventListener("input",()=>editor.dataset.dirty="true");
     editor.append(
-      make("h4","Event studio"),
+      make("h4","Edit event details"),
       make(
         "div",
-        "Plan community and fundraising events here. Drafts stay private. Published events appear automatically on the campaign page. Event-tagged contributions remain in the main fund and are counted here automatically.",
+        "The saved Karen training is selected below. Edit the start/end, venue, address, title or description, then Save event. Times use the selected time zone. These details update the homepage and campaign. New events can be created separately.",
         "admin-hint"
       )
     );
@@ -237,7 +237,7 @@
     translations.append(translationGrid);
 
     function load(e){
-      editing=e;
+      editing=e;editor.dataset.dirty="false";
       type.value=e.type||"fundraiser";
       lifecycle.value=e.status||"draft";
       fundraising.checked=e.fundraising??["training","fundraiser"].includes(e.type);
@@ -428,7 +428,7 @@
     });
 
     wrap.append(list);
-    load(all[0]||defaultDraft(admin));
+    load(all.find(e=>e.slug==="training-functional-garage-0211-karen")||all[0]||defaultDraft(admin));
     return wrap;
   }
 
@@ -438,3 +438,4 @@
     isEventUpdate
   };
 })();
+

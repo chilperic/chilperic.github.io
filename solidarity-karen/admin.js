@@ -631,7 +631,7 @@ async function renderAdmin(){
  else if(active==="contributions"){if(!supporters)await loadSupporters();view=contributionsView();}
  else if(active==="reconciliation"){if(!reconciliationState)await loadReconciliation();if(!supporters)await loadSupporters();view=reconciliationView();}
  else if(active==="inbox")view=await window.RBAdminInbox?.render(window.RBAdminHost)||make("div","Inbox module unavailable.","admin-panel");
- else if(active==="events"){view=make("div");if(window.RBCommonsAdmin)view.append(await window.RBCommonsAdmin.render(authContext,window.RBAdminHost));view.append(window.RBEventsAdmin?.render(window.RBAdminHost)||make("div","Events module unavailable.","admin-panel"));}
+ else if(active==="events"){view=make("div");view.append(window.RBEventsAdmin?.render(window.RBAdminHost)||make("div","Events module unavailable.","admin-panel"));if(window.RBCommonsAdmin)view.append(await window.RBCommonsAdmin.render(authContext,window.RBAdminHost));}
  else if(active==="sharing")view=window.RBQR?.centre(admin.campaign)||make("div","QR module unavailable.","admin-panel");
  else if(active==="campaign")view=await campaignView();
  else if(active==="languages"){if(!localeState)await loadLocales();view=await languagesView();}
@@ -680,5 +680,6 @@ window.addEventListener("focus",()=>{if(secret)preloadAuthorizedData(false)});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&secret)preloadAuthorizedData(false)});
 restoreNamedSession();
 })();
+
 
 

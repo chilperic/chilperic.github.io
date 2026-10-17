@@ -1,0 +1,11 @@
+# Training editing fix - 17 October 2026
+
+The organizer corrected the start to 10:00 Berlin time. The existing 13:30 finish was retained. The live saved event now starts at 2026-10-17T08:00Z.
+
+The app had two distinct edit paths: the campaign event studio and the community session coordinator. Their fields could diverge, the coordinator opened an unrelated brunch with empty training defaults, and the detailed editor was below the coordination tools. The detailed editor now appears first in Events, loads Karen's saved training explicitly and marks unsaved input. The coordinator defaults to training, opens its event-update form and fills saved date/time/venue/address. Required change-note labeling is explicit.
+
+Server-side saves synchronize this training's date, start, venue, address and lifecycle between its existing saved event and session. Existing start/end timestamps, titles, translations and financial fields stay in the detailed studio. Changing a session date carries the existing wall-clock finish to the new date; if it no longer follows the start it is cleared rather than publishing an invalid end. A campaign lock serializes both save paths. The synchronization helper has no public/anonymous/authenticated execute permission; it runs from the existing credential-checked save functions. No organizer role was broadened.
+
+The homepage now applies saved title/description and cancellation state and refreshes the address when official session data changes. Its offline fallback and initial markup show 10:00. Existing calendar/share actions consume the updated event details. Earlier exported calendar copies do not update automatically.
+
+Checks: local database regressions for synchronization in both directions, Berlin timestamps, retained end, moved dates, address, cancellation, invalid end and anonymous access rejection. DOM/VM tests verify saved event prefill, title/time edit payload, record identity and homepage address/time propagation. Production readback confirms 17 October at 10:00, Functional Garage 0211, In der Hött 8b, Düsseldorf. No contribution, attendance or message test records were written. Fresh browser visual verification remains unavailable in this session's supported tooling.

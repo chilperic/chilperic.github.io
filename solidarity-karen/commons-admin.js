@@ -13,20 +13,20 @@ window.RBCommonsAdmin={async render(context,host){
  for(let i=0;i<14;i++){while(date.getUTCDay()!==6)date.setUTCDate(date.getUTCDate()+1);const day=date.toISOString().slice(0,10),id='brunch-'+day;choices.set(id,'Brunch · '+day);if(!next&&day>=today)next=id;date.setUTCMonth(date.getUTCMonth()+1,1)}
  for(const e of data.events||[])choices.set(e.id,e.title);
  for(const s of data.sessions)if(!choices.has(s.scope))choices.set(s.scope,s.scope.startsWith('brunch-')?'Brunch · '+s.scope.slice(7):s.scope);
- for(const[value,label]of choices){const o=n('option',label);o.value=value;scope.append(o)}scope.value=next;
+ for(const[value,label]of choices){const o=n('option',label);o.value=value;scope.append(o)}scope.value='karen-training';
  const scopeLabel=n('label','Choose an event');scopeLabel.append(scope);root.append(scopeLabel,n('p','A postponed brunch keeps its original list and commitments.'));
  const selectRows=(select,rows)=>{const value=select.value;select.replaceChildren();for(const[v,label]of rows){const o=n('option',label);o.value=v;select.append(o)}if(rows.some(r=>r[0]===value))select.value=value};
  let refresh=()=>{};
  function form(title,fields,action){
-  const box=n('details');box.append(n('summary',title));const f=n('form');f.className='commons-admin-form';
+  const box=n('details');if(action==='session')box.open=true;box.append(n('summary',title));const f=n('form');f.className='commons-admin-form';
   for(const[key,label,type,values]of fields){const l=n('label',label),input=n(type==='select'?'select':type==='textarea'?'textarea':'input');input.name=key;if(type!=='select'&&type!=='textarea')input.type=type||'text';if(type==='select')selectRows(input,values);input.disabled=!data.canEdit;l.append(input);f.append(l)}
   const button=n('button','Save');button.className='btn primary';button.disabled=!data.canEdit;f.append(button);
-  f.onsubmit=async e=>{e.preventDefault();button.disabled=true;try{data=await call({action,scope:scope.value,...Object.fromEntries(new FormData(f))});refresh();feedback.textContent='Saved. Members will see the update.'}catch(err){feedback.textContent=err.message||'Not saved. Check values and access.'}finally{button.disabled=!data.canEdit}};
+  f.onsubmit=async e=>{e.preventDefault();button.disabled=true;try{data=await call({action,scope:scope.value,...Object.fromEntries(new FormData(f))});refresh();fill();feedback.textContent='Saved. Members will see the update.';try{await host.reload()}catch{}}catch(err){feedback.textContent=err.message||'Not saved. Check values and access.'}finally{button.disabled=!data.canEdit}};
   box.append(f);root.append(box);return f;
  }
- const session=form('Event update · date, venue, cancellation', [['date','Date','date'],['time','Time · Berlin','time'],['place','Place','text'],['address','Address','text'],['status','Status','select',[['scheduled','Confirmed'],['changed','Changed'],['postponed','Postponed'],['cancelled','Cancelled']]],['note','Explain the change','textarea']],'session');
+ const session=form('Event update · date, venue, cancellation', [['date','Date','date'],['time','Time · Berlin','time'],['place','Place','text'],['address','Address','text'],['status','Status','select',[['scheduled','Confirmed'],['changed','Changed'],['postponed','Postponed'],['cancelled','Cancelled']]],['note','Explain the change (required)','textarea']],'session');
  session.elements.note.required=true;session.elements.note.maxLength=2000;
- const fill=()=>{const s=data.sessions.find(s=>s.scope===scope.value)||{date:scope.value.startsWith('brunch-')?scope.value.slice(7):'',status:'scheduled'};for(const key of ['date','time','place','address','status','note'])session.elements[key].value=s[key]||''};scope.onchange=fill;fill();
+ const fill=()=>{session.elements.date.required=scope.value==='karen-training';session.elements.time.required=scope.value==='karen-training';const event=(host.getAdmin()?.updates||[]).find(x=>x.title_en==='__EVENT__:training-functional-garage-0211-karen');let training={};try{const e=JSON.parse(event?.body_en||'{}'),parts=e.startsAt?Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:e.timeZone||'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(e.startsAt)).map(x=>[x.type,x.value])):{};training={date:parts.year?parts.year+'-'+parts.month+'-'+parts.day:'2026-10-17',time:parts.hour?parts.hour+':'+parts.minute:'10:00',place:e.venueName||'Functional Garage 0211',address:e.venueAddress||'In der Hött 8b, 40223 Düsseldorf, Germany',status:e.status==='cancelled'?'cancelled':'scheduled'}}catch{}const s=data.sessions.find(s=>s.scope===scope.value)||(scope.value==='karen-training'?training:{date:scope.value.startsWith('brunch-')?scope.value.slice(7):scope.value==='karting'?'2026-10-24':'',status:'scheduled'});for(const key of ['date','time','place','address','status','note'])session.elements[key].value=s[key]||''};scope.onchange=fill;fill();
  const templateSave=form('Save this brunch’s needs and tasks as a template',[['name','Template name','text']],'save_template');templateSave.elements.name.required=true;templateSave.elements.name.maxLength=80;
  const templateForm=form('Apply a template to another brunch',[['id','Template','select',data.templates.map(t=>[t.id,t.name])]],'apply_template');
  templateForm.onsubmit=async e=>{e.preventDefault();const button=templateForm.querySelector('button');button.disabled=true;try{const identity=JSON.parse(localStorage.getItem('rb-commons-identity')||'null');if(!identity?.registered)throw Error('Open The commons in the public hub and save a community profile first.');data=await call({action:'apply_template',scope:scope.value,id:templateForm.elements.id.value,member:identity.id});refresh();feedback.textContent='Template applied. Claims and attendance were not copied.'}catch(err){feedback.textContent=err.message}finally{button.disabled=!data.canEdit}};
@@ -37,3 +37,4 @@ window.RBCommonsAdmin={async render(context,host){
  refresh();root.append(feedback);return root;
 }};
 })();
+
