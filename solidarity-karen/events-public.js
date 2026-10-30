@@ -63,11 +63,11 @@ function render(state){
 
  const payUrl=data.campaign?.paymentUrl||window.KAREN_SUPABASE?.paypalPoolUrl||"https://www.paypal.com/pool/9tfV5v7iJ3";
  events.sort((a,b)=>(a.status==="published"?0:1)-(b.status==="published"?0:1)||(a.type==="training"?-1:0)-(b.type==="training"?-1:0)||String(a.startsAt||"9999").localeCompare(String(b.startsAt||"9999"))).forEach(e=>{
-   const st=stats(data,e),card=document.createElement("article");card.className="event-card";
+   const past=!!e.startsAt&&new Date(e.endsAt||e.startsAt)<new Date(),st=stats(data,e),card=document.createElement("article");card.className="event-card";
    const top=document.createElement("div");top.className="event-top";
    card.id="event-"+e.slug;
    const badge=document.createElement("span");badge.className="event-type";badge.textContent=UI[lang]?.types?.[e.type]||UI.en.types[e.type]||text(lang,"event");
-   const status=document.createElement("span");status.className="event-status "+(e.status||"");status.textContent=text(lang,e.status==="published"?"scheduled":e.status);
+   const status=document.createElement("span");status.className="event-status "+(e.status||"");status.textContent=text(lang,past?"completed":e.status==="published"?"scheduled":e.status);
    top.append(badge,status);
 
    const h=document.createElement("h3");h.textContent=localized(e.title,lang);
@@ -95,7 +95,7 @@ function render(state){
      const fill=document.createElement("i");fill.style.width=Math.min(100,st.net/Number(e.goalCents)*100)+"%";progress.append(fill);progress.setAttribute("role","progressbar");progress.setAttribute("aria-label",text(lang,"goal"));progress.setAttribute("aria-valuenow",String(Math.min(100,Math.round(st.net/Number(e.goalCents)*100))));progress.setAttribute("aria-valuemin","0");progress.setAttribute("aria-valuemax","100");card.append(progress);
    }
 
-   if(e.status==="published"&&fundraising&&!["draft","closed","archived"].includes(data.campaign?.status)){
+   if(!past&&e.status==="published"&&fundraising&&!["draft","closed","archived"].includes(data.campaign?.status)){
      if(e.suggestedCents){const suggestion=document.createElement("p");suggestion.textContent=text(lang,"suggested")+": "+euro(e.suggestedCents/100);card.append(suggestion)}
      const reference=document.createElement("div");reference.className="event-reference";
      const note=document.createElement("span");note.textContent=text(lang,"reference")+": "+paymentNote(e);
@@ -104,8 +104,8 @@ function render(state){
      const pay=document.createElement("a");pay.className="event-pay";pay.href=payUrl;pay.target="_blank";pay.rel="noopener noreferrer";pay.textContent=text(lang,"contribute");card.append(pay);
    }
    if(e.venueAddress){const directions=document.createElement("a");directions.className="event-calendar";directions.href="https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(e.venueName+", "+e.venueAddress);directions.target="_blank";directions.rel="noopener noreferrer";directions.textContent=state.t("trainingDirections");card.append(directions)}
-   if(e.startsAt&&e.status==="published"){const button=document.createElement("button");button.className="event-calendar";button.type="button";button.textContent=text(lang,"calendar");button.onclick=()=>calendar(e,lang);card.append(button)}
-   if(e.status==="published"){const share=document.createElement("button");share.type="button";share.className="event-calendar";share.textContent=state.t("shareEvent");share.onclick=async()=>{const url=new URL("./",location.href);url.hash=card.id;try{if(navigator.share)await navigator.share({title:localized(e.title,lang),text:formatDate(e.startsAt,lang,e.timeZone),url:url.href});else{await navigator.clipboard.writeText(url.href);share.textContent=state.t("shared")}}catch(err){if(err.name!=="AbortError"){share.textContent=url.href}}};card.append(share)}
+   if(!past&&e.startsAt&&e.status==="published"){const button=document.createElement("button");button.className="event-calendar";button.type="button";button.textContent=text(lang,"calendar");button.onclick=()=>calendar(e,lang);card.append(button)}
+   if(!past&&e.status==="published"){const share=document.createElement("button");share.type="button";share.className="event-calendar";share.textContent=state.t("shareEvent");share.onclick=async()=>{const url=new URL("./",location.href);url.hash=card.id;try{if(navigator.share)await navigator.share({title:localized(e.title,lang),text:formatDate(e.startsAt,lang,e.timeZone),url:url.href});else{await navigator.clipboard.writeText(url.href);share.textContent=state.t("shared")}}catch(err){if(err.name!=="AbortError"){share.textContent=url.href}}};card.append(share)}
    grid.append(card);
  });
 }
@@ -113,3 +113,4 @@ window.addEventListener("rb:campaign-data",e=>render(e.detail));
 window.addEventListener("load",()=>{if(window.RBCampaignState)setTimeout(()=>render(window.RBCampaignState),80)});
 window.RBEventsPublic={render,stats,parse,localized,paymentNote};
 })();
+

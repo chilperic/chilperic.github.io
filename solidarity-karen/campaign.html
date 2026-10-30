@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#142035">
-<meta name="description" content="Solidarity for Karen. Join the training on 17 October, 11:30–13:30, at Functional Garage 0211 in Düsseldorf. Fundraising closes 22 October.">
+<meta name="description" content="Solidarity for Karen. Archived collection, closed on 29 October 2026. Final report, contributor IDs and collective records.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./assets/banner-emblem.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./campaign.css">
@@ -29,11 +29,11 @@
   </nav>
 </header>
 <div class="platform-path"><a href="./#home">← Back to the collective</a><a href="./#contact">Message the organizer</a></div>
-<main>
+<main><div class="archive-notice" style="margin:20px;padding:20px;background:#f3e9df"><strong>Archived collection · Collecte clôturée · Sammlung beendet</strong><p>Closed 29 October 2026. Payments are no longer accepted.</p><a href="./#archive">Archive</a> · <a href="./report/">Final report / Rapport final</a> · <a href="./#events">Upcoming plans / Prochains rendez-vous</a></div>
   <section class="campaign-overview">
     <div class="campaign-heading">
       <div class="campaign-copy"><span class="campaign-kicker" id="campaignKicker">FOR KAREN</span><h1 id="campaignTitle">Solidarity for Karen</h1><p id="campaignStory">Loading campaign…</p></div>
-      <div class="campaign-deadline" id="campaignDeadline"><span data-i18n="fundraisingUntil">Fundraising until</span><strong id="deadlineDate">22 October</strong><span id="deadlineCountdown"></span><small data-i18n="birthdayNote">Before Karen’s birthday on 23 October.</small></div>
+      <div class="campaign-deadline" id="campaignDeadline"><span data-i18n="fundraisingUntil">Fundraising until</span><strong id="deadlineDate">22 October</strong><span id="deadlineCountdown"></span><small >Extended at Karen’s request.</small></div>
     </div>
     <div class="campaign-front">
       <section id="campaignEvents" class="campaign-events hidden" aria-labelledby="eventsHeading">
@@ -46,7 +46,7 @@
         <div id="targetChangeNotice" class="target-change-notice hidden" aria-live="polite"></div>
         <div class="fund-progress" role="progressbar" aria-label="Campaign progress" aria-valuemin="0" aria-valuemax="100"><div id="progressLine"></div></div>
         <div class="fund-facts"><div><b id="progressPct">0%</b><span data-i18n="progress">Progress</span></div><div><b id="supporterCount">0</b><span data-i18n="supporters">Supporters</span></div><div><b id="remainingAmount">€0</b><span data-i18n="remaining">Remaining</span></div></div>
-        <a id="heroPayBtn" class="paypal-primary" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><img src="./assets/paypal-mark.svg" class="paypal-mark" width="28" height="32" alt="PayPal"><strong id="paymentLabel">Contribute now</strong></a>
+        <a id="heroPayBtn" class="paypal-primary" hidden aria-disabled="true" target="_blank" rel="noopener noreferrer"><img src="./assets/paypal-mark.svg" class="paypal-mark" width="28" height="32" alt="PayPal"><strong id="paymentLabel">Contribute now</strong></a>
         <div class="fund-actions"><button id="qrBtn" class="qr-button" type="button" data-i18n="qr">Show QR</button><button id="shareCampaign" class="qr-button" type="button" data-i18n="shareCampaign">Share campaign</button></div>
         <div class="fund-sync"><time id="lastUpdated"></time><span id="connectionStatus" role="status" data-i18n="autoUpdated">Auto-updated</span></div>
       </aside>
@@ -75,9 +75,10 @@
   <section class="campaign-manifesto"><blockquote data-i18n="quote">Solidarity means collectivizing the pain, the joy and the effort.</blockquote></section>
 </main>
 <footer><a href="./" class="footer-brand"><img src="./assets/banner-emblem.svg" width="40" height="40" alt=""><strong>The Red Banner Is Raised</strong></a><span id="footerCampaign">Solidarity for Karen</span><a href="./organizer/" data-i18n="organizer">Organizer</a></footer>
-<a id="mobilePayBtn" class="mobile-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><img src="./assets/paypal-mark.svg" class="paypal-mark" width="24" height="28" alt=""><span id="mobilePaymentLabel">Contribute with PayPal</span></a>
-<dialog id="qrDialog"><div class="qr-head"><strong data-i18n="scanToContribute">Scan to contribute</strong><button id="qrClose" type="button" aria-label="Close">×</button></div><div id="qrMount"></div><a id="qrPayLink" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer">PayPal</a></dialog>
+<a id="mobilePayBtn" class="mobile-pay" hidden aria-disabled="true" target="_blank" rel="noopener noreferrer"><img src="./assets/paypal-mark.svg" class="paypal-mark" width="24" height="28" alt=""><span id="mobilePaymentLabel">Contribute with PayPal</span></a>
+<dialog id="qrDialog"><div class="qr-head"><strong data-i18n="scanToContribute">Scan to contribute</strong><button id="qrClose" type="button" aria-label="Close">×</button></div><div id="qrMount"></div><a id="qrPayLink" hidden aria-disabled="true" target="_blank" rel="noopener noreferrer">PayPal</a></dialog>
 <script src="./config.js"></script><script src="./locales.js"></script><script src="./campaign-dashboard-locales.js"></script><script src="./experience-locales.js"></script><script src="./assets/chart.umd.min.js"></script><script src="./campaign-dashboard.js"></script><script src="./events-public.js"></script><script src="./campaign-insights.js"></script><script src="./campaign.js"></script>
 <button class="btn outline" type="button" data-qr-centre style="margin:20px">QR codes & sharing</button><script src="./assets/qrcode.min.js"></script><script src="./qr-centre.js"></script></body>
 </html>
+
 

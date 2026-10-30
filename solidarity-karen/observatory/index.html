@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="top-actions"><a class="round-btn" href="../" aria-label="Campaign">⌂</a>
-      <a id="topPayBtn" class="top-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer">
+      <a id="topPayBtn" class="top-pay" hidden aria-disabled="true" target="_blank" rel="noopener noreferrer">
         <span data-i18n="pay">Contribute</span><b>PayPal ↗</b>
       </a>
       <button id="shareBtn" class="round-btn" type="button" aria-label="Share">↗</button>
@@ -35,7 +35,7 @@
     </div>
   </header>
 
-  <main>
+  <main><div class="archive-notice" style="margin:20px;padding:20px;background:#f3e9df"><strong>Archived collection · Collecte clôturée · Sammlung beendet</strong><p>Closed 29 October 2026. Payments are no longer accepted.</p><a href="../#archive">Archive</a> · <a href="../report/">Final report / Rapport final</a> · <a href="../#events">Upcoming plans / Prochains rendez-vous</a></div>
     <section class="campaign-stage">
       <div class="banner-field" aria-hidden="true">
         <div class="banner-ribbon ribbon-red"></div>
@@ -59,7 +59,7 @@
           <div><b id="supporterCount">0</b><span data-i18n="supporters">Supporters</span></div>
           <div><b id="remainingAmount">€0</b><span data-i18n="remaining">Remaining</span></div>
         </div>
-        <a id="heroPayBtn" class="hero-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer">
+        <a id="heroPayBtn" class="hero-pay" hidden aria-disabled="true" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 22 22" aria-hidden="true"><path d="M7 3h7.1c3.5 0 5.4 2 4.8 5-.7 3.4-3 5.1-6.7 5.1H9.7L9 17H5.2L7 3Z" fill="currentColor"/><path d="M8.6 6h5c1.8 0 2.7.8 2.4 2.2-.3 1.5-1.4 2.2-3.3 2.2H9.9L8.6 16H5.5L8.6 6Z" fill="#fff" opacity=".35"/></svg>
           <span id="paymentLabel" data-i18n="payWithPayPal">Contribute with PayPal</span>
           <b>↗</b>
@@ -244,7 +244,7 @@
   </footer>
 </div>
 
-<a id="mobilePayBtn" class="mobile-pay" href="https://www.paypal.com/pool/9tfV5v7iJ3" target="_blank" rel="noopener noreferrer"><span data-i18n="payWithPayPal">Contribute with PayPal</span><b>↗</b></a>
+<a id="mobilePayBtn" class="mobile-pay" hidden aria-disabled="true" target="_blank" rel="noopener noreferrer"><span data-i18n="payWithPayPal">Contribute with PayPal</span><b>↗</b></a>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script src="../assets/chart.umd.min.js"></script>
@@ -263,3 +263,4 @@
 
 </body>
 </html>
+

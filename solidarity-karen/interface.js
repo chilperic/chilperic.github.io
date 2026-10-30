@@ -8,6 +8,7 @@ window.addEventListener('rb-event-opened',e=>{const root=document.querySelector(
 // Give the existing photo and author forms a clear keyboard escape and focus destination.
 for(const dialog of document.querySelectorAll('dialog'))dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close()}});
 for(const [i,dialog] of [...document.querySelectorAll('dialog')].entries()){if(dialog.hasAttribute('aria-label')||dialog.hasAttribute('aria-labelledby'))continue;const title=dialog.querySelector('h2,h3');if(title){title.id ||= 'collective-dialog-title-'+i;dialog.setAttribute('aria-labelledby',title.id)}}
-const nav=document.querySelector('.desktop-nav');if(nav){for(const [text,href]of [['Organizer workspace','./organizer/'],['Karen’s fund & records','./campaign.html']]){const a=el('a',t(text),'sidebar-utility');a.href=href;nav.append(a)}}const logo=document.querySelector('.brand');logo?.addEventListener('click',event=>{event.preventDefault();document.querySelector('[data-view=home]')?.click()});
+const nav=document.querySelector('.desktop-nav');if(nav){for(const [text,href]of [['Organizer workspace','./organizer/'],['Archive','./#archive']]){const a=el('a',t(text),'sidebar-utility');a.href=href;nav.append(a)}}const logo=document.querySelector('.brand');logo?.addEventListener('click',event=>{event.preventDefault();document.querySelector('[data-view=home]')?.click()});
 })();
+
 
