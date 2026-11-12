@@ -32,3 +32,7 @@ python3 -m http.server 8929 --bind 127.0.0.1
 ```
 
 Then open `http://127.0.0.1:8929/` in a browser. Change `8929` on the next run if that port is already in use.
+
+## Maintaining this repository
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the directory map, output conventions, provenance and cleanup boundaries.
